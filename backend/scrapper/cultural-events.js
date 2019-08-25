@@ -4,12 +4,15 @@ const https = require("https");
 const cheerio = require("cheerio");
 const schedule = require("node-schedule");
 
-// URLs
-const BASE_PATH = "https://decanaturadeestudiantes.uniandes.edu.co";
-const URL = "/index.php/es/eventos-de-la-semana/week.listevents/";
 //Vars
 let events = [];
 let weeks = parseInt(process.argv[2], 10);
+
+// Consts
+const BASE_PATH = "https://decanaturadeestudiantes.uniandes.edu.co";
+const URL = "/index.php/es/eventos-de-la-semana/week.listevents/";
+
+const days = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
 const months = [
   "Enero",
   "Febrero",
@@ -46,14 +49,18 @@ function formatDate(date) {
   return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
 }
 
-// Gets the month index for the request
-function parseMonth(month) {
-  return months.indexOf(month);
-}
-
 // Check if event is ok to add to list
 function isEventOk(event) {
   return event.title && event.type && event.link;
+}
+
+//Calculate date object with given event
+function calculateDate(event, hours) {
+  let time = hours.split(":");
+  let newDate = new Date();
+  newDate.setFullYear(newDate.getFullYear(), event.month, event.day);
+  newDate.setHours(time[0], time[1]);
+  return newDate;
 }
 
 //-------------
@@ -121,12 +128,24 @@ function parseEvent(index, html) {
     .split(",");
   let completeDay = time[1].trim().split(" ");
 
-  // time setuo
+  // General date setup
   let ev = events[index];
-  ev.weekDay = time[0];
+  ev.weekDay = days.indexOf(time[0].trim());
   ev.day = completeDay[1];
-  ev.month = parseMonth(completeDay[0]);
-  ev.hour = time[3];
+  ev.month = months.indexOf(completeDay[0]);
+
+  // Time setup
+  let hours = time[3].trim().split("-");
+  ev.timeStart = hours[0];
+  ev.dateStart = calculateDate(ev, ev.timeStart);
+  // Get end date and time
+  if (hours[1]) {
+    ev.timeEnd = hours[1];
+  } else {
+    let mins = hours[0].split(":");
+    ev.timeEnd = parseInt(mins[0]) + 2 + ":" + mins[1];
+  }
+  ev.dateEnd = calculateDate(ev, ev.timeEnd);
 
   $("tr[align=left] td table tbody tr td p").each((idx, el) => {
     let text = $(el).html();
@@ -157,7 +176,7 @@ function parseEvent(index, html) {
 
 function insertEvents() {
   // TODO: Connect with mongo
-  //console.log(events);
+  console.log(events);
 }
 
 //Second(OPTIONAL:0-59)    Minute(0-59)    Hour(0-23)    Day of month(1-31)    Month(1-12)    Day of week (0-7)
