@@ -26,7 +26,6 @@ The app should be running at port 3000
 cd scrapper
 node cultural-events.js <Num of weeks> <Hour interval for running the scrapper>
 ```
-<<<<<<< HEAD
 
 ## Models
 
@@ -58,7 +57,7 @@ node cultural-events.js <Num of weeks> <Hour interval for running the scrapper>
 
 ```
 Event:{
-  "id":"String, title.toUpperCase()+dateStart+dateEnd",
+  "id":"Mongo default",
   "title":"String",
   "description":"String",
   "type":"String",
@@ -70,14 +69,12 @@ Ocurrence:{
   "id":"Mongo default",
   "dateStart":"Date",
   "dateEnd":"End",
-  "indexStart": "Int ranging from 0 to the lastGridUnit",
+  "indexStart": "Int ranging from 0 to the lastGridUnit, by half an hour",
   "timeStart":"String in hh:mm",
-  "indexEnd": "Int ranging from 0 to the lastGridUnit",
-    "timeEnd": "String in hh:mm",
+  "indexEnd": "Int ranging from 0 to the lastGridUnit, by hqlf an hour",
+  "timeEnd": "String in hh:mm",
   "geolocation":"Lat,long",
   "place":"String",
   "days":"Array Number ranging from 0 to 5"
 }
 ```
-=======
->>>>>>> cultural-events-scrapper
