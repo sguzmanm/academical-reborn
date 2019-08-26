@@ -26,6 +26,7 @@ The app should be running at port 3000
 cd scrapper
 node cultural-events.js <Num of weeks> <Hour interval for running the scrapper>
 ```
+<<<<<<< HEAD
 
 ## Models
 
@@ -78,3 +79,5 @@ Ocurrence:{
   "days":"Array Number ranging from 0 to 5"
 }
 ```
+=======
+>>>>>>> cultural-events-scrapper
