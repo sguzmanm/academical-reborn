@@ -1,7 +1,13 @@
 ## Libs
 
+- cors
 - cheerio
+- dotenv
 - express
+- express-validator
+- jsonwebtoken
+- mongodb
+- nodemon
 - node-schedule
 
 ## Setup
