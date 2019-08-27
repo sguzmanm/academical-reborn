@@ -20,7 +20,7 @@ start = async () => {
     require('./app/router')(app)
     require('./util/errors/exceptionMiddleware')(app)
 
-    app.listen(3000, 'localhost')
+    app.listen(4000, 'localhost')
   } catch (err) {
     console.log(err)
   }
