@@ -1,0 +1,71 @@
+{
+	"info": {
+		"_postman_id": "55c90019-7d41-4848-8cf6-122aa2f5c96f",
+		"name": "academical-reborn",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"axficionado@hotmail.com\",\n\t\"password\":\"sasuke22\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/api/users/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "signup user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"axficionado@hotmail.com\",\n\t\"password\":\"sasuke22\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/api/users/signup",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
