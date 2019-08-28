@@ -1,24 +1,30 @@
-import React, { useState } from 'react'
-import './login.scss'
-import LoginForm from '../../components/login/loginForm/loginForm'
-import SignUpForm from '../../components/login/signUpForm/signUpForm'
+import React, { useState } from "react";
+import "./login.scss";
+import LoginForm from "../../components/login/loginForm/loginForm";
+import SignUpForm from "../../components/login/signUpForm/signUpForm";
 
 function Login() {
-  const [isLogin, setIsLogin] = useState(true)
+  const [isLogin, setIsLogin] = useState(true);
 
-  const toggleIsLogin= ()=>{
-    setIsLogin(!isLogin)
-  }
+  const toggleIsLogin = () => {
+    setIsLogin(!isLogin);
+  };
 
   return (
     <div className="loginPage">
       <h1 className="loginPage__title">Academical</h1>
       {isLogin ? <LoginForm></LoginForm> : <SignUpForm></SignUpForm>}
       <p>
-        Eres nuevo? <span className="loginPage__butSwitch" onClick={toggleIsLogin.bind(null)}>Regístrate</span>
+        {isLogin ? "Eres nuevo?" : "Ya te uniste?"}{" "}
+        <span
+          className="loginPage__butSwitch"
+          onClick={toggleIsLogin.bind(null)}
+        >
+          {isLogin ? "Regístrate" : "Inicia Sesion"}
+        </span>
       </p>
     </div>
-  )
+  );
 }
 
-export default Login
+export default Login;
