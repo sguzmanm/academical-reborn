@@ -20,6 +20,14 @@ export default function reducer(state = initState, action) {
         tokenTimeout: action.payload.tokenTimeout,
         refreshToken: action.payload.refreshToken,
       }
+    case 'LOGOUT': {
+      return {
+        user: null,
+        token: null,
+        tokenTimeout: null,
+        refreshToken: null,
+      }
+    }
     default:
       return state
   }

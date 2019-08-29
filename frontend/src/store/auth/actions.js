@@ -12,3 +12,7 @@ export const setAuth = data => ({
   type: 'SET_AUTH',
   payload: data,
 })
+
+export const logout = () => ({
+  type: 'LOGOUT',
+})

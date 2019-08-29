@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setAuth } from '../../../store/auth'
+import { saveAuth } from '../../../util/state/localStorageUtil'
 import './signUpForm.scss'
 import axios from 'axios'
+import { withRouter } from 'react-router-dom'
 
-function SignUpForm() {
+function SignUpForm(props) {
   const url = useSelector(state => state.root.url)
   const dispatch = useDispatch()
 
@@ -30,8 +32,9 @@ function SignUpForm() {
 
     try {
       const res = await axios.post(`${url}users/signup`, { email, password })
-      dispatch(setAuth(res.data));
-
+      saveAuth(res.data)
+      dispatch(setAuth(res.data))
+      props.history.push('/schedule')
     } catch (err) {
       console.log(err)
       console.log(err.response)
@@ -77,4 +80,4 @@ function SignUpForm() {
   )
 }
 
-export default SignUpForm
+export default withRouter(SignUpForm)

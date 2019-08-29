@@ -1,14 +1,39 @@
 import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { setAuth } from '../../../store/auth'
+import { saveAuth } from '../../../util/state/localStorageUtil'
 import './loginForm.scss'
+import axios from 'axios'
+import { withRouter } from 'react-router-dom'
 
-function LoginForm() {
+function LoginForm(props) {
+  const url = useSelector(state => state.root.url)
+  const dispatch = useDispatch()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [errorMsg, setErrorMsg] = useState('')
 
-  const loginUser= (e)=>{
-    e.preventDefault();
-    console.log('holi')
-    
+  const loginUser = async e => {
+    e.preventDefault()
+    var re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i // eslint-disable-line no-useless-escape
+    if (!email || !re.test(String(email).toLowerCase())) {
+      return setErrorMsg('Debe ingresar un email válido')
+    }
+    if (!password || password.length < 5) {
+      return setErrorMsg(
+        'Debe ingresar una contraseña de al menos 5 caracteres'
+      )
+    }
+
+    try {
+      const res = await axios.post(`${url}users/login`, { email, password })
+      saveAuth(res.data)
+      dispatch(setAuth(res.data))
+      props.history.push('/schedule')
+    } catch (err) {
+      console.log(err)
+      console.log(err.response)
+    }
   }
 
   return (
@@ -29,9 +54,17 @@ function LoginForm() {
         autoComplete="current-password"
         className="loginForm__input"
       />
-      <button className="loginForm__button" type="submit">Login</button>
+      {errorMsg ? <p className="loginForm__errorMsg">{errorMsg}</p> : null}
+      <button
+        className={`loginForm__button ${
+          errorMsg ? 'loginForm__button--error' : ''
+        }`}
+        type="submit"
+      >
+        Login
+      </button>
     </form>
   )
 }
 
-export default LoginForm
+export default withRouter(LoginForm)

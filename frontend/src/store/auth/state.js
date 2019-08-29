@@ -1,6 +1,2 @@
-export default {
-  token: null,
-  tokenTimeout:null,
-  user:null,
-  refreshToken:null
-}
+import { loadAuthFromLS } from '../../util/state/localStorageUtil'
+export default loadAuthFromLS()
