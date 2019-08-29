@@ -1,15 +1,41 @@
 import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { setAuth } from '../../../store/auth'
 import './signUpForm.scss'
+import axios from 'axios'
 
 function SignUpForm() {
+  const url = useSelector(state => state.root.url)
+  const dispatch = useDispatch()
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [errorMsg, setErrorMsg] = useState('')
 
-  const signUpUser= (e)=>{
-    e.preventDefault();
-    console.log('hola')
-    
+  const signUpUser = async e => {
+    e.preventDefault()
+    var re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i // eslint-disable-line no-useless-escape
+    if (!email || !re.test(String(email).toLowerCase())) {
+      return setErrorMsg('Debe ingresar un email válido')
+    }
+    if (!password || password.length < 5) {
+      return setErrorMsg(
+        'Debe ingresar una contraseña de al menos 5 caracteres'
+      )
+    }
+    if (confirmPassword !== password) {
+      return setErrorMsg('Las contraseñas deben coincidir')
+    }
+
+    try {
+      const res = await axios.post(`${url}users/signup`, { email, password })
+      dispatch(setAuth(res.data));
+
+    } catch (err) {
+      console.log(err)
+      console.log(err.response)
+    }
   }
 
   return (
@@ -38,7 +64,15 @@ function SignUpForm() {
         autoComplete="new-password"
         className="signUpForm__input"
       />
-      <button className="signUpForm__button" type="submit">SignUp</button>
+      {errorMsg ? <p className="signUpForm__errorMsg">{errorMsg}</p> : null}
+      <button
+        className={`signUpForm__button ${
+          errorMsg ? 'signUpForm__button--error' : ''
+        }`}
+        type="submit"
+      >
+        SignUp
+      </button>
     </form>
   )
 }

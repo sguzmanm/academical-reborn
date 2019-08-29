@@ -17,6 +17,16 @@
     cursor: pointer;
     min-width: 10rem;
     font-weight: bold;
+    outline: none;
+
+    &--error {
+      margin-top: 2rem;
+    }
+  }
+
+  &__errorMsg{
+    color:red;
+    margin-bottom: 0;
   }
 
   &__input {

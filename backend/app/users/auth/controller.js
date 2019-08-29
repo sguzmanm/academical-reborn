@@ -42,10 +42,7 @@ exports.signUp = async (req, res, next) => {
       const token = tokenManager.signToken({
         email: email,
         id: user.id,
-      })
-
-      console.log(user)
-      
+      })     
 
       res.status(201).json({
         token: token,
