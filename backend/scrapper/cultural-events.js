@@ -3,13 +3,17 @@
 const https = require("https");
 const cheerio = require("cheerio");
 const schedule = require("node-schedule");
+//const eventQueries = require("../app/events/general/querys");
 
 //Vars
 let events = [];
-let weeks = parseInt(process.argv[2], 10);
+let maxWeeks = parseInt(process.argv[2], 10);
+let weeks = 0;
+let hourInterval = process.argv[3];
 
 // Consts
 const BASE_PATH = "https://decanaturadeestudiantes.uniandes.edu.co";
+const DEFAULT_TIME = 2;
 const URL = "/index.php/es/eventos-de-la-semana/week.listevents/";
 
 const days = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
@@ -55,12 +59,21 @@ function isEventOk(event) {
 }
 
 //Calculate date object with given event
-function calculateDate(event, hours) {
+function calculateDate(year, month, day, hours) {
   let time = hours.split(":");
   let newDate = new Date();
-  newDate.setFullYear(newDate.getFullYear(), event.month, event.day);
+  newDate.setFullYear(year, month, day);
   newDate.setHours(time[0], time[1]);
   return newDate;
+}
+
+//Calculate index for the given time frame
+function calculateIndex(time) {
+  let data = time.split(":");
+  let currentTime = parseInt(data[0], 10) * 60 + parseInt(data[1], 10);
+  let rangeMinutes = parseInt(process.argv[4], 10);
+  let timeStart = parseInt(process.argv[5], 10);
+  return Math.floor((currentTime - timeStart) / rangeMinutes);
 }
 
 //-------------
@@ -82,7 +95,7 @@ const scrapeEventsCulturalWebpage = (url, cb) => {
   });
 };
 
-// Retreives the events list
+// Retrieves the events list
 function parseEventList(html) {
   const $ = cheerio.load(html);
   let ev;
@@ -114,7 +127,8 @@ function parseEventList(html) {
     );
   } else {
     events.forEach((el, index) => {
-      scrapeEventsCulturalWebpage(el.link, html => parseEvent(index, html));
+      if (el.link)
+        scrapeEventsCulturalWebpage(el.link, html => parseEvent(index, html));
     });
   }
 }
@@ -130,22 +144,27 @@ function parseEvent(index, html) {
 
   // General date setup
   let ev = events[index];
-  ev.weekDay = days.indexOf(time[0].trim());
-  ev.day = completeDay[1];
-  ev.month = months.indexOf(completeDay[0]);
+  ev.days = [days.indexOf(time[0].trim())];
+  let day = completeDay[1];
+  let month = months.indexOf(completeDay[0]);
+  let year = time[2].trim();
 
   // Time setup
   let hours = time[3].trim().split("-");
   ev.timeStart = hours[0];
-  ev.dateStart = calculateDate(ev, ev.timeStart);
+  ev.indexStart = calculateIndex(ev.timeStart);
+  ev.dateStart = calculateDate(year, month, day, ev.timeStart);
+
   // Get end date and time
   if (hours[1]) {
     ev.timeEnd = hours[1];
   } else {
     let mins = hours[0].split(":");
-    ev.timeEnd = parseInt(mins[0]) + 2 + ":" + mins[1];
+    ev.timeEnd = parseInt(mins[0], 10) + DEFAULT_TIME + ":" + mins[1];
   }
-  ev.dateEnd = calculateDate(ev, ev.timeEnd);
+  ev.indexEnd = calculateIndex(ev.timeEnd);
+  ev.dateEnd = calculateDate(year, month, day, ev.timeEnd);
+  delete ev.link;
 
   $("tr[align=left] td table tbody tr td p").each((idx, el) => {
     let text = $(el).html();
@@ -180,11 +199,15 @@ function insertEvents() {
 }
 
 //Second(OPTIONAL:0-59)    Minute(0-59)    Hour(0-23)    Day of month(1-31)    Month(1-12)    Day of week (0-7)
-
+weeks = maxWeeks;
+events = [];
 scrapeEventsCulturalWebpage(URL + formatDate(new Date()), html =>
   parseEventList(html)
 );
-schedule.scheduleJob(`* */${process.argv[3]} * * *`, function() {
+
+schedule.scheduleJob(`5 */${hourInterval} * * *`, function() {
+  events = [];
+  weeks = maxWeeks;
   scrapeEventsCulturalWebpage(URL + formatDate(new Date()), html =>
     parseEventList(html)
   );
