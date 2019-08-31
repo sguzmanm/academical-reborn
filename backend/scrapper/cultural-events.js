@@ -1,15 +1,26 @@
 // Libs
-"use strict";
 const https = require("https");
 const cheerio = require("cheerio");
 const schedule = require("node-schedule");
+const path = require("path");
+const rootDir = path.dirname(process.mainModule.filename),
+  eventQueries = require(path.join(
+    rootDir,
+    "app",
+    "events",
+    "general",
+    "querys"
+  ));
+
+require("dotenv").config();
+
 //const eventQueries = require("../app/events/general/querys");
 
 //Vars
 let events = [];
-let maxWeeks = parseInt(process.argv[2], 10);
-let weeks = 0;
-let hourInterval = process.argv[3];
+let maxWeeks = parseInt(process.env.maxWeeks, 10);
+let weeks = maxWeeks;
+let hourInterval = process.env.hourInterval;
 
 // Consts
 const BASE_PATH = "https://decanaturadeestudiantes.uniandes.edu.co";
@@ -71,8 +82,8 @@ function calculateDate(year, month, day, hours) {
 function calculateIndex(time) {
   let data = time.split(":");
   let currentTime = parseInt(data[0], 10) * 60 + parseInt(data[1], 10);
-  let rangeMinutes = parseInt(process.argv[4], 10);
-  let timeStart = parseInt(process.argv[5], 10);
+  let rangeMinutes = parseInt(process.env.rangeMinutes, 10);
+  let timeStart = parseInt(process.env.timeStart, 10);
   return Math.floor((currentTime - timeStart) / rangeMinutes);
 }
 
@@ -96,7 +107,7 @@ const scrapeEventsCulturalWebpage = (url, cb) => {
 };
 
 // Retrieves the events list
-function parseEventList(html) {
+const parseEventList = html => {
   const $ = cheerio.load(html);
   let ev;
 
@@ -120,8 +131,9 @@ function parseEventList(html) {
 
   // if there are more weeks to look for, retreive the missing event list, else look for the event detail
   if (--weeks) {
+    console.log("Weeks", 0);
     let date = new Date();
-    date = addDays(date, (5 - weeks) * 7);
+    date = addDays(date, (maxWeeks - weeks) * 7);
     scrapeEventsCulturalWebpage(URL + formatDate(date), html =>
       parseEventList(html)
     );
@@ -131,10 +143,10 @@ function parseEventList(html) {
         scrapeEventsCulturalWebpage(el.link, html => parseEvent(index, html));
     });
   }
-}
+};
 
 // Retrieve the information of the event detail
-function parseEvent(index, html) {
+const parseEvent = (index, html) => {
   const $ = cheerio.load(html);
 
   let time = $(".ev_detail.repeat")
@@ -190,21 +202,18 @@ function parseEvent(index, html) {
       break;
     }
   });
-  insertEvents();
-}
+  insertEvent(ev);
+};
 
-function insertEvents() {
+function insertEvent(event) {
+  eventQueries
+    .updateByTitleAndDate(event)
+    .then(res => console.log(res))
+    .catch(err => console.error(err));
   // TODO: Connect with mongo
-  console.log(events);
 }
 
 //Second(OPTIONAL:0-59)    Minute(0-59)    Hour(0-23)    Day of month(1-31)    Month(1-12)    Day of week (0-7)
-weeks = maxWeeks;
-events = [];
-scrapeEventsCulturalWebpage(URL + formatDate(new Date()), html =>
-  parseEventList(html)
-);
-
 schedule.scheduleJob(`5 */${hourInterval} * * *`, function() {
   events = [];
   weeks = maxWeeks;
@@ -212,3 +221,9 @@ schedule.scheduleJob(`5 */${hourInterval} * * *`, function() {
     parseEventList(html)
   );
 });
+
+exports.scrapeEventsCulturalWebpage = scrapeEventsCulturalWebpage;
+exports.parseEventList = parseEventList;
+exports.parseEvent = parseEvent;
+exports.URL = URL;
+exports.formatDate = formatDate;

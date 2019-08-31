@@ -10,14 +10,32 @@
 - nodemon
 - node-schedule
 
-## Setup
+## Setup Environmental variables
 
-We are using environment variables in node throught a .env file. This contains the following fields:
+We are using environment variables in node throught a .env file.
+
+### Token generation
 
 - privateKey: Generated from http://travistidwell.com/blog/2013/09/06/an-online-rsa-public-and-private-key-generator/
 - publicKey: Generated from http://travistidwell.com/blog/2013/09/06/an-online-rsa-public-and-private-key-generator/
 
 Both of privateKey and publicKey are necessary to generate our own jwt tokens for sign up and log in operations.
+
+### DB Connection
+
+- dbUser: User for db connection
+- dbPassword: Password for db connection
+- dbHost: Host for db connection
+
+All these credentials are though out for a connection with a mongodb with SRV
+
+### Scrapper general setup
+
+- maxWeeks: Maximum number of weeks to look at
+- hourInterval: Interval for starting the scrapper in hours
+- timeStart: Hour for the start of schedules
+- rangeMinutes: Minutes it should separate each time frame
+- scrapper: Flag for dev purposes. If setup to anything other than 1 it will not run the scrapper.
 
 Now then, with npm installed go to the root and type:
 
@@ -83,16 +101,11 @@ Event:{
   "description":"String",
   "type":"String",
   "rating":"Double",
-  "ocurrence":"Ocurrence"
-}
-
-Ocurrence:{
-  "id":"Mongo default",
   "dateStart":"Date",
-  "dateEnd":"End",
-  "indexStart": "Int ranging from 0 to the lastGridUnit, by half an hour",
+  "dateEnd":"Date",
+  indexStart": "Int ranging from 0 to the lastGridUnit, by half an hour",
   "timeStart":"String in hh:mm",
-  "indexEnd": "Int ranging from 0 to the lastGridUnit, by hqlf an hour",
+  indexEnd": "Int ranging from 0 to the lastGridUnit, by hqlf an hour",
   "timeEnd": "String in hh:mm",
   "geolocation":"Lat,long",
   "place":"String",
