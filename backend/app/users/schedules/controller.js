@@ -1,9 +1,14 @@
 const path = require("path"),
   rootDir = path.dirname(process.mainModule.filename),
-  bcrypt = require("bcrypt"),
   { validationResult } = require("express-validator"),
   querys = require("./querys"),
   tokenManager = require(path.join(rootDir, "util", "auth", "token"));
+
+const verifyToken = async (token, userId) => {
+  if (!token) return false;
+  if (token.id !== userId) return false;
+  return true;
+};
 
 exports.newSchedule = async (req, res, next) => {
   {
@@ -16,7 +21,17 @@ exports.newSchedule = async (req, res, next) => {
         throw error;
       }
 
-      console.log(req.userId);
+      let auth = req.auth.split(" ")[1];
+      let decodedToken = await tokenManager.decodeToken(auth);
+
+      let ver = verifyToken(decodedToken, req.userId);
+      if (!ver) {
+        const error = new Error("Error de autenticación.");
+        error.statusCode = 402;
+        error.data = "El recurso al que estás accediendo no es tuyo";
+        throw error;
+      }
+
       let answer = await querys.newSchedule(req.userId, req.body);
       if (answer !== null) {
         res.status(201).json(answer);
@@ -46,7 +61,17 @@ exports.updateSchedule = async (req, res, next) => {
         throw error;
       }
 
-      console.log(req.userId);
+      let auth = req.auth.split(" ")[1];
+      let decodedToken = await tokenManager.decodeToken(auth);
+
+      let ver = verifyToken(decodedToken, req.userId);
+      if (!ver) {
+        const error = new Error("Error de autenticación.");
+        error.statusCode = 402;
+        error.data = "El recurso al que estás accediendo no es tuyo";
+        throw error;
+      }
+
       let answer = await querys.updateSchedule(
         req.userId,
         req.params.scheduleId,
@@ -80,7 +105,17 @@ exports.deleteSchedule = async (req, res, next) => {
         throw error;
       }
 
-      console.log(req.userId);
+      let auth = req.auth.split(" ")[1];
+      let decodedToken = await tokenManager.decodeToken(auth);
+
+      let ver = verifyToken(decodedToken, req.userId);
+      if (!ver) {
+        const error = new Error("Error de autenticación.");
+        error.statusCode = 402;
+        error.data = "El recurso al que estás accediendo no es tuyo";
+        throw error;
+      }
+
       let answer = await querys.deleteSchedule(
         req.userId,
         req.params.scheduleId,
@@ -114,7 +149,17 @@ exports.deleteAll = async (req, res, next) => {
         throw error;
       }
 
-      console.log(req.userId);
+      let auth = req.auth.split(" ")[1];
+      let decodedToken = await tokenManager.decodeToken(auth);
+
+      let ver = verifyToken(decodedToken, req.userId);
+      if (!ver) {
+        const error = new Error("Error de autenticación.");
+        error.statusCode = 402;
+        error.data = "El recurso al que estás accediendo no es tuyo";
+        throw error;
+      }
+
       let answer = await querys.deleteAll(req.userId, req.body);
       if (answer !== null) {
         res.status(200).json(answer);

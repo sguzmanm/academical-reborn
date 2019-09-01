@@ -10,7 +10,7 @@
 - nodemon
 - node-schedule
 
-## Setup Environmental variables
+## Setup: Environmental variables
 
 We are using environment variables in node throught a .env file.
 
@@ -36,6 +36,8 @@ All these credentials are though out for a connection with a mongodb with SRV
 - timeStart: Hour for the start of schedules
 - rangeMinutes: Minutes it should separate each time frame
 - scrapper: Flag for dev purposes. If setup to anything other than 1 it will not run the scrapper.
+
+## Setup: Run the app
 
 Now then, with npm installed go to the root and type:
 
@@ -111,3 +113,10 @@ Event:{
   "days":"Array Number ranging from 0 to 5"
 }
 ```
+
+## Postman tests
+
+For the tests there are two things to take into account:
+
+- Perform login or register first through the endpoints
+- Use the following environment: ![img](./readme/postman_env.png)

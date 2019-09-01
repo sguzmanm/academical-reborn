@@ -7,6 +7,7 @@ router.use(
   "/:userId/schedules/",
   function(req, res, next) {
     req.userId = req.params.userId;
+    req.auth = req.header("Authorization");
     next();
   },
   require("./schedules/routes")
