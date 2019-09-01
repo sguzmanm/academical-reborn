@@ -21,7 +21,7 @@ exports.validate = method => {
 };
 
 const validateEvents = events => {
-  if (!events) return true;
+  if (!events) return;
   for (let i = 0; i < events.length; i++) {
     let event = events[i];
     if (event.indexStart > event.indexEnd) {

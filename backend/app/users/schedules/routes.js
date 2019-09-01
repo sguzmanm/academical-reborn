@@ -17,4 +17,17 @@ router.post(
   handlerExceptions(eventController.newSchedule)
 );
 
+router.delete("/", handlerExceptions(eventController.deleteAll));
+
+router.put(
+  "/:scheduleId/",
+  validate("schedule"),
+  handlerExceptions(eventController.updateSchedule)
+);
+
+router.delete(
+  "/:scheduleId/",
+  handlerExceptions(eventController.deleteSchedule)
+);
+
 module.exports = router;
