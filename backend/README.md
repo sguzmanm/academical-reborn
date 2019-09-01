@@ -87,8 +87,7 @@ node cultural-events.js <Num of weeks> <Hour interval for running the scrapper>
   "id":"Mongo default",
   "title":"String",
   "description":"String",
-  "collegeEvents":"Array String (ID of Event)",
-  "myEvents":"Array Event"
+  "collegeEvents":"Array String (ID of Event)"
 }
 ```
 
