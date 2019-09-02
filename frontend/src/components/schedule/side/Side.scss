@@ -1,5 +1,38 @@
 .side{
     width:25vw;
     height:100%;
+	padding:5pt;
     box-shadow: 5px 0 6px rgba($color: #000000, $alpha: 0.16);
+	overflow-y:scroll;
+}
+
+.occurrence-cell
+{
+	padding:0pt 5pt;
+    color:white;
+    display:inline-block;
+    width: 90%;
+    margin: 2px auto;
+    max-height: 100%;
+    font-size:1rem;
+    background-color: #4286f4; 
+    text-align: center;
+	border-radius: 10px 10px 10px 10px; 
+    transition: background-color 0.15s ease-in-out;
+    cursor: pointer;
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+}
+
+.occurrence-cell:hover{
+  background-color: rgb(255, 110, 110);
+}
+
+.occurrence-cell h4,.occurrence-cell h6
+{
+    color:white;
+    text-align:left;
 }
