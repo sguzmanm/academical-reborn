@@ -5,7 +5,7 @@ export default function reducer(state=initState, action) {
     case 'ADD_EVENT':
       return {
         ...state,
-        events: [...state.events, action.payload],
+        events: action.payload,
       }
     default:
       return state

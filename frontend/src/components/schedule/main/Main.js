@@ -1,16 +1,39 @@
-import React from 'react'
+import React, { useEffect } from "react";
 import Side from '../side/Side'
 import Schedule from '../schedule/Schedule'
 import './Main.scss'
 
-function Main() {
+import axios from 'axios'
+import { useSelector, useDispatch } from 'react-redux'
+import { setEvents } from '../../../store/events'
 
-  return (
-    <div className="main">
-        <Side></Side>
-        <Schedule></Schedule>
-    </div>
-  )
+function Main(props) {
+
+	const url = useSelector(state => state.root.url)
+	const dispatch=useDispatch()
+	
+	// Get events at mount, passed empty array yo avoid infinite loop
+	useEffect(() => {
+		async function getEvents(){
+			try {
+				const res = await axios.get(`${url}events`)
+				dispatch(setEvents(res.data))
+			} catch (err) {
+				console.log(err)
+				console.log(err.response)
+			}
+		}
+
+		getEvents();
+	  },[]);
+	
+
+	return (
+		<div className="main">
+			<Side></Side>
+			<Schedule></Schedule>
+		</div>
+	)
 }
 
 export default Main

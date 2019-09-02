@@ -1,5 +1,4 @@
-export const setToken = event => ({
+export const setEvents = events => ({
   type: 'ADD_EVENT',
-  payload: event,
+  payload: events,
 })
-
