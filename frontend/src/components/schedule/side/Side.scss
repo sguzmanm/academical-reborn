@@ -20,5 +20,23 @@
     border-radius: 5px;
     background-color: #6DB5ED;
   }
+
+  &__searchIcon {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    margin-right: 1rem;
+    position:absolute;
+  }
+
+  &__searchBar{
+    color: #707070;
+    font-size:25px;
+    margin-bottom:2rem;
+    padding: 0rem 2rem;
+    width:95%;
+    border-color:transparent;
+    background-color:transparent;
+  }
 }
 

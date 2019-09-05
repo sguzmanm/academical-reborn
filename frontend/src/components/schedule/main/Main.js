@@ -11,7 +11,7 @@ function Main(props) {
   const url = useSelector(state => state.root.url)
   const dispatch = useDispatch()
 
-  // Get events at mount, passed empty array yo avoid infinite loop
+  // Get events at mount, passed params to avoid infinite loop
   useEffect(() => {
     async function getEvents() {
       try {
