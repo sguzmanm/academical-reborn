@@ -31,12 +31,12 @@ function Side() {
           />
         <input className="side__searchBar__searchInput" type="text" placeholder="Buscar..." onChange={filter}/>
       </div>
+
+
+      <div className="side__events">
+        {filtered || eventFilter.length>0?mapEvents(eventFilter):mapEvents(events)}
+      </div>
       
-
-      {filtered || eventFilter.length>0?mapEvents(eventFilter):mapEvents(events)}
-
-      {/*Credit for author of search icon*/}
-      <div>Icons made by <a href="https://www.flaticon.com/authors/gregor-cresnar" title="Gregor Cresnar">Gregor Cresnar</a> from <a href="https://www.flaticon.com/"             title="Flaticon">www.flaticon.com</a></div>
     </div>
   )
 }
