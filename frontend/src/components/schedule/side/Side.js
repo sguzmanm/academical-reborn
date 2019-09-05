@@ -2,7 +2,6 @@ import React,{useState} from 'react'
 import './Side.scss'
 import ScheduleList from '../scheduleList/ScheduleList'
 import Filter from '../filter/Filter'
-import { useSelector } from 'react-redux'
 
 function Side() {
 
@@ -21,7 +20,8 @@ function Side() {
       
       <div className="side__tabs">
         {imageTabs.map((el,index)=>(
-          <button className={index===currentTab?'side__tab--on':'side__tab--off'} key={index} onClick={()=>changeTab(index)}>
+          <button className={`side__tab side__tab--${index===currentTab?'on':'off'}`}
+            key={index} onClick={()=>changeTab(index)}>
             <img alt={'tab-'+index} src={el}></img>
           </button>
         ))}

@@ -9,18 +9,16 @@
   }
 
   &__tab{
+    cursor:pointer;
+    margin:0;
+    border: black solid 1px;
+
     &--on{
       background-color:#6DB5ED;
-      cursor:pointer;
-      margin:0;
-      border:#6DB5ED solid 1px;
     }
 
     &--off{
       background-color:transparent;
-      cursor:pointer;
-      margin:0;
-      border: black solid 1px;
     }
   }
   

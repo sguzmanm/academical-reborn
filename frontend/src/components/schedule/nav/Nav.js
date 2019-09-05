@@ -10,8 +10,6 @@ function Nav(props) {
   const dispatch = useDispatch()
 
   const logout = () => {
-    
-    
     deleteUserInfo()
     dispatch(logoutAction())
     props.history.push('/login')
