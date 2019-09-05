@@ -52,6 +52,8 @@
     box-shadow: 0 9px 10px rgba($color: #000000, $alpha: 0.16);
     border-radius: 0 0 10px 10px;
     width: 7rem;
+    background-color:white;
+    z-index:1;
 
     &Option {
       margin: 1rem 0;

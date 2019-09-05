@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState} from 'react'
 import './Side.scss'
 import Occurrence from '../occurrence/Occurrence'
 import { useSelector } from 'react-redux'
@@ -23,12 +23,15 @@ function Side() {
 
   return (
     <div className="side">
-      <img
-          className="side__searchIcon"
-          src={require('../../../assets/icons/magnifying-glass.svg')}
-          alt="search-icon"
-        />
-        <input className="side__searchBar" type="text" placeholder="Buscar..." onChange={filter}/>
+      <div className="side__searchBar">
+        <img
+            className="side__searchBar__searchIcon"
+            src={require('../../../assets/icons/magnifying-glass.svg')}
+            alt="search-icon"
+          />
+        <input className="side__searchBar__searchInput" type="text" placeholder="Buscar..." onChange={filter}/>
+      </div>
+      
 
       {filtered || eventFilter.length>0?mapEvents(eventFilter):mapEvents(events)}
 

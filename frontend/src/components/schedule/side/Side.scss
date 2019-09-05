@@ -21,22 +21,31 @@
     background-color: #6DB5ED;
   }
 
-  &__searchIcon {
-    width: 25px;
-    height: 25px;
-    cursor: pointer;
-    margin-right: 1rem;
-    position:absolute;
+  &__searchBar{
+
+    position:sticky;
+    top:0;
+    background-color:white;
+    margin-top:0;
+    padding-top:0;
+    &__searchIcon {
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      margin-right: 1rem;
+      position:absolute;
+    }
+  
+    &__searchInput{
+      color: #707070;
+      font-size:25px;
+      padding: 0rem 2rem;
+      width:95%;
+      border-color:transparent;
+      background-color:transparent;
+    }
   }
 
-  &__searchBar{
-    color: #707070;
-    font-size:25px;
-    margin-bottom:2rem;
-    padding: 0rem 2rem;
-    width:95%;
-    border-color:transparent;
-    background-color:transparent;
-  }
+  
 }
 
