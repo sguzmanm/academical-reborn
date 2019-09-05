@@ -1,41 +1,33 @@
 import React,{useState} from 'react'
 import './Side.scss'
-import Occurrence from '../occurrence/Occurrence'
+import ScheduleList from '../scheduleList/ScheduleList'
+import Filter from '../filter/Filter'
 import { useSelector } from 'react-redux'
 
 function Side() {
-  const events = useSelector(state => state.events.events)
-  const [eventFilter, setEventFilter] = useState(events);
-  const [filtered, setFiltered] = useState(false);
 
-  const filter=(event)=>{
-    setFiltered(true);
-    let tempFilter=events.filter((ev)=>{
-      let val=event.target.value;
-      return ev.title.includes(val) || ev.type.includes(val);
-    })
-    setEventFilter(tempFilter)
+  const [currentTab,setCurrentTab]=useState(0)
+  const tabs=[<ScheduleList/>,<Filter/>]
+  const imageTabs=[require('../../../assets/icons/list.svg'),require('../../../assets/icons/magnifying-glass.svg')]
+
+  function changeTab(index)
+  {
+    console.log(currentTab+" "+index)
+    setCurrentTab(index)
+    console.log(currentTab)
   }
-
-  const mapEvents=(data)=>(
-    data.map(el => <Occurrence key={el._id} el={el}></Occurrence>)
-  )
-
   return (
     <div className="side">
-      <div className="side__searchBar">
-        <img
-            className="side__searchBar__searchIcon"
-            src={require('../../../assets/icons/magnifying-glass.svg')}
-            alt="search-icon"
-          />
-        <input className="side__searchBar__searchInput" type="text" placeholder="Buscar..." onChange={filter}/>
+      
+      <div className="side__tabs">
+        {imageTabs.map((el,index)=>(
+          <button className={index===currentTab?'side__tab--on':'side__tab--off'} key={index} onClick={()=>changeTab(index)}>
+            <img alt={'tab-'+index} src={el}></img>
+          </button>
+        ))}
       </div>
 
-
-      <div className="side__events">
-        {filtered || eventFilter.length>0?mapEvents(eventFilter):mapEvents(events)}
-      </div>
+      {tabs[currentTab]}
       
     </div>
   )

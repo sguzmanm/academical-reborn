@@ -1,0 +1,51 @@
+.filter {
+    padding: 0.8rem;
+
+    &__searchBar{
+      background-color:white;
+      margin:0 0.5rem 2rem;
+      border: 1px #707070 solid; 
+  
+      &__searchIcon {
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        margin-right: 1rem;
+        position:absolute;
+      }
+    
+      &__searchInput{
+        color: #707070;
+        font-size:25px;
+        padding: 0rem 2rem;
+        width:95%;
+        border-color:transparent;
+        background-color:transparent;
+      }
+    }
+  
+    &__events{
+      height: calc(100vh - 7rem);
+      overflow-y: auto;  
+      padding:0 0.5rem;
+
+      &::-webkit-scrollbar-track {
+        border-radius: 5px;
+        background-color: #f5f5f5;
+        border: 1px solid rgba($color: #6DB5ED, $alpha: 0.3);
+      }
+    
+      &::-webkit-scrollbar {
+        width: 7px;
+        background-color: #f5f5f5;
+      }
+    
+      &::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background-color: #6DB5ED;
+      }
+    }
+    
+  }
+  
+  
