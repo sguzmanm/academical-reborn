@@ -1,24 +1,20 @@
 import React from 'react'
 import './Grid.scss'
 
-import Occurrence from '../../occurrence/Occurrence'
 import {useSelector} from 'react-redux';
+import Occurrence from './occurrence/Occurrence'
 
 function Grid() {
 
   const currentSchedule=useSelector(state=>state.schedules.schedule)
-  const rowGap=3;
-  const colGap=1;
 
-  const items=currentSchedule.collegeEvents?currentSchedule.collegeEvents.map(el=>{(
-      <div style={{
-        gridRowStart:el.indexStart+rowGap,
-        gridRowEnd:el.indexEnd+rowGap,
-        gridColumnStart:el.days[0]+colGap
-      }} key={el._id}>
-        <div>{el.title}</div>
-      </div>
-    )}):[]
+  let items=[]
+  if(currentSchedule.collegeEvents)
+  {
+    items=currentSchedule.collegeEvents.map(el=>(
+      <Occurrence key={el._id} element={el}/>      
+    ))
+  }
 
     return (
       <div className="grid">

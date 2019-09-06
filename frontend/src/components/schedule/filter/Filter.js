@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import './Filter.scss'
-import Occurrence from '../occurrence/Occurrence'
+import SearchItem from '../searchItem/SearchItem'
 import { useSelector } from 'react-redux'
 
 function Filter() {
@@ -18,7 +18,7 @@ function Filter() {
   }
 
   const mapEvents=(data)=>(
-    data.map(el => <Occurrence key={el._id} element={el}></Occurrence>)
+    data.map(el => <SearchItem key={el._id} element={el}></SearchItem>)
   )
 
   return (
