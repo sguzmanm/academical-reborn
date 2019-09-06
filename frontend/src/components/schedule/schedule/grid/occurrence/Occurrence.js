@@ -8,7 +8,7 @@ function Ocurrence(props) {
   const colorsLength=5;
   const rowGap=3;
   const colGap=1;
-
+  
   return (
     <div
       className={`occurrence occurrence--color${Math.abs(getHash(props.element.type)) % colorsLength}`}
@@ -20,6 +20,7 @@ function Ocurrence(props) {
     >
       <h4 className="occurrence__title">{props.element.title}</h4>
       <h6 className="occurrence__place">{props.element.place}</h6>
+      <button className="occurrence__close" onClick={props.eliminateOccurrence}>X</button>
     </div>
   )
 }
