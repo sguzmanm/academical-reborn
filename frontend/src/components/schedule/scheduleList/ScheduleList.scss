@@ -1,7 +1,8 @@
 .scheduleList {
     color:#6DB5ED !important;
     padding:1.2rem;
-    overflow-y: auto;  
+    overflow-y: auto; 
+    height: calc(100vh - 10rem);
 
     &::-webkit-scrollbar-track {
     border-radius: 5px;

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setAuth } from '../../../store/auth'
+import { setSchedule } from '../../../store/schedules'
 import { saveAuth } from '../../../util/state/localStorageUtil'
 import './loginForm.scss'
 import axios from 'axios'
@@ -29,7 +30,7 @@ function LoginForm(props) {
       const res = await axios.post(`${url}users/login`, { email, password })
       saveAuth(res.data)
       dispatch(setAuth(res.data))
-      props.history.push('/schedule')
+      //props.history.push('/schedule')
     } catch (err) {
       console.log(err)
       console.log(err.response)

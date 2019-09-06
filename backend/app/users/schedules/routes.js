@@ -11,6 +11,11 @@ const handlerExceptions = require(path.join(
 ));
 const router = express.Router();
 
+router.get(
+  "/",
+  handlerExceptions(eventController.getAll)
+);
+
 router.post(
   "/",
   validate("schedule"),

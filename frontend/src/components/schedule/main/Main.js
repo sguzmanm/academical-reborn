@@ -6,13 +6,12 @@ import './Main.scss'
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
 import { setEvents } from '../../../store/events'
-import { setSchedules } from '../../../store/schedules'
+import { setSchedule,addSchedules } from '../../../store/schedules'
 
 function Main(props) {
   const url = useSelector(state => state.root.url)
-  const auth=useSelector(state=>state.auth)
-  console.log(auth)
   const token=useSelector(state=>state.auth.token)
+  const user=useSelector(state=>state.auth.user)
   const dispatch = useDispatch()
 
   // Get events at mount, passed params to avoid infinite loop
@@ -21,6 +20,14 @@ function Main(props) {
       try {
         let res = await axios.get(`${url}events`)
         dispatch(setEvents(res.data))
+
+        
+        console.log(user);
+        res = await axios.get(`${url}users/${user._id}/schedules`,{headers:{Authorization:`Bearer ${token}`}})
+
+        dispatch(addSchedules(res.data))
+        dispatch(setSchedule(res.data[0]))
+  
       } catch (err) {
         console.log(err)
         console.log(err.response)

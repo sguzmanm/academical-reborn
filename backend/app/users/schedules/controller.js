@@ -10,6 +10,30 @@ const verifyToken = async (token, userId) => {
   return true;
 };
 
+exports.getAll = async (req, res, next) => {
+  try {
+    console.log(req.auth)
+    let auth = req.auth.split(" ")[1];
+    let decodedToken = await tokenManager.decodeToken(auth);
+
+    let ver = verifyToken(decodedToken, req.userId);
+    if (!ver) {
+      const error = new Error("Error de autenticación.");
+      error.statusCode = 402;
+      error.data = "El recurso al que estás accediendo no es tuyo";
+      throw error;
+    }
+
+    res.send(await querys.findAll(req.userId));
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+};
+
+
 exports.newSchedule = async (req, res, next) => {
   {
     const errors = validationResult(req);

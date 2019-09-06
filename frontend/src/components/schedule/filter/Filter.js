@@ -18,7 +18,7 @@ function Filter() {
   }
 
   const mapEvents=(data)=>(
-    data.map(el => <Occurrence key={el._id} el={el}></Occurrence>)
+    data.map(el => <Occurrence key={el._id} element={el}></Occurrence>)
   )
 
   return (

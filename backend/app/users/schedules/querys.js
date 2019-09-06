@@ -4,6 +4,20 @@ const path = require("path"),
   db = require(path.join(rootDir, "util", "db", "mongo")).db(),
   users = db.collection("users");
 
+  exports.findAll = async (userId) => {
+    let mongoId = 0;
+    try {
+      mongoId = ObjectId(userId);
+    } catch (e) {
+      return null;
+    }
+    let user = await users.findOne({ _id: mongoId });
+
+    let schedules = user.schedules;
+    if (!schedules) schedules = [];
+    return schedules
+  }
+
 exports.newSchedule = async (userId, newSchedule) => {
   let mongoId = 0;
   try {

@@ -8,10 +8,10 @@ function Ocurrence(props) {
   const colorsLength=5;
   return (
     <div
-      className={`occurrence occurrence--color${Math.abs(getHash(props.el.type)) % colorsLength}`}
+      className={`occurrence occurrence--color${Math.abs(getHash(props.element.type)) % colorsLength}`}
     >
-      <h4 className="occurrence__title">{props.el.title}</h4>
-      <h6 className="occurrence__type">{props.el.type}</h6>
+      <h4 className="occurrence__title">{props.element.title}</h4>
+      <h6 className="occurrence__type">{props.element.type}</h6>
     </div>
   )
 }
