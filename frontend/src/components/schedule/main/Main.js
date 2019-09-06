@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setEvents } from '../../../store/events'
 import { setSchedule,addSchedules } from '../../../store/schedules'
 
-function Main(props) {
+function Main() {
   const url = useSelector(state => state.root.url)
   const token=useSelector(state=>state.auth.token)
   const user=useSelector(state=>state.auth.user)
@@ -21,10 +21,7 @@ function Main(props) {
         let res = await axios.get(`${url}events`)
         dispatch(setEvents(res.data))
 
-        
-        console.log(user);
         res = await axios.get(`${url}users/${user._id}/schedules`,{headers:{Authorization:`Bearer ${token}`}})
-
         dispatch(addSchedules(res.data))
         dispatch(setSchedule(res.data[0]))
   

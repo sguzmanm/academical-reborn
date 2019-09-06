@@ -17,7 +17,7 @@ function ScheduleList() {
         <div className={`scheduleList__item scheduleList__item${selected===index?"--selected":""}`} key={index} onClick={()=>setSelectedSchedule(index)}>
             <h2 className="scheduleList__item__title">{el.title}</h2>
             <p className="scheduleList__item__description">{el.description}</p>
-            <span className="scheduleList__item__arrow">></span>
+            <span className="scheduleList__item__arrow">&gt;</span>
         </div>
     ))
 
