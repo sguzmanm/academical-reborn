@@ -1,6 +1,6 @@
-import React,{useState,useRef} from 'react'
-import {useSelector,useDispatch} from 'react-redux'
-import {setSchedules,setCurrentSchedule} from '../../../store/schedules/actions'
+import React, { useState, useRef } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { setSchedules, setCurrentSchedule } from '../../../store/schedules/actions'
 import './ScheduleList.scss'
 
 import ActionModal from '../../actions/actionModal/ActionModal'
@@ -10,56 +10,56 @@ import axios from 'axios'
 
 
 function ScheduleList() {
-    // Delete op
-    const url = useSelector(state => state.root.url)
-    const token=useSelector(state=>state.auth.token)
-    const user=useSelector(state=>state.auth.user)
-    
-    // Schedules
-    const useSchedules = () =>
-        useSelector(state => state.schedules.schedules, []);
-    const mySchedules=useSchedules();
-    const [selected,setSelected]=useState(0)
-    const dispatch = useDispatch()
- 
-    const setSelectedSchedule=(index)=>{
-        dispatch(setCurrentSchedule(mySchedules[index]))
-        setSelected(index)
+// Delete op
+const url = useSelector(state => state.root.url)
+const token=useSelector(state=>state.auth.token)
+const user=useSelector(state=>state.auth.user)
+
+// Schedules
+const useSchedules = () =>
+    useSelector(state => state.schedules.schedules, []);
+const mySchedules=useSchedules();
+const [selected,setSelected]=useState(0)
+const dispatch = useDispatch()
+
+const setSelectedSchedule=(index)=>{
+    dispatch(setCurrentSchedule(mySchedules[index]))
+    setSelected(index)
+}
+
+// Actions
+const [error,setError]=useState({})
+const errorModal=useRef(null);
+
+const deleteModal = useRef(null);
+const showDeleteModal = (index) => {
+  setSelected(index)
+  // `current` apunta al elemento de entrada de texto montado
+  deleteModal.current.toggle();
+}; 
+
+const deleteSchedule=async ()=>{
+  try
+  {
+    const id=mySchedules[selected]._id
+    const tempSchedules=[...mySchedules]
+    tempSchedules.splice(selected,1)
+
+    const options={
+      headers:{Authorization:`Bearer ${token}`}
     }
-
-    // Actions
-    const [error,setError]=useState({})
-    const errorModal=useRef(null);
-
-    const deleteModal = useRef(null);
-    const showDeleteModal = (index) => {
-      setSelected(index)
-      // `current` apunta al elemento de entrada de texto montado
-      deleteModal.current.toggle();
-    }; 
-
-    const deleteSchedule=async ()=>{
-      try
-      {
-        const id=mySchedules[selected]._id
-        const tempSchedules=[...mySchedules]
-        tempSchedules.splice(selected,1)
-
-        const options={
-          headers:{Authorization:`Bearer ${token}`}
-        }
-        const res=await axios.delete(`${url}users/${user._id}/schedules/${id}`,
-              options);
-        dispatch(setSchedules(tempSchedules));
-        setSelectedSchedule(0);
-      }
-      catch(e)
-      {
-        console.log(e);
-        setError(e);
-        errorModal.current.toggle();
-      }
+    const res=await axios.delete(`${url}users/${user._id}/schedules/${id}`,
+          options);
+    dispatch(setSchedules(tempSchedules));
+    setSelectedSchedule(0);
+  }
+  catch(e)
+  {
+    console.log(e);
+    setError(e);
+    errorModal.current.toggle();
     }
+  }
 
     // Add Schedule
     const [showAdd,setShowAdd]=useState(false)
@@ -168,23 +168,23 @@ function ScheduleList() {
 
       {/*Delete Schedule*/}
       <ActionModal ref={deleteModal}
-          modalHeaderBg="#EE2E31"
-          modalHeaderColor="white"
-          modalHeaderTitle="Borrar Horario"
-          modalBody="¿Estás seguro de que quieres borrar este horario?"
-          okCBK={()=>deleteSchedule(selected)}
-          okText="Sí"
-          cancelCBK={()=>{}}
-          cancelText="No"/>
+        modalHeaderBg="#EE2E31"
+        modalHeaderColor="white"
+        modalHeaderTitle="Borrar Horario"
+        modalBody="¿Estás seguro de que quieres borrar este horario?"
+        okCBK={() => deleteSchedule(selected)}
+        okText="Sí"
+        cancelCBK={() => { }}
+        cancelText="No" />
 
       {/*Error*/}
       <ActionModal ref={errorModal}
-          modalHeaderBg="#EE2E31"
-          modalHeaderColor="white"
-          modalHeaderTitle="Error"
-          modalBody="Hubo un error ejecutando la app, por favor intente más tarde"
-          okCBK={()=>{}}
-          okText="OK"/>
+        modalHeaderBg="#EE2E31"
+        modalHeaderColor="white"
+        modalHeaderTitle="Error"
+        modalBody="Hubo un error ejecutando la app, por favor intente más tarde"
+        okCBK={() => { }}
+        okText="OK" />
     </div>
   )
 }

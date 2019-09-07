@@ -32,7 +32,7 @@ function Main() {
     }
 
     getData()
-  }, [dispatch,url])
+  }, [dispatch,url,token,user._id])
 
   return (
     <div className="main">
