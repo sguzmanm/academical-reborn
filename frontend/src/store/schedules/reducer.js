@@ -1,6 +1,6 @@
 import initState from './state'
 
-export default function reducer(state=initState, action) {
+export default function reducer(state = initState, action) {
   switch (action.type) {
     case 'SET_CURRENT_SCHEDULE':
       return {
@@ -8,10 +8,14 @@ export default function reducer(state=initState, action) {
         schedule: action.payload,
       }
     case 'SET_SCHEDULES':
-      return{
+      return {
         ...state,
         schedules: action.payload
       }
+    case 'ADD_ITEM_TO_SCHEDULE':
+
+      console.log(state)
+      return state
     default:
       return state
   }
