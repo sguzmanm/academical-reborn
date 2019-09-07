@@ -7,7 +7,7 @@ import { getHash } from '../../../../../util/events/events'
 function Ocurrence(props) {
   const colorsLength=5;
   const rowGap=3;
-  const colGap=1;
+  const colGap=2;
   
   return (
     <div

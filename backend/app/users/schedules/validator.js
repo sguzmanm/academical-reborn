@@ -20,6 +20,28 @@ exports.validate = method => {
   }
 };
 
+const validateTime=(event,el)=>{
+
+  if(el.location!==event.location)
+    return;
+
+  let eventDates=[new Date(event.startDate),new Date(event.endDate)]
+  let elDates=[new Date(el.startDate),new Date(el.endDate)]
+
+  if(eventDates[1]<elDates[0] || eventDates[0]>elDates[1])
+    return
+    
+  if (el.indexStart > event.indexStart) {
+    return `El evento ${j} con nombre ${el.title} se intercepta con el evento ${i} con nombre ${event.title}`;
+  }
+  if (
+    el.indexStart <= event.indexStart &&
+    el.indexEnd <= event.indexEnd
+  ) {
+    return `El evento ${j} con nombre ${el.title} se intercepta con el evento ${i} con nombre ${event.title}`;
+  }
+}
+
 const validateEvents = events => {
   if (!events) return;
   for (let i = 0; i < events.length; i++) {
@@ -30,16 +52,15 @@ const validateEvents = events => {
     for (let j = i + 1; j < events.length; j++) {
       let el = events[j];
 
-      if (el.location === event.location && el.indexStart > event.indexStart) {
-        return `El evento ${j} con nombre ${el.title} se intercepta con el evento ${i} con nombre ${event.title}`;
-      }
-      if (
-        el.location === event.location &&
-        el.indexStart <= event.indexStart &&
-        el.indexEnd <= event.indexEnd
-      ) {
-        return `El evento ${j} con nombre ${el.title} se intercepta con el evento ${i} con nombre ${event.title}`;
-      }
+      el.days.forEach(day => {
+        if(event.days.indexOf(day)!=-1)
+        {
+          let err=validateTime(el,event)
+          if(err)
+            return err;
+        }
+      });
+      
     }
   }
   return;

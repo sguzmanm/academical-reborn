@@ -12,7 +12,6 @@ const verifyToken = async (token, userId) => {
 
 exports.getAll = async (req, res, next) => {
   try {
-    console.log(req.auth)
     let auth = req.auth.split(" ")[1];
     let decodedToken = await tokenManager.decodeToken(auth);
 
@@ -101,6 +100,8 @@ exports.updateSchedule = async (req, res, next) => {
         req.params.scheduleId,
         req.body
       );
+
+      console.log(answer);
       if (answer !== null) {
         res.status(200).json(answer);
         return;

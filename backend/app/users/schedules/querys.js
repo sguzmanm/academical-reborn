@@ -55,26 +55,30 @@ exports.updateSchedule = async (userId, scheduleId, newSchedule) => {
   } catch (e) {
     return null;
   }
+
   let user = await users.findOne({ _id: mongoId });
   if (!users) return null;
 
   let schedules = user.schedules;
   if (!schedules) return null;
 
-  mongoId = ObjectId(scheduleId);
   let index = schedules.findIndex(el => {
     return el._id.equals(ObjectId(scheduleId));
   });
+
   if (index === -1) return null;
 
   newSchedule._id = ObjectId(scheduleId);
   schedules[index] = newSchedule;
+  
   let events = schedules[index].collegeEvents;
   if (events) {
     schedules[index].collegeEvents.forEach(event => {
-      event._id = ObjectId();
+      event._id = new ObjectId();
     });
   }
+
+  console.log("EVENTS",events);
 
   return users.findOneAndUpdate(
     { _id: mongoId },
@@ -96,7 +100,6 @@ exports.deleteSchedule = async (userId, scheduleId) => {
   let schedules = user.schedules;
   if (!schedules) return null;
 
-  mongoId = ObjectId(scheduleId);
   let index = schedules.findIndex(el => {
     return el._id.equals(ObjectId(scheduleId));
   });

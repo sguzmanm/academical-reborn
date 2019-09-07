@@ -1,37 +1,61 @@
 import React,{useEffect} from 'react'
 import './Grid.scss'
 
+import axios from 'axios'
 import {useSelector,useDispatch} from 'react-redux';
 import Occurrence from './occurrence/Occurrence'
-
 
 import { setSchedule,addSchedules } from '../../../../store/schedules'
 
 function Grid() {
+  // Put op
+  const url = useSelector(state => state.root.url)
+  const token=useSelector(state=>state.auth.token)
+  const user=useSelector(state=>state.auth.user)
 
+  // Redux
   const dispatch=useDispatch()
   const useCurrentSchedule = () =>
         useSelector(state => state.schedules.schedule, []);
-
   const currentSchedule=useCurrentSchedule()
 
   const schedules=useSelector(state=>state.schedules.schedules)
 
-  const eliminateOccurrence=(id)=>{
+  const eliminateOccurrence=async (id)=>{
+
     const index=currentSchedule.collegeEvents.findIndex(el=>el._id==id)
-    currentSchedule.collegeEvents.splice(index,1)  
-    dispatch(setSchedule(currentSchedule))
+    
+    currentSchedule.collegeEvents.splice(index,1);  
+    
+    try
+    {
+      const options={
+        headers:{Authorization:`Bearer ${token}`}
+      }
+      const res=await axios.put(`${url}users/${user._id}/schedules/${currentSchedule._id}`,
+                                currentSchedule,options);
+      console.log("RTA",res);
+
+      dispatch(setSchedule(currentSchedule));
+    }
+    catch(error)
+    {
+      console.error(error)
+    }
+
+
   }
 
+  // Render items
   const items=currentSchedule.collegeEvents?
     currentSchedule.collegeEvents.map(el=>(
       <Occurrence key={el._id} element={el} eliminateOccurrence={()=>eliminateOccurrence(el._id)}/>))
     :<div></div>
 
+    // Render
     return (
       <div className="grid">
-        {items}      
-    )):<div></div>}
+        {items}
       </div>
     )
 }
