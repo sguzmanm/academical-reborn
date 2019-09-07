@@ -1,17 +1,41 @@
 import React,{useState} from 'react'
 import './ScheduleBody.scss'
-import { maxRows,maxCols } from '../../../../util/grid/grid'
 
+import { maxRows,maxCols,rangeMinutes,timeStart } from '../../../../util/grid/grid'
 import '../../../actions/actionModal/ActionModal.scss'
+
 import axios from 'axios'
+
+import {useSelector,useDispatch} from 'react-redux'
+import { setCurrentSchedule } from '../../../../store/schedules'
 
 import 'flatpickr/dist/themes/material_green.css'
 import Flatpickr from 'react-flatpickr'
 
 function ScheduleBody() {
 
+  const url = useSelector(state => state.root.url)
+  const token = useSelector(state => state.auth.token)
+  const user = useSelector(state => state.auth.user)
 
-  const [customEvent,setCustomEvent]=useState({})
+  const dispatch = useDispatch()
+  const currentSchedule= useSelector(state => state.schedules.schedule);
+
+  // Modal
+  let [customEvent,setCustomEvent]=useState({
+    title:'',
+    description:'',
+    type:'',
+    dateStart:{},
+    dateEnd:{},
+    indexStart:0,
+    indexEnd:0,
+    timeStart:'',
+    timeEnd:'',
+    place:'',
+    days:[]
+  })
+
   const [activeModal,setActiveModal]=useState(false)
   const [errorMsg,setErrorMsg]=useState('')
 
@@ -24,6 +48,24 @@ function ScheduleBody() {
     })
 
     setActiveModal(true)
+  }
+
+  const deactivateModal=()=>{
+    setCustomEvent({
+      title:'',
+      description:'',
+      type:'',
+      dateStart:{},
+      dateEnd:{},
+      indexStart:0,
+      indexEnd:0,
+      timeStart:'',
+      timeEnd:'',
+      place:'',
+      days:[]
+    })
+
+    setActiveModal(false)
   }
 
   const validDates=(startDate,endDate)=>{
@@ -54,7 +96,31 @@ function ScheduleBody() {
     return true
   }
 
-  const addCustomEvent=(e)=>{
+  const updateEvent=async (event)=>{
+    const options = {
+      headers: { Authorization: `Bearer ${token}` }
+    }
+    const schedule= {...currentSchedule}
+    schedule.collegeEvents.push(event)
+    await axios.put(`${url}users/${user._id}/schedules/${schedule._id}`,
+          schedule, options);
+    dispatch(setCurrentSchedule(schedule));
+  }
+
+  const calculateIndex=(time)=>{
+    let data = time.split(":");
+    let currentTime = parseInt(data[0], 10) * 60 + parseInt(data[1], 10);
+    let minRange = parseInt(rangeMinutes, 10);
+    let startMin = parseInt(timeStart, 10);
+    return Math.floor((currentTime - startMin) / minRange);
+  }
+
+  const getTime=(date)=>{
+    let minutes = ("0" + date.getMinutes()).slice(-2);
+    return date.getHours()+":"+minutes
+  }
+
+  const addCustomEvent=async (e)=>{
     e.preventDefault();
 
     if(!customEvent.title || customEvent.title==="")
@@ -69,17 +135,22 @@ function ScheduleBody() {
     if(!validDates(customEvent.dateStart,customEvent.dateEnd))
       return
     
-    customEvent.timeStart=customEvent.dateStart.getHours()+":"+customEvent.dateStart.getMinutes()
-    customEvent.timeEnd=customEvent.dateEnd.getHours()+":"+customEvent.dateEnd.getMinutes()
+    customEvent.timeStart=getTime(customEvent.dateStart)
+    customEvent.timeEnd=getTime(customEvent.dateEnd)
+  
 
-    console.log(customEvent);
+    customEvent.indexStart=calculateIndex(customEvent.timeStart)
+    customEvent.indexEnd=calculateIndex(customEvent.timeEnd)
+
+    await updateEvent(customEvent);
+    deactivateModal();
   }
 
   const addCustomEventModal=(
     <div className="modal">
         <div className="modal__content">
             <div className="modal__header">
-                <button className="modal__header__close" onClick={()=>setActiveModal(false)}>&times;</button>
+                <button className="modal__header__close" onClick={()=>deactivateModal()}>&times;</button>
                 <h4 className="modal__header__title">Agregar mi evento</h4>
             </div>
             <div className="modal__body">
@@ -129,7 +200,7 @@ function ScheduleBody() {
                   Crear
                 </button>
                 <button
-                  onClick={()=>setActiveModal(false)}
+                  onClick={()=>deactivateModal()}
                   className="modal__form__button modal__form__button--cancel"
                 >
                   Cancelar

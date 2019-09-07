@@ -42,8 +42,8 @@ function Grid() {
 
   // Render items
   const items = currentSchedule.collegeEvents ?
-    currentSchedule.collegeEvents.map(el => (
-      <Occurrence key={el._id} element={el} eliminateOccurrence={() => eliminateOccurrence(el._id)} />))
+    currentSchedule.collegeEvents.map((el,index) => (
+      <Occurrence key={el._id?el._id:index} element={el} eliminateOccurrence={() => eliminateOccurrence(el._id)} />))
     : <div></div>
 
   // Render
