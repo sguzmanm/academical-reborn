@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setAuth } from '../../../store/auth'
-import { setSchedule } from '../../../store/schedules'
 import { saveAuth } from '../../../util/state/localStorageUtil'
 import './loginForm.scss'
 import axios from 'axios'
