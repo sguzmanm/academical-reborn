@@ -34,10 +34,10 @@ function Grid() {
     }
   }
 
-  const eliminateOccurrence = async (id) => {
+  const eliminateOccurrence = (id) => {
     const index = currentSchedule.collegeEvents.findIndex(el => el._id === id)
     currentSchedule.collegeEvents.splice(index, 1);
-    await updateCurrentSchedule()
+    updateCurrentSchedule()
   }
 
   // Render items

@@ -1,11 +1,11 @@
 import React from 'react'
 import './ScheduleHeader.scss'
-import { getMonday } from '../../../../util/date/date'
+import { useSelector } from 'react-redux'
 
 const dayNames = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
-const monday = getMonday(new Date())
 
 function ScheduleHeader() {
+  const monday = useSelector(state => state.week.curMonday)
   return (
     <div className="scheduleHeader">
       <div className="scheduleHeader__cell scheduleHeader__cell--firstCol"></div>
