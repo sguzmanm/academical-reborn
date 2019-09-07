@@ -30,7 +30,7 @@ function LoginForm(props) {
       const res = await axios.post(`${url}users/login`, { email, password })
       saveAuth(res.data)
       dispatch(setAuth(res.data))
-      //props.history.push('/schedule')
+      props.history.push('/schedule')
     } catch (err) {
       console.log(err)
       console.log(err.response)
@@ -41,7 +41,7 @@ function LoginForm(props) {
     <form className="loginForm" noValidate onSubmit={loginUser}>
       <input
         type="email"
-        placeholder="Email"
+        placeholder="Correo"
         value={email.value}
         onChange={e => setEmail(e.target.value)}
         autoComplete="Email"
@@ -49,7 +49,7 @@ function LoginForm(props) {
       />
       <input
         type="password"
-        placeholder="Password"
+        placeholder="Contraseña"
         value={password.value}
         onChange={e => setPassword(e.target.value)}
         autoComplete="current-password"

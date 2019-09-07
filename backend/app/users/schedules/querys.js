@@ -44,7 +44,7 @@ exports.newSchedule = async (userId, newSchedule) => {
   return users.findOneAndUpdate(
     { _id: mongoId },
     { $set: { schedules: schedules } },
-    { timestamps: true }
+    { returnOriginal:false, timestamps: true }
   );
 };
 
@@ -83,7 +83,7 @@ exports.updateSchedule = async (userId, scheduleId, newSchedule) => {
   return users.findOneAndUpdate(
     { _id: mongoId },
     { $set: { schedules: schedules } },
-    { timestamps: true }
+    { returnOriginal:false, timestamps: true }
   );
 };
 

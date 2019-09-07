@@ -18,7 +18,7 @@ function ScheduleList() {
     // Schedules
     const useSchedules = () =>
         useSelector(state => state.schedules.schedules, []);
-    let mySchedules=useSchedules();
+    const mySchedules=useSchedules();
     const [selected,setSelected]=useState(0)
     const dispatch = useDispatch()
  
@@ -28,7 +28,6 @@ function ScheduleList() {
     }
 
     // Actions
-
     const [error,setError]=useState({})
     const errorModal=useRef(null);
 
@@ -42,7 +41,6 @@ function ScheduleList() {
     const deleteSchedule=async ()=>{
       try
       {
-        console.log("INDEX",selected)
         const id=mySchedules[selected]._id
         const tempSchedules=[...mySchedules]
         tempSchedules.splice(selected,1)
@@ -62,6 +60,83 @@ function ScheduleList() {
         errorModal.current.toggle();
       }
     }
+
+    // Add Schedule
+    const [showAdd,setShowAdd]=useState(false)
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
+    const [errorMsg, setErrorMsg] = useState('')
+  
+    const addSchedule=async (e)=>{
+      e.preventDefault()
+      try
+      {
+        let schedule={
+          title:title,
+          description:description
+        }
+        const options={
+          headers:{Authorization:`Bearer ${token}`}
+        }
+        const res=await axios.post(`${url}users/${user._id}/schedules`,
+              schedule,options);
+        dispatch(setSchedules(res.data.value.schedules));
+        setSelectedSchedule(0);
+        setShowAdd(false);
+      }
+      catch(e)
+      {
+        console.log(e);
+        setError(e);
+        errorModal.current.toggle();
+      }
+    }
+
+    const addScheduleModal=(
+      <div className="modal">
+          <div className="modal__content">
+              <div className="modal__header">
+                  <button className="modal__header__close" onClick={()=>setShowAdd(false)}>&times;</button>
+                  <h4 className="modal__header__title">Agregar nuevo horario</h4>
+              </div>
+              <div className="modal__body">
+                <form className="modal__form" noValidate onSubmit={addSchedule}>
+                  <input
+                    type="text"
+                    placeholder="Nombre del horario"
+                    value={title.value}
+                    onChange={e => setTitle(e.target.value)}
+                    className="modal__form__input"
+                  />
+                  <textarea
+                    placeholder="Descripción"
+                    rows={4}
+                    value={description.value}
+                    onChange={e => setDescription(e.target.value)}
+                    className="modal__form__input"
+                  />
+                  {errorMsg ? <p className="loginForm__errorMsg">{errorMsg}</p> : null}
+                  <button
+                    className={`modal__form__button ${
+                      errorMsg ? 'modal__form__button--error' : ''
+                    }`}
+                    type="submit"
+                  >
+                    Crear
+                  </button>
+                  <button
+                    className={`modal__form__button ${
+                      errorMsg ? 'modal__form__button--error' : ''
+                    }`}
+                  >
+                    Cancelar
+                  </button>
+                </form>
+              </div>
+          </div>
+      </div>
+    )
+  
 
     // Render
     const mapScheduleList=mySchedules.map((el,index)=>(
@@ -85,9 +160,11 @@ function ScheduleList() {
 
       {/*Schedule list sidebar*/}
       <div className="scheduleList">
-        <button className="scheduleList__add"><img src={require('../../../assets/icons/add.svg')} alt="Add new schedule"/></button>
+        <button className="scheduleList__add" onClick={()=>setShowAdd(true)}><img src={require('../../../assets/icons/add.svg')} alt="Add new schedule"/></button>
         {mapScheduleList}
       </div>
+
+      {showAdd?addScheduleModal:null}
 
       {/*Delete Schedule*/}
       <ActionModal ref={deleteModal}
