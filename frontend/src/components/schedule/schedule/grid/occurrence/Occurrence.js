@@ -1,13 +1,11 @@
 import React from 'react'
 import './Occurrence.scss'
 import { getHash } from '../../../../../util/events/events'
-
+import { rowGap,colGap } from '../../../../../util/grid/grid'
 
 
 function Ocurrence(props) {
   const colorsLength=5;
-  const rowGap=3;
-  const colGap=2;
   
   return (
     <div

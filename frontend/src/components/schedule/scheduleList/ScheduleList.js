@@ -120,7 +120,7 @@ const deleteSchedule=async ()=>{
                     onChange={e => setDescription(e.target.value)}
                     className="modal__form__input"
                   />
-                  {errorMsg ? <p className="loginForm__errorMsg">{errorMsg}</p> : null}
+                  {errorMsg ? <p className="modal__form__errorMsg">{errorMsg}</p> : null}
                   <button
                     className="modal__form__button modal__form__button--ok"
                     type="submit"
