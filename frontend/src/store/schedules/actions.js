@@ -12,3 +12,8 @@ export const setSchedules = schedules => ({
   type: 'SET_SCHEDULES',
   payload: schedules,
 })
+
+export const setTempEvent = event => ({
+  type: 'SET_TEMPORAL_EVENT',
+  payload: event,
+})

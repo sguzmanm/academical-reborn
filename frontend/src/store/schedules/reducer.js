@@ -12,9 +12,12 @@ export default function reducer(state = initState, action) {
         ...state,
         schedules: action.payload
       }
+    case 'SET_TEMPORAL_EVENT':
+      return {
+        ...state,
+        tempEvent: action.payload
+      }
     case 'ADD_ITEM_TO_SCHEDULE':
-
-      console.log(state)
       return state
     default:
       return state

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './Nav.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import { logout as logoutAction } from '../../../store/auth'
-import { setMonday } from '../../../store/week'
+import { setMonday,setActCurMonday } from '../../../store/week'
 import { logout as deleteUserInfo } from '../../../util/state/localStorageUtil'
 import { withRouter } from 'react-router-dom'
 
@@ -20,6 +20,7 @@ function Nav(props) {
   const changeMonday = (howMuch) => {
     const newDate = new Date(curMonday.getTime() + 60 * 60 * 24 * 7 * 1000 * howMuch)
     dispatch(setMonday(newDate))
+    dispatch(setActCurMonday(newDate))
   }
 
   const getMondayFormatted = () =>{
