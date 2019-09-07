@@ -31,8 +31,8 @@ const validateTime=(event,el)=>{
   if(eventDates[1]<elDates[0] || eventDates[0]>elDates[1])
     return
     
-  if (el.indexStart > event.indexStart) {
-    return `El evento con nombre ${el.title} se intercepta con el evento con nombre ${event.title}`;
+  if (el.indexStart > event.indexStart && el.indexStart<event.indexEnd) {
+    return `El evento con nombre ${el.title} comienza durante el segundo evento con nombre ${event.title}`;
   }
   if (
     el.indexStart <= event.indexStart &&
