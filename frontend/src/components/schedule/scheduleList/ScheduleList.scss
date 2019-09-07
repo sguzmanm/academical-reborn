@@ -20,6 +20,12 @@
     background-color: #6DB5ED;
     }
 
+    &__add{
+        margin:0 auto;
+        width:100%;
+        background-color:#288d7f;
+    }
+
     &__item{
         padding: 0.5rem;
         display: inline-block;
@@ -47,6 +53,16 @@
             left:18rem;
             font-size:3rem;
         }
+
+        &__delete{
+            position:relative;
+            top:0rem;
+            left:85%;
+            background-color:transparent;
+            border-color:transparent;
+            cursor:pointer;
+        }
+    
 
         &--selected{
             color:white;
