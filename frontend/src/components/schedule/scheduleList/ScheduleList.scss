@@ -24,6 +24,16 @@
         margin:0 auto;
         width:100%;
         background-color:#288d7f;
+        border-radius: 5px;
+        transition: background-color 0.15s ease-in-out;
+        border: 1px solid white;
+
+        cursor:pointer;
+
+        &:hover{
+            opacity:0.7;
+            box-shadow: 1px 2px 5px rgba($color: #000000, $alpha: 0.4);
+        }
     }
 
     &__item{
@@ -49,8 +59,8 @@
         
         &__arrow {
             position:relative;
-            bottom:3rem;
-            left:18rem;
+            bottom:4rem;
+            left:85%;
             font-size:3rem;
         }
 

@@ -1,9 +1,9 @@
-export const setSchedule = schedule => ({
-  type: 'SET_SCHEDULE',
+export const setCurrentSchedule = schedule => ({
+  type: 'SET_CURRENT_SCHEDULE',
   payload: schedule,
 })
 
-export const addSchedules = schedule => ({
-  type: 'ADD_SCHEDULES',
-  payload: schedule,
+export const setSchedules = schedules => ({
+  type: 'SET_SCHEDULES',
+  payload: schedules,
 })

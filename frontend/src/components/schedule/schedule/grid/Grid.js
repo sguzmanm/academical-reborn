@@ -5,7 +5,7 @@ import axios from 'axios'
 import {useSelector,useDispatch} from 'react-redux';
 import Occurrence from './occurrence/Occurrence'
 
-import { setSchedule } from '../../../../store/schedules'
+import { setCurrentSchedule } from '../../../../store/schedules'
 
 function Grid() {
   // Put op
@@ -28,7 +28,7 @@ function Grid() {
       }
       await axios.put(`${url}users/${user._id}/schedules/${currentSchedule._id}`,
                                 currentSchedule,options);
-      dispatch(setSchedule(currentSchedule));
+      dispatch(setCurrentSchedule(currentSchedule));
     }
     catch(error)
     {
