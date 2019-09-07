@@ -52,6 +52,9 @@ const validateEvents = events => {
     for (let j = i + 1; j < events.length; j++) {
       let el = events[j];
 
+      if(event._id && el._id && event._id===el._id)
+        return "Los eventos son idénticos"
+        
       el.days.forEach(day => {
         if(event.days.indexOf(day)!=-1)
         {
