@@ -69,6 +69,11 @@ const deleteSchedule=async ()=>{
   
     const addSchedule=async (e)=>{
       e.preventDefault()
+
+      if (!title)
+      return setErrorMsg(
+        'Debe ingresar un título para su horario'
+      )
       try
       {
         let schedule={
@@ -123,6 +128,7 @@ const deleteSchedule=async ()=>{
                     Crear
                   </button>
                   <button
+                    onClick={()=>setShowAdd(false)}
                     className="modal__form__button modal__form__button--cancel"
                   >
                     Cancelar

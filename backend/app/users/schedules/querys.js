@@ -36,7 +36,8 @@ exports.newSchedule = async (userId, newSchedule) => {
   schedules.forEach(schedule => {
     if (schedule.collegeEvents) {
       schedule.collegeEvents.forEach(event => {
-        event._id = ObjectId();
+        if(!event._id)
+          event._id = new ObjectId();
       });
     }
   });
@@ -74,7 +75,8 @@ exports.updateSchedule = async (userId, scheduleId, newSchedule) => {
   let events = schedules[index].collegeEvents;
   if (events) {
     schedules[index].collegeEvents.forEach(event => {
-      event._id = new ObjectId();
+      if(!event._id)
+        event._id = new ObjectId();
     });
   }
 
