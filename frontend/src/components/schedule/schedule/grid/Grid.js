@@ -5,7 +5,7 @@ import axios from 'axios'
 import {useSelector,useDispatch} from 'react-redux';
 import Occurrence from './occurrence/Occurrence'
 
-import { setSchedule,addSchedules } from '../../../../store/schedules'
+import { setSchedule } from '../../../../store/schedules'
 
 function Grid() {
   // Put op
@@ -19,31 +19,27 @@ function Grid() {
         useSelector(state => state.schedules.schedule, []);
   const currentSchedule=useCurrentSchedule()
 
-  const schedules=useSelector(state=>state.schedules.schedules)
-
-  const eliminateOccurrence=async (id)=>{
-
-    const index=currentSchedule.collegeEvents.findIndex(el=>el._id==id)
-    
-    currentSchedule.collegeEvents.splice(index,1);  
-    
+  
+  const updateCurrentSchedule=async()=>{
     try
     {
       const options={
         headers:{Authorization:`Bearer ${token}`}
       }
-      const res=await axios.put(`${url}users/${user._id}/schedules/${currentSchedule._id}`,
+      await axios.put(`${url}users/${user._id}/schedules/${currentSchedule._id}`,
                                 currentSchedule,options);
-      console.log("RTA",res);
-
       dispatch(setSchedule(currentSchedule));
     }
     catch(error)
     {
       console.error(error)
     }
+  }
 
-
+  const eliminateOccurrence=async (id)=>{
+    const index=currentSchedule.collegeEvents.findIndex(el=>el._id==id)
+    currentSchedule.collegeEvents.splice(index,1);  
+    await updateCurrentSchedule()
   }
 
   // Render items

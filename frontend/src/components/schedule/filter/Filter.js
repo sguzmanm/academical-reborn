@@ -22,7 +22,7 @@ function Filter() {
   )
 
   return (
-    <div className="side">
+    <div className="filter">
       <div className="filter__searchBar">
         <img
             className="filter__searchBar__searchIcon"
