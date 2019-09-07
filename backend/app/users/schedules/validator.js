@@ -32,13 +32,13 @@ const validateTime=(event,el)=>{
     return
     
   if (el.indexStart > event.indexStart) {
-    return `El evento ${j} con nombre ${el.title} se intercepta con el evento ${i} con nombre ${event.title}`;
+    return `El evento con nombre ${el.title} se intercepta con el evento con nombre ${event.title}`;
   }
   if (
     el.indexStart <= event.indexStart &&
     el.indexEnd <= event.indexEnd
   ) {
-    return `El evento ${j} con nombre ${el.title} se intercepta con el evento ${i} con nombre ${event.title}`;
+    return `El evento con nombre ${el.title} se intercepta con el evento con nombre ${event.title}`;
   }
 }
 

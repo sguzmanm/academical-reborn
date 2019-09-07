@@ -117,17 +117,13 @@ const deleteSchedule=async ()=>{
                   />
                   {errorMsg ? <p className="loginForm__errorMsg">{errorMsg}</p> : null}
                   <button
-                    className={`modal__form__button ${
-                      errorMsg ? 'modal__form__button--error' : ''
-                    }`}
+                    className="modal__form__button modal__form__button--ok"
                     type="submit"
                   >
                     Crear
                   </button>
                   <button
-                    className={`modal__form__button ${
-                      errorMsg ? 'modal__form__button--error' : ''
-                    }`}
+                    className="modal__form__button modal__form__button--cancel"
                   >
                     Cancelar
                   </button>

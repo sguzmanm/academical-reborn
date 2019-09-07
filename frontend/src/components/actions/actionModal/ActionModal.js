@@ -25,14 +25,14 @@ class ActionModal extends React.Component{
         const buttons=[]
         if(this.props.okCBK)
             buttons.push(
-                <button className="btn btn--ok" key={0}
+                <button className="modal__button modal__button--ok" key={0}
                 onClick={()=>{this.props.okCBK();this.toggle();}}>
                     {this.props.okText}
                 </button>
             )
         if(this.props.cancelCBK)
             buttons.push(
-                <button className="btn btn--cancel" key={1} 
+                <button className="modal__button modal__button--cancel" key={1} 
                 onClick={()=>{this.props.cancelCBK();this.toggle();}}>
                     {this.props.cancelText}
                 </button>

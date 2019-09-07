@@ -60,6 +60,9 @@
         background-color:white;
         border:1px solid #6DB5ED;
 
+        &__title,&__description,&__arrow{
+            color:#6DB5ED;
+        }
         
         &__arrow {
             position:relative;
@@ -77,20 +80,32 @@
             cursor:pointer;
         }
     
-
         &--selected{
+            background-color: #6DB5ED;
+            border: 1px solid white;
+            box-shadow: 1px 2px 5px rgba($color: #000000, $alpha: 0.4);
+
+            &__title,&__description,&__arrow{
+                color:white;
+            }
+        }
+
+        &--selected &__title,&--selected &__description,&--selected &__arrow{
             color:white;
+        }
+        
+        &:hover {
+            color:white;
+            &__title,&__description,&__arrow{
+                color:white;
+            }
             background-color: #6DB5ED;
             border: 1px solid white;
             box-shadow: 1px 2px 5px rgba($color: #000000, $alpha: 0.4);
         }
 
-    
-        &:hover {
+        &:hover &__title,&:hover &__description,&:hover &__arrow{
             color:white;
-            background-color: #6DB5ED;
-            border: 1px solid white;
-            box-shadow: 1px 2px 5px rgba($color: #000000, $alpha: 0.4);
         }
     
     }
