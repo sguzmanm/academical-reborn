@@ -27,20 +27,21 @@ export const loadAuthFromLS = () => {
         console.error(e);
       }
     }
-    if (auth.tokenTimeout < new Date()) {
-      // eslint-disable-next-line no-unused-vars
-      for (const index in auth) {
-        auth[index] = null;
-        localStorage.removeItem(index);
-      }
+    if (new Date(auth.tokenTimeout) < new Date()) {
+      logout()
+      auth = {
+        token: null,
+        tokenTimeout: null,
+        user: null,
+        refreshToken: null
+      };
     }
-  } else {
-    auth.token = null;
   }
   return auth;
 };
 
 export const logout = () => {
+  console.log('mueche')
   // eslint-disable-next-line no-unused-vars
   for (const index in auth) {
     localStorage.removeItem(index);
