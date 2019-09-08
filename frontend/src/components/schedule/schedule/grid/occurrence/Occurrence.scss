@@ -1,6 +1,6 @@
 .occurrence {
-  z-index: 1;
-  background: #000000;
+  z-index:1;
+  background: #288d7f;
   padding: 0.5rem;
   color: white;
   display: inline-block;
@@ -22,15 +22,14 @@
   }
 
   &--color3 {
-    background-color: #288d7f;
+    background-color: #116d19;
   }
 
   &--color4 {
     background-color: #54a1e7;
   }
 
-  &:hover,
-  &.isTemp {
+  &:hover {
     background-color: white;
     border: 1px solid black;
     box-shadow: 1px 2px 5px rgba($color: #000000, $alpha: 0.4);
@@ -44,6 +43,28 @@
 
     .occurrence__close {
       color: black;
+    }
+  }
+
+  &.isTemp {
+    background-color: rgba($color: rgb(92, 63, 197), $alpha: 0.8);
+    border: 1px solid black;
+    box-shadow: 1px 2px 5px rgba($color: #000000, $alpha: 0.4);
+    margin:0.5rem 0 0 0.5rem;
+
+    &.overlap{
+      background-color: rgba($color: rgb(197, 63, 63), $alpha: 0.8);
+    }
+
+    .occurrence__title{
+      color:black;
+    }
+    .occurrence__place{
+      color:black;
+    }
+
+    .occurrence__close{
+      color:black;
     }
   }
 

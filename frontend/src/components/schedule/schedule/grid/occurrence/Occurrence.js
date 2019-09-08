@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 import "./Occurrence.scss";
 import { getHash } from "../../../../../util/events/events";
-import { rowGap,colGap } from "../../../../../util/grid/grid";
+import { rowGap, colGap } from "../../../../../util/grid/grid";
 
 import PropTypes from "prop-types";
 
@@ -12,7 +12,9 @@ const Ocurrence = forwardRef((props, ref) => {
   return (
     <div
       ref={ref}
-      className={`occurrence occurrence--color${Math.abs(getHash(props.element.type)) % colorsLength} ${props.element.isTemp ? "isTemp" : ""}`}
+      className={`occurrence occurrence--color${Math.abs(getHash(props.element.type)) % colorsLength}
+       ${props.element.isTemp ? "isTemp" : ""}
+       ${props.element.overlap ? "overlap" : ""}`}
       style={{
         gridRowStart: props.element.indexStart + rowGap,
         gridRowEnd: props.element.indexEnd + rowGap,
@@ -26,9 +28,9 @@ const Ocurrence = forwardRef((props, ref) => {
   );
 });
 
-Ocurrence.propTypes={
-  element:PropTypes.any,
-  eliminateOccurrence:PropTypes.any
+Ocurrence.propTypes = {
+  element: PropTypes.any,
+  eliminateOccurrence: PropTypes.any
 };
 
 export default Ocurrence;
