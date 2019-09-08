@@ -43,7 +43,7 @@ function Grid(props) {
 
   // Render items
   const items = currentSchedule.collegeEvents ?
-    currentSchedule.collegeEvents.map(el => (
+    currentSchedule.collegeEvents.map((el,index) => (
       <Occurrence key={el._id?el._id:index} ref={myRef} element={el} eliminateOccurrence={() => eliminateOccurrence(el._id)} />))
     : <div></div>
 
