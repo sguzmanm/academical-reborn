@@ -43,7 +43,7 @@ function ScheduleBody() {
 
   const activateModal=(i,day)=>{
 
-    let minutesStart=i*30;
+    let minutesStart=(i+11)*30;
     let dateStart= new Date()
     dateStart.setDate(currentMonday.getDate()+day)
     dateStart.setHours(minutesStart/60,minutesStart%60)
@@ -228,7 +228,7 @@ function ScheduleBody() {
         {Array.apply(null, { length: maxRows }).map((_, i) => (
           <div className="scheduleBody__row" key={i}>
             {Array.apply(null, { length: maxCols }).map((_, j) => (
-              <div className="scheduleBody__cell" key={j} onClick={()=>activateModal(i,j)} >
+              <div className="scheduleBody__cell" key={j} onClick={()=>activateModal(i,j-1)} >
                 {j === 0 && i % 2 === 0 ? <p className="scheduleBody__hour">{i / 2 + 6}</p> : null}
               </div>
             ))}
