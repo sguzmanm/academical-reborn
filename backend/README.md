@@ -12,7 +12,7 @@
 
 ## Setup: Environmental variables
 
-We are using environment variables in node throught a .env file.
+We are using environment variables in node throught a .env file. They are listed below:
 
 ### Token generation
 
