@@ -68,29 +68,5 @@ Verify that nodejs is installed by running "node -v" on terminal or cmd. It can 
 
 ### Steps to run develop version
 
-1. Configure a .env file with the respective properties. The properties that must be included are:
-- privateKey: And RSA private key in order to build the tokens
-- publicKey: And RSA public key which is the counter part of the private key
-- publicKey: And RSA public key which is the counter part of the private key
-- maxWeeks
-- hourInterval
-- timeStart
-- rangeMinutes
-- scrapper
-- dbUser
-- dbPassword
-- dbHost
-2. Abrir la carpeta raíz en un CMD.
-3. Ejecutar "npm install" para instalar todas las dependencias necesarias.
-4. Ejecutar "npm run dev" si se cuenta con Nodemon o ejecutar "npm start".
-   4.1) Tener en cuenta que la base de datos configurada en el repositorio no es la base de datos real. Es una que hace referencia a una instancia local de MongoDB.
-5. Abrir otro CMD en la raíz del proyecto y acceder a la carpeta "client".
-6. Instalar las dependencias necesarias con "npm i".
-7. Correr el comando "npm start"
-8. La aplicación será abierta de forma automática en http://localhost:3000/
-
-El servidor del back quedará corriendo en http://localhost:8080
-
-### Probar con datos de producción
-
-Con el fin de poder probar la aplicación con la base de datos de producción, se debe editar el archivo "env.js" encontrado en la raíz del proyecto en la sección de "development", y modificar la variable de "databaseUri" por la uri que apunta a la base de datos de producción. **LA URI DE PRODUCCIÓN NO SE DEBE SUBIR AL REPOSITORIO**
+1. Check backend folder for complete instructions on how to execute the backend
+2. Check frontend folder for complete instructions on how to execute the frontend
