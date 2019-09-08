@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, createRef, forwardRef } from 'react'
 import './Grid.scss'
 
 import axios from 'axios'
@@ -7,11 +7,12 @@ import Occurrence from './occurrence/Occurrence'
 
 import { setCurrentSchedule } from '../../../../store/schedules'
 
-function Grid() {
+function Grid(props) {
   // Put op
   const url = useSelector(state => state.root.url)
   const token = useSelector(state => state.auth.token)
   const user = useSelector(state => state.auth.user)
+  const myRef = useRef(null)
 
   // Redux
   const dispatch = useDispatch()
@@ -42,16 +43,34 @@ function Grid() {
 
   // Render items
   const items = currentSchedule.collegeEvents ?
-    currentSchedule.collegeEvents.map((el,index) => (
-      <Occurrence key={el._id?el._id:index} element={el} eliminateOccurrence={() => eliminateOccurrence(el._id)} />))
+    currentSchedule.collegeEvents.map(el => (
+      <Occurrence key={el._id?el._id:index} ref={myRef} element={el} eliminateOccurrence={() => eliminateOccurrence(el._id)} />))
     : <div></div>
 
+  const tempEvent = useSelector(state => state.schedules.tempEvent);
+
+  let tempOccurrence = null
+  if (tempEvent) {
+    tempOccurrence =
+      <Occurrence key={tempEvent._id}
+        ref={myRef}
+        element={tempEvent}
+        eliminateOccurrence={() => eliminateOccurrence(tempEvent._id)} />
+
+  }
+
   // Render
-  return (
+  let resp= (
     <div className="grid">
       {items}
+      {tempOccurrence}
     </div>
   )
+
+  setTimeout(()=>props.scrollToElement(myRef),10)
+  
+
+  return resp;
 }
 
 export default Grid

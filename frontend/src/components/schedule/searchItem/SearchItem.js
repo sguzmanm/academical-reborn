@@ -1,8 +1,10 @@
 import React from 'react'
 import axios from 'axios'
 import './SearchItem.scss'
-import { setCurrentSchedule } from '../../../store/schedules'
+import { setCurrentSchedule, setTempEvent } from '../../../store/schedules'
+import { setMonday, reselectCurMonday } from '../../../store/week'
 import { getHash } from '../../../util/events/events'
+import { getMonday } from '../../../util/date/date'
 import { useSelector, useDispatch } from 'react-redux'
 
 function Ocurrence(props) {
@@ -22,7 +24,6 @@ function Ocurrence(props) {
       schedule.collegeEvents=events
       await axios.put(`${url}users/${user._id}/schedules/${schedule._id}`,
       schedule, options);
-      console.log('llega A')
       dispatch(setCurrentSchedule(schedule));
     }
     catch (error) {
@@ -38,11 +39,15 @@ function Ocurrence(props) {
   }
 
   const addTempItem= () =>{
-    console.log('hov')
+    const dateStart= props.element.dateStart;
+    const newMonday= getMonday(dateStart);
+    dispatch(setMonday(newMonday))
+    dispatch(setTempEvent({...props.element,isTemp:true}))
   }
 
   const removeTempItem= () =>{
-    console.log('unhov')
+    dispatch(reselectCurMonday())
+    dispatch(setTempEvent(null))
   }
 
   const colorsLength=5;
