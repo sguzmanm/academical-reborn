@@ -1,172 +1,168 @@
-@import '../../../css/variables.scss';
+@import "../../../css/variables.scss";
 
-.modal{
-    left:0;
-    top:0;
-    position:fixed;
-    z-index:2;
-    margin:0;
-    padding:0;
+.modal {
+  left: 0;
+  top: 0;
+  position: fixed;
+  z-index: 2;
+  margin: 0;
+  padding: 0;
 
-    width:100vw;
-    height:100vh;
-    background-color:rgba($color: #000000, $alpha: 0.7);
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba($color: #000000, $alpha: 0.7);
 
-    &__content{
-        background-color:white;
-        width:50%;
-        height:auto;
-        margin:auto;
+  &__content {
+    background-color: white;
+    width: 50%;
+    height: auto;
+    margin: auto;
+  }
+
+  &__header {
+    font-size: 3rem;
+    padding: 0 1rem;
+    margin: 0;
+    background-color: $mainColor;
+
+    &__title {
+      color: white;
     }
 
-    &__header{
-        font-size:3rem;
-        padding:0 1rem;
-        margin:0;
-        background-color:$mainColor;
+    &__close {
+      background-color: transparent;
+      color: white;
+      border-color: transparent;
+      position: absolute;
+      top: 3rem;
+      right: 25%;
+      font-size: 3rem;
+      cursor: pointer;
+    }
+  }
 
-        &__title{
-            color:white;
-        }
-    
-        &__close{
-            background-color:transparent;
-            color:white;
-            border-color:transparent;
-            position:absolute;
-            top:3rem;
-            right:25%;
-            font-size:3rem;
-            cursor:pointer;
-        }
+  &__body {
+    margin: 0;
+    font-size: 1rem;
+    padding: 0 1rem;
+    background-color: white;
+  }
+
+  &__footer {
+    position: relative;
+    left: 30%;
+    padding: 1rem;
+  }
+
+  &__button {
+    margin: 0 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 1rem;
+    color: white;
+
+    &--ok {
+      background-color: #288d7f;
+      border-color: #288d7f;
+      color: white;
     }
 
-    &__body{
-        margin: 0;
-        font-size:1rem;
-        padding:0 1rem;
-        background-color:white;
+    &--cancel {
+      background-color: #ee2e31;
+      border-color: #ee2e31;
+      color: white;
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__button {
+      text-transform: uppercase;
+      font-size: 1.2rem;
+      border-radius: 33px/33px;
+      margin-top: 3rem;
+      min-width: 10rem;
+      font-weight: bold;
+      outline: none;
+      cursor: pointer;
+      padding: 0.6rem 2rem;
+      border-radius: 33px/33px;
+      margin: 0.5rem 0;
+
+      &:hover {
+        opacity: 0.7;
+      }
+
+      &--ok {
+        background-color: #288d7f;
+        border-color: none;
+        color: white;
+      }
+
+      &--cancel {
+        background-color: #ee2e31;
+        border-color: none;
+        color: white;
+      }
     }
 
-    &__footer{
-        position:relative;
-        left:30%;
-        padding:1rem;
+    &__errorMsg {
+      color: red;
+      margin-bottom: 0;
     }
 
-    &__button{
-        margin:0 1rem;
-        font-size:1.5rem;
-        cursor:pointer;
-        padding:1rem;
-        color:white;
+    &__input {
+      border: 0;
+      border-bottom: 1px solid $mainColor;
+      width: 15rem;
+      font-size: 1.2rem;
+      margin-top: 1.5rem;
+      outline: none;
 
-        &--ok{
-            background-color:#288d7f;
-            border-color:#288d7f;
-            color:white;
+      &::placeholder {
+        color: $mainColor;
+        opacity: 1; /* Firefox */
+      }
+
+      &:-ms-input-placeholder {
+        /* Internet Explorer 10-11 */
+        color: $mainColor;
+      }
+
+      &::-ms-input-placeholder {
+        /* Microsoft Edge */
+        color: $mainColor;
+      }
+
+      &--calendar {
+        background-color: $mainColor;
+        color: white;
+        border-radius: 33px/33px;
+        padding: 1rem;
+        text-align: center;
+
+        &::placeholder {
+          color: white;
+          opacity: 1; /* Firefox */
         }
-    
-        &--cancel{
-            background-color:#EE2E31;
-            border-color:#EE2E31;
-            color:white;
+
+        &:-ms-input-placeholder {
+          /* Internet Explorer 10-11 */
+          color: white;
         }
-    
-    }
-    
-    &__form{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      
-        &__button {
-          text-transform: uppercase;
-          font-size: 1.2rem;
-          border-radius: 33px/33px;
-          margin-top: 3rem;
-          min-width: 10rem;
-          font-weight: bold;
-          outline: none;
-            cursor: pointer;
-            padding: 0.6rem 2rem;
-            border-radius: 33px/33px;
-            margin: 0.5rem 0;
-            
-            &:hover{
-                opacity:0.7;
-            }
 
-            &--ok{
-                background-color:#288d7f;
-                border-color:none;
-                color:white;
-            }
-        
-            &--cancel{
-                background-color:#EE2E31;
-                border-color:none;
-                color:white;
-            }
-
-            
+        &::-ms-input-placeholder {
+          /* Microsoft Edge */
+          color: white;
         }
-      
-        &__errorMsg{
-          color:red;
-          margin-bottom: 0;
-        }
-      
-        &__input {
-          border: 0;
-          border-bottom: 1px solid $mainColor;
-          width: 15rem;
-          font-size: 1.2rem;
-          margin-top: 1.5rem;
-          outline: none;
-      
-          &::placeholder {
-            color: $mainColor;
-            opacity: 1; /* Firefox */
-          }
-      
-          &:-ms-input-placeholder {
-            /* Internet Explorer 10-11 */
-            color: $mainColor;
-          }
-      
-          &::-ms-input-placeholder {
-            /* Microsoft Edge */
-            color: $mainColor;
-          }
 
-          &--calendar{
-            background-color:$mainColor;
-            color:white;
-            border-radius:33px/33px;
-            padding:1rem;
-            text-align: center;
-
-            &::placeholder {
-                color: white;
-                opacity: 1; /* Firefox */
-            }
-
-            &:-ms-input-placeholder {
-                /* Internet Explorer 10-11 */
-                color: white;
-            }
-          
-            &::-ms-input-placeholder {
-                /* Microsoft Edge */
-                color: white;
-            }
-
-            &:hover{
-            opacity:0.7;
-            }
-          }
-          
+        &:hover {
+          opacity: 0.7;
         }
       }
+    }
+  }
 }
