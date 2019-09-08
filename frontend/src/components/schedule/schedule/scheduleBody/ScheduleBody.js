@@ -20,6 +20,7 @@ function ScheduleBody() {
 
   const dispatch = useDispatch()
   const currentSchedule= useSelector(state => state.schedules.schedule);
+  const currentMonday= useSelector(state=>state.week.curMonday)
 
   // Modal
   let [customEvent,setCustomEvent]=useState({
@@ -40,10 +41,20 @@ function ScheduleBody() {
   const [errorMsg,setErrorMsg]=useState('')
 
 
-  const activateModal=(i,j)=>{
+  const activateModal=(i,day)=>{
+
+    let minutesStart=i*30;
+    let dateStart= new Date()
+    dateStart.setDate(currentMonday.getDate()+day)
+    dateStart.setHours(minutesStart/60,minutesStart%60)
+    let dateEnd=new Date (dateStart.getTime()+60*30*1000)
+
+
     setCustomEvent({
       indexStart:i,
-      days:[j],
+      dateStart:dateStart,
+      dateEnd:dateEnd,
+      days:[day],
       type:'Custom'
     })
 
