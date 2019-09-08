@@ -1,22 +1,30 @@
 @import "../../../css/variables.scss";
 
 .modal {
-  left: 0;
-  top: 0;
-  position: fixed;
-  z-index: 2;
-  margin: 0;
-  padding: 0;
+  &__backdrop {
+    top: 0;
+    left: 0;
+    z-index: 2;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba($color: #000000, $alpha: 0.7);
+  }
 
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba($color: #000000, $alpha: 0.7);
+  &__buttons {
+    margin-bottom: 1rem;
+  }
 
   &__content {
+    top: 50%;
+    left: 50%;
+    position: fixed;
     background-color: white;
     width: 50%;
     height: auto;
     margin: auto;
+    z-index: 3;
+    transform: translate(-50%, -50%);
   }
 
   &__header {
@@ -28,6 +36,7 @@
     &__title {
       color: white;
       padding: 1rem;
+      margin: 0;
     }
 
     &__close {
@@ -35,8 +44,8 @@
       color: white;
       border-color: transparent;
       position: absolute;
-      top: 3rem;
-      right: 25%;
+      top: 0.1rem;
+      right: 5%;
       font-size: 3rem;
       cursor: pointer;
     }
@@ -89,6 +98,7 @@
       display: flex;
       flex-direction: row;
       justify-content: center;
+      margin: 1rem 0;
     }
 
     &__button {
@@ -159,7 +169,7 @@
         background-color: $mainColor;
         color: white;
         border-radius: 33px/33px;
-        padding: 1rem;
+        padding: 0.5rem 1rem;
         text-align: center;
         margin-top: 0.5rem;
 

@@ -29,12 +29,10 @@ export const loadAuthFromLS = () => {
     }
     if (new Date(auth.tokenTimeout) < new Date()) {
       logout()
-      auth = {
-        token: null,
-        tokenTimeout: null,
-        user: null,
-        refreshToken: null
-      };
+      // eslint-disable-next-line no-unused-vars
+      for (const index in auth) {
+        auth[index] = null;
+      }
     }
   }
   return auth;

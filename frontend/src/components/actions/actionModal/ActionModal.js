@@ -40,6 +40,7 @@ class ActionModal extends React.Component{
 
       return(
         <div className="modal">
+          <div className="modal__backdrop" onClick={this.props.cancelCBK} />
           <div className="modal__content">
             <div className="modal__header" style={{backgroundColor:this.props.modalHeaderBg,color:this.props.modalHeaderColor}}>
               <button className="modal__header__close" onClick={this.toggle}>&times;</button>

@@ -161,6 +161,8 @@ function ScheduleBody() {
 
   const addCustomEventModal=(
     <div className="modal">
+      
+      <div className="modal__backdrop" onClick={()=>deactivateModal()} />
       <div className="modal__content">
         <div className="modal__header">
           <button className="modal__header__close" onClick={()=>deactivateModal()}>&times;</button>

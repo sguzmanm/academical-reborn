@@ -96,6 +96,8 @@ function ScheduleList() {
 
   const addScheduleModal=(
     <div className="modal">
+      
+      <div className="modal__backdrop" onClick={()=>setShowAdd(false)}/>
       <div className="modal__content">
         <div className="modal__header">
           <button className="modal__header__close" onClick={()=>setShowAdd(false)}>&times;</button>
