@@ -19,7 +19,7 @@ const Ocurrence = forwardRef((props, ref) => {
     >
       <h4 className="occurrence__title">{props.element.title}</h4>
       <h6 className="occurrence__place">{props.element.place}</h6>
-      <button className="occurrence__close" onClick={props.eliminateOccurrence}>X</button>
+      <button className="occurrence__close" onClick={props.eliminateOccurrence}>&times;</button>
     </div>
   )
 })
