@@ -108,7 +108,6 @@ Event:{
   "timeStart":"String in hh:mm",
   indexEnd": "Int ranging from 0 to the lastGridUnit, by hqlf an hour",
   "timeEnd": "String in hh:mm",
-  "geolocation":"Lat,long",
   "place":"String",
   "days":"Array Number ranging from 0 to 5"
 }
