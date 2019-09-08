@@ -36,25 +36,7 @@ This proyect was developed using the MERN stack.
 - **React JS**: A Front End library useful for creating components. https://reactjs.org/
 - **Node JS**: A javascript environment which allows to create a web server with javascript. https://nodejs.org
 
-Some extra dependencies were included in the project:
-
-- **Back End**
-- Moongose JS
-- Body Parser
-- BCrypt Node JS
-- JSON Web TokeN
-- React-router-dom
-- Bootstrap
-
-- **Back End**
-- Moongose JS
-- Body Parser
-- BCrypt Node JS
-- JSON Web TokeN
-- React-router-dom
-- Bootstrap
-
-All of these can be found in the respective package.json files in the backend and frontend folders.
+Some extra dependencies were included in the project. Each can be seen in the backend or frontend folders or in the package.json files in the respective folders.
 
 The application is deployed in https://heroku.com/ 
 
