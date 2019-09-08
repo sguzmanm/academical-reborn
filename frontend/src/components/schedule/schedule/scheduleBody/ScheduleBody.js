@@ -112,6 +112,8 @@ function ScheduleBody() {
       headers: { Authorization: `Bearer ${token}` }
     };
     const schedule= {...currentSchedule};
+    if(!schedule.collegeEvents)
+      schedule.collegeEvents=[];
     schedule.collegeEvents.push(event);
     await axios.put(`${url}users/${user._id}/schedules/${schedule._id}`,
       schedule, options);

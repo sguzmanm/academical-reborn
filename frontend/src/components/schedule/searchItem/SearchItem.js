@@ -37,6 +37,10 @@ function SearchItem(props) {
 
   const currentSchedule= useSelector(state => state.schedules.schedule);
   const addItem= () =>{
+    if(!currentSchedule.collegeEvents)
+    {
+      currentSchedule.collegeEvents=[];
+    }
     const events= [...currentSchedule.collegeEvents];
     events.push(props.element);
     updateCurrentSchedule(events);
