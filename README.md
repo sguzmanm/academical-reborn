@@ -6,22 +6,22 @@ This app allows people to plan their schedule based on custom events and cultura
 
 - Carlos Mario Sarmiento
 
-  [Página](https://korkies22.github.io/Portfolio/) -  [GitHub](https://github.com/korkies22/)
+  [Personal Site](https://korkies22.github.io/Portfolio/) -  [GitHub](https://github.com/korkies22/)
 
 - El Checho
 
-  [Página](https://viviangomezcubillos.herokuapp.com) - [GitHub](https://github.com/VivianGomez) 
+  [Personal Site](https://sguzmanm.github.io/i-am-sergio-guzman/) - [GitHub](https://github.com/sguzmanm) 
 
 ## Links
 
-**Desplegada en:** https://www.heroku.com/
+**Deployed at:** https://www.heroku.com/
 
 ## Description
 
 With Academical Reborn people from the Los Andes University can get to know which events the university offers and plan them into their schedule.
-The person must register in the system. Later, the person can create schedules and for each schedules he/she can add events.
-The events are composed by a name, description and a date. The events are shown in the callendar by hovering and added by clicking on them. If the event crosses with one another, the hovered event shows a red background.
-The person can switch between weeks to be able to see which events he has included. He can also switch between schedules to be able to see the events in each of them.
+The person must register in the system. Later, that user can create schedules and for each schedules he/she can add events.
+The events are composed by a name, description and a date. The events are shown in the calendar by hovering and added by clicking on them. If the event crosses with one another, the hovered event shows a red background.
+The person can switch between weeks to be able to see which events he/she has included. He can also switch between schedules to be able to see the events in each of them.
 
 ## Objective
 
@@ -29,7 +29,7 @@ We want to allow people to be able to know which cultural events the university 
 
 ## Tecnologies used
 
-This proyect was developed using the MERN stack.
+This project was developed using the MERN stack.
 
 - **Mongo DB**: MongoDB was used as a NOSQL database. Here users,schedules and events are stored.
 - **Express**: A fast, minimalistic and flexible framework for Node.js, it allows route handling in an easy way. https://expressjs.com/es/
