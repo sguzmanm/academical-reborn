@@ -54,7 +54,7 @@ function SearchItem(props) {
     dispatch(setTempEvent(null));
   };
 
-  const colorsLength=5;
+  const colorsLength=6;
   return (
     <div onClick={addItem} onMouseEnter={addTempItem} onMouseLeave={removeTempItem}
       className={`search-item search-item--color${Math.abs(getHash(props.element.type)) % colorsLength}`}

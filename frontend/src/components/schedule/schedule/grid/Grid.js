@@ -14,7 +14,7 @@ function Grid(props) {
   const user = useSelector(state => state.auth.user);
   const monday = useSelector(state => {
     const curMonday = new Date(state.week.curMonday);
-    return new Date(curMonday.getFullYear(), curMonday.getMonth(), curMonday.getDate())
+    return new Date(curMonday.getFullYear(), curMonday.getMonth(), curMonday.getDate());
   });
   const myRef = useRef(null);
 
@@ -46,21 +46,21 @@ function Grid(props) {
   };
 
   const calcOverlap = (eventT) => {
-    const arr = currentSchedule.collegeEvents || []
+    const arr = currentSchedule.collegeEvents || [];
     // eslint-disable-next-line no-unused-vars
     for (const item of arr) {
       if (!(item.dateEnd <= eventT.dateStart || item.dateStart >= eventT.dateEnd)) {
-        return true
+        return true;
       }
     }
-    return false
-  }
+    return false;
+  };
 
   // Render items
-  const nextMonday = new Date(monday.getTime() + 60 * 60 * 24 * 7 * 1000)
+  const nextMonday = new Date(monday.getTime() + 60 * 60 * 24 * 7 * 1000);
   const items = currentSchedule.collegeEvents ?
     currentSchedule.collegeEvents.filter((el) => {
-    return new Date(el.dateStart) >= monday && new Date(el.dateEnd) <= nextMonday
+      return new Date(el.dateStart) >= monday && new Date(el.dateEnd) <= nextMonday;
     }).map((el, index) => (
       <Occurrence key={el._id ? el._id : index} ref={myRef} element={el} eliminateOccurrence={() => eliminateOccurrence(el._id)} />))
     : <div></div>;
@@ -70,10 +70,10 @@ function Grid(props) {
   let tempOccurrence = null;
   if (tempEvent) {
     if (calcOverlap(tempEvent)) {
-      tempEvent.overlap = true
+      tempEvent.overlap = true;
     }
     else {
-      tempEvent.overlap = false
+      tempEvent.overlap = false;
     }
     tempOccurrence =
       <Occurrence key={tempEvent._id}

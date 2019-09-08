@@ -118,18 +118,22 @@ function ScheduleList() {
               className="modal__form__input"
             />
             {errorMsg ? <p className="modal__form__errorMsg">{errorMsg}</p> : null}
-            <button
-              className="modal__form__button modal__form__button--ok"
-              type="submit"
-            >
-                    Crear
-            </button>
-            <button
-              onClick={()=>setShowAdd(false)}
-              className="modal__form__button modal__form__button--cancel"
-            >
-                    Cancelar
-            </button>
+            
+            <div className="modal__buttons">
+              <button
+                className="modal__form__button modal__form__button--ok"
+                type="submit"
+              >
+                Crear
+              </button>
+              <button
+                onClick={()=>setShowAdd(false)}
+                className="modal__form__button modal__form__button--cancel"
+              >
+                Cancelar
+              </button>
+
+            </div>
           </form>
         </div>
       </div>

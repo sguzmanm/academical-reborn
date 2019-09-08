@@ -187,7 +187,10 @@ function ScheduleBody() {
               onChange={e => {customEvent.place=e.target.value;setCustomEvent(customEvent);}}
               className="modal__form__input"
             />
+
+            <label htmlFor="start-date">Fecha de inicio</label>
             <Flatpickr data-enable-time
+              name="start-date"
               placeholder="Fecha de inicio"
               options={{minDate:"2019-01-01",minuteIncrement:30}}
               value={customEvent.dateStart}
@@ -195,7 +198,9 @@ function ScheduleBody() {
               className="modal__form__input modal__form__input--calendar"
             />
 
+            <label htmlFor="end-date">Fecha de fin</label>
             <Flatpickr data-enable-time
+              name="end-date"
               placeholder="Fecha de fin"
               options={{minDate:"2019-01-01",minuteIncrement:30}}
               value={customEvent.dateEnd}
@@ -204,18 +209,20 @@ function ScheduleBody() {
             />
 
             {errorMsg ? <p className="modal__form__errorMsg">{errorMsg}</p> : null}
-            <button
-              className="modal__form__button modal__form__button--ok"
-              type="submit"
-            >
+            <div className="modal__form__buttons">
+              <button
+                className="modal__form__button modal__form__button--ok"
+                type="submit"
+              >
                   Crear
-            </button>
-            <button
-              onClick={()=>deactivateModal()}
-              className="modal__form__button modal__form__button--cancel"
-            >
+              </button>
+              <button
+                onClick={()=>deactivateModal()}
+                className="modal__form__button modal__form__button--cancel"
+              >
                   Cancelar
-            </button>
+              </button>
+            </div>
           </form>
         </div>
       </div>

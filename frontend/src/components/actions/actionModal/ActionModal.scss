@@ -27,6 +27,7 @@
 
     &__title {
       color: white;
+      padding: 1rem;
     }
 
     &__close {
@@ -43,34 +44,39 @@
 
   &__body {
     margin: 0;
-    font-size: 1rem;
+    font-size: 4rem;
     padding: 0 1rem;
     background-color: white;
   }
 
   &__footer {
-    position: relative;
-    left: 30%;
-    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
   }
 
   &__button {
-    margin: 0 1rem;
-    font-size: 1.5rem;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    border-radius: 33px/33px;
+    margin-top: 3rem;
+    min-width: 10rem;
+    font-weight: bold;
+    outline: none;
     cursor: pointer;
-    padding: 1rem;
+    padding: 0.6rem 2rem;
+    border-radius: 33px/33px;
+    margin: 0.5rem 0;
     color: white;
 
     &--ok {
       background-color: #288d7f;
       border-color: #288d7f;
-      color: white;
     }
 
     &--cancel {
       background-color: #ee2e31;
       border-color: #ee2e31;
-      color: white;
     }
   }
 
@@ -78,6 +84,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    &__buttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
 
     &__button {
       text-transform: uppercase;
@@ -114,6 +126,12 @@
       margin-bottom: 0;
     }
 
+    label {
+      color: $mainColor;
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+    }
+
     &__input {
       border: 0;
       border-bottom: 1px solid $mainColor;
@@ -143,6 +161,7 @@
         border-radius: 33px/33px;
         padding: 1rem;
         text-align: center;
+        margin-top: 0.5rem;
 
         &::placeholder {
           color: white;
