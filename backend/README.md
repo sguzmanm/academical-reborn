@@ -45,7 +45,7 @@ Once the .env file is properly located in the backend folder with the above prop
 npm install
 ```
 
-When libs are installed, run the next command for making the server run:
+When libs are installed, run the next command for making the server run in port 4000:
 
 ```
 npm start
