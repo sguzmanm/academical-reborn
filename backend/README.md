@@ -25,7 +25,7 @@ Both of privateKey and publicKey are necessary to generate our own jwt tokens fo
 
 - dbUser: User for db connection
 - dbPassword: Password for db connection
-- dbHost: Host for db connection
+- dbHost: Host for db connection. Mongo atlas is recommeded for this step.
 
 All these credentials are though out for a connection with a mongodb with SRV
 
@@ -39,19 +39,17 @@ All these credentials are though out for a connection with a mongodb with SRV
 
 ## Setup: Run the app
 
-Now then, with npm installed go to the root and type:
+Once the .env file is properly located in the backend folder with the above properties. Open a terminal or cmd in the same folder and run:
 
 ```
 npm install
 ```
 
-When libs are installed:
+When libs are installed, run the next command for making the server run:
 
 ```
 npm start
 ```
-
-The app should be running at port 3000
 
 ## Folder structure
 
