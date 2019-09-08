@@ -1,5 +1,5 @@
-import initState from './state'
+import initState from "./state";
 
-export default function reducer(state=initState, action) {
-  return state
+export default function reducer(state=initState) {
+  return state;
 }

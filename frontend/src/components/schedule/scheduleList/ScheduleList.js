@@ -163,7 +163,9 @@ const deleteSchedule=async ()=>{
       {/*Schedule list sidebar*/}
       <div className="scheduleList">
         <button className="scheduleList__add" onClick={()=>setShowAdd(true)}><img src={require('../../../assets/icons/add.svg')} alt="Add new schedule"/></button>
-        {mapScheduleList}
+        <div className="scheduleList__list">
+          {mapScheduleList}
+        </div>
       </div>
 
       {showAdd?addScheduleModal:null}

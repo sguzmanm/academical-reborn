@@ -1,21 +1,19 @@
 import React from 'react'
-
-
 class ActionModal extends React.Component{
-
     constructor(props)
     {
+
         super(props);
         this.state={
             hidden:true
         }
     }
 
-    toggle=()=>{
+    toggle = () => {
         this.setState({
             hidden:!this.state.hidden
-        })
-    }
+        });
+    };
 
     render()
     {
