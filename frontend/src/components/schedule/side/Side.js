@@ -12,9 +12,7 @@ function Side() {
 
   function changeTab(index)
   {
-    console.log(currentTab+" "+index);
     setCurrentTab(index);
-    console.log(currentTab);
   }
   return (
     <div className="side">
