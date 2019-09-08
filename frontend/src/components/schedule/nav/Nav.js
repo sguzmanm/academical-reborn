@@ -1,44 +1,47 @@
-import React, { useState } from 'react'
-import './Nav.scss'
-import { useSelector, useDispatch } from 'react-redux'
-import { logout as logoutAction } from '../../../store/auth'
-import { setMonday,setActCurMonday } from '../../../store/week'
-import { logout as deleteUserInfo } from '../../../util/state/localStorageUtil'
-import { withRouter } from 'react-router-dom'
+/* eslint-disable no-undef */
+import React, { useState } from "react";
+import "./Nav.scss";
+import { useSelector, useDispatch } from "react-redux";
+import { logout as logoutAction } from "../../../store/auth";
+import { setMonday,setActCurMonday } from "../../../store/week";
+import { logout as deleteUserInfo } from "../../../util/state/localStorageUtil";
+import { withRouter } from "react-router-dom";
+
+import PropTypes from "prop-types";
 
 function Nav(props) {
-  const [isUserModalOpen, setUserModalOpen] = useState(false)
-  const dispatch = useDispatch()
-  const curMonday = useSelector(state => state.week.curMonday)
+  const [isUserModalOpen, setUserModalOpen] = useState(false);
+  const dispatch = useDispatch();
+  const curMonday = useSelector(state => state.week.curMonday);
 
   const logout = () => {
-    deleteUserInfo()
-    dispatch(logoutAction())
-    props.history.push('/login')
-  }
+    deleteUserInfo();
+    dispatch(logoutAction());
+    props.history.push("/login");
+  };
 
   const changeMonday = (howMuch) => {
-    const newDate = new Date(curMonday.getTime() + 60 * 60 * 24 * 7 * 1000 * howMuch)
-    dispatch(setMonday(newDate))
-    dispatch(setActCurMonday(newDate))
-  }
+    const newDate = new Date(curMonday.getTime() + 60 * 60 * 24 * 7 * 1000 * howMuch);
+    dispatch(setMonday(newDate));
+    dispatch(setActCurMonday(newDate));
+  };
 
   const getMondayFormatted = () =>{
     const monday=new Date(curMonday);
-    let locale= 'es-CO'
-    let month= monday.toLocaleString(locale, { month: "long" })
-    month=month.charAt(0).toUpperCase() + month.slice(1)
-    return month + ' '+ monday.getDate()
-  }
+    let locale= "es-CO";
+    let month= monday.toLocaleString(locale, { month: "long" });
+    month=month.charAt(0).toUpperCase() + month.slice(1);
+    return month + " "+ monday.getDate();
+  };
 
   const getSaturdayFormatted = () =>{
     const saturday=new Date(curMonday);
     saturday.setDate(saturday.getDate() + 6);
-    let locale= 'es-CO'
-    let month= saturday.toLocaleString(locale, { month: "long" })
-    month=month.charAt(0).toUpperCase() + month.slice(1)
-    return month + ' '+ saturday.getDate()
-  }
+    let locale= "es-CO";
+    let month= saturday.toLocaleString(locale, { month: "long" });
+    month=month.charAt(0).toUpperCase() + month.slice(1);
+    return month + " "+ saturday.getDate();
+  };
 
   return (
     <div className="nav" key={curMonday.getDate()}>
@@ -50,7 +53,7 @@ function Nav(props) {
       </div>
       <img
         className="nav__userIcon"
-        src={require('../../../assets/icons/person.svg')}
+        src={require("../../../assets/icons/person.svg")}
         alt="user icon"
         onClick={() => setUserModalOpen(!isUserModalOpen)}
       />
@@ -62,7 +65,12 @@ function Nav(props) {
         </div>
       ) : null}
     </div>
-  )
+  );
 }
 
-export default withRouter(Nav)
+
+Nav.propTypes = {
+  history: PropTypes.any
+};
+
+export default withRouter(Nav);
