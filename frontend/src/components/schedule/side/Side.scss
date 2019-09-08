@@ -3,24 +3,22 @@
   height: 100%;
   box-shadow: 5px 0 6px rgba($color: #000000, $alpha: 0.16);
 
-  &__tabs{
-    margin:1rem auto 1rem;
-    width: 25%;  
+  &__tabs {
+    margin: 1rem auto 1rem;
+    width: 25%;
   }
 
-  &__tab{
-    cursor:pointer;
-    margin:0;
+  &__tab {
+    cursor: pointer;
+    margin: 0;
     border: black solid 1px;
 
-    &--on{
-      background-color:#6DB5ED;
+    &--on {
+      background-color: #6db5ed;
     }
 
-    &--off{
-      background-color:transparent;
+    &--off {
+      background-color: transparent;
     }
   }
-  
 }
-

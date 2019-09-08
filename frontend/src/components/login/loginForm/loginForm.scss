@@ -1,4 +1,4 @@
-@import '../../../css/variables.scss';
+@import "../../../css/variables.scss";
 
 .loginForm {
   display: flex;
@@ -24,8 +24,8 @@
     }
   }
 
-  &__errorMsg{
-    color:red;
+  &__errorMsg {
+    color: red;
     margin-bottom: 0;
   }
 
