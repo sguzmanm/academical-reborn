@@ -1,4 +1,4 @@
-@import "../../../../css/variables.scss";
+@import '../../../../css/variables.scss';
 
 .scheduleBody {
   display: grid;
@@ -22,6 +22,7 @@
     &--disabled {
       cursor: auto;
       background-color: $disabledColor;
+      border: 1px solid #797979;
     }
   }
 
@@ -31,6 +32,11 @@
     bottom: 0;
     margin: 0 0.1rem -0.5rem 0;
     font-size: 1rem;
+    z-index: 2;
+
+    &--disabled {
+      color:#383838;
+    }
   }
 
   &__row {

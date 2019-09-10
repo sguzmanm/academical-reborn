@@ -236,7 +236,7 @@ function ScheduleBody() {
               <div 
                 className={`scheduleBody__cell ${isScheduleEmpty()?"scheduleBody__cell--disabled":""}`} 
                 key={j} onClick={()=>activateModal(i,j-1)} >
-                {j === 0 && i % 2 === 0 ? <p className="scheduleBody__hour">{i / 2 + 6}</p> : null}
+                {j === 0 && i % 2 === 0 ? <p className={`scheduleBody__hour ${isScheduleEmpty()?"scheduleBody__hour--disabled":""}`}>{i / 2 + 6}</p> : null}
               </div>
             ))}
           </div>
