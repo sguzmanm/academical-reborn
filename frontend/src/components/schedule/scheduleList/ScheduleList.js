@@ -20,15 +20,20 @@ function ScheduleList() {
     useSelector(state => state.schedules.schedules, []);
   const mySchedules=useSchedules();
   
-  const currentSchedule=useSelector(state=>state.schedules.schedule);
+  const useCurrentSchedule = () =>
+    useSelector(state => state.schedules.schedule, []);
+  const currentSchedule=useCurrentSchedule();
   
-  const [selected,setSelected]=useState(mySchedules.indexOf(currentSchedule));
+  console.log(mySchedules,currentSchedule)
+  let index=currentSchedule?mySchedules.indexOf(currentSchedule):0
+  console.log(index)
+  const [selected,setSelected]=useState(currentSchedule?mySchedules.indexOf(currentSchedule):0);
+  console.log(selected);
   const dispatch = useDispatch();
 
   const setSelectedSchedule=(index)=>{
     dispatch(setCurrentSchedule(mySchedules[index]));
     setSelected(index);
-    console.log(selected);
   };
 
   // Actions
