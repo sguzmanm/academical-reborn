@@ -138,8 +138,8 @@ function ScheduleBody() {
   };
 
   const isScheduleEmpty = ()=>{
-    return !mySchedules || mySchedules.length===0
-  }
+    return !mySchedules || mySchedules.length===0;
+  };
 
   const addCustomEvent=async (e)=>{
     e.preventDefault();
@@ -229,12 +229,12 @@ function ScheduleBody() {
   
   return (
     <div className="scheduleBodyContainer">
-      <div className={`scheduleBody ${isScheduleEmpty()?'scheduleBody--disabled':''}`}>
+      <div className={`scheduleBody ${isScheduleEmpty()?"scheduleBody--disabled":""}`}>
         {Array.apply(null, { length: maxRows }).map((_, i) => (
           <div className="scheduleBody__row" key={i}>
             {Array.apply(null, { length: maxCols }).map((_, j) => (
               <div 
-                className={`scheduleBody__cell ${isScheduleEmpty()?'scheduleBody__cell--disabled':''}`} 
+                className={`scheduleBody__cell ${isScheduleEmpty()?"scheduleBody__cell--disabled":""}`} 
                 key={j} onClick={()=>activateModal(i,j-1)} >
                 {j === 0 && i % 2 === 0 ? <p className="scheduleBody__hour">{i / 2 + 6}</p> : null}
               </div>

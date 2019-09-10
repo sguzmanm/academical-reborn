@@ -29,10 +29,10 @@ function Side() {
           <button className={
             `side__tab 
             side__tab--${index===currentTab?"on":"off"}
-            ${index>0 && (!mySchedules || mySchedules.length===0)?'side__tab--hidden':''}`
+            ${index>0 && (!mySchedules || mySchedules.length===0)?"side__tab--hidden":""}`
           }
-            key={index} onClick={()=>changeTab(index)}
-            style={index>0 && (!mySchedules || mySchedules.length===0)?{}:{width:'auto'}}>
+          key={index} onClick={()=>changeTab(index)}
+          style={index>0 && (!mySchedules || mySchedules.length===0)?{}:{width:"auto"}}>
             <img alt={"tab-"+index} src={el.image}/>{el.name}
           </button>
         ))}
