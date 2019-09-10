@@ -8,7 +8,7 @@ function Side() {
 
   const [currentTab,setCurrentTab]=useState(0);
   const tabs=[<ScheduleList key={0}/>,<Filter key={1}/>];
-  const imageTabs=[require("../../../assets/icons/list.svg"),require("../../../assets/icons/magnifying-glass.svg")];
+  const curTabs=[{image:require("../../../assets/icons/list.svg"),name:'Horarios'},{image:require("../../../assets/icons/magnifying-glass.svg"),name:'Eventos'}];
 
   function changeTab(index)
   {
@@ -18,10 +18,10 @@ function Side() {
     <div className="side">
       
       <div className="side__tabs">
-        {imageTabs.map((el,index)=>(
+        {curTabs.map((el,index)=>(
           <button className={`side__tab side__tab--${index===currentTab?"on":"off"}`}
             key={index} onClick={()=>changeTab(index)}>
-            <img alt={"tab-"+index} src={el}></img>
+            <img alt={"tab-"+index} src={el.image}/>{el.name}
           </button>
         ))}
       </div>

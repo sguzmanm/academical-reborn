@@ -1,20 +1,29 @@
+@import "../../../css/variables.scss";
+
 .side {
   width: 25vw;
   height: 100%;
   box-shadow: 5px 0 6px rgba($color: #000000, $alpha: 0.16);
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+
 
   &__tabs {
-    margin: 1rem auto 1rem;
-    width: 25%;
+    margin: 1rem auto;
+    display:flex;
   }
 
   &__tab {
     cursor: pointer;
     margin: 0;
     border: black solid 1px;
+    display:flex;
+    align-items: center;
+    color:black;
 
     &--on {
-      background-color: #6db5ed;
+      background-color: rgba($color: $mainColor, $alpha: 0.7);
     }
 
     &--off {

@@ -161,7 +161,7 @@ function ScheduleList() {
   ));
 
   return (
-    <div className="scheduleListContainer">
+    <div className="scheduleList__container">
 
       {/*Schedule list sidebar*/}
       <div className="scheduleList">

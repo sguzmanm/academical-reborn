@@ -21,7 +21,7 @@ function Grid(props) {
   // Redux
   const dispatch = useDispatch();
   const useCurrentSchedule = () =>
-    useSelector(state => state.schedules.schedule, []);
+    useSelector(state => state.schedules.schedule) || {collegeEvents:[]};
   const currentSchedule = useCurrentSchedule();
 
 
