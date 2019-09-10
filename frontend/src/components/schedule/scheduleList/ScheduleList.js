@@ -19,7 +19,10 @@ function ScheduleList() {
   const useSchedules = () =>
     useSelector(state => state.schedules.schedules, []);
   const mySchedules=useSchedules();
-  const [selected,setSelected]=useState(0);
+  
+  const currentSchedule=useSelector(state=>state.schedules.schedule);
+  
+  const [selected,setSelected]=useState(mySchedules.indexOf(currentSchedule));
   const dispatch = useDispatch();
 
   const setSelectedSchedule=(index)=>{

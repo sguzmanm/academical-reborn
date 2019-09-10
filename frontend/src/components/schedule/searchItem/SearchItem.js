@@ -15,9 +15,13 @@ function SearchItem(props) {
   const url = useSelector(state => state.root.url);
   const token = useSelector(state => state.auth.token);
   const user = useSelector(state => state.auth.user);
-
   
   const dispatch = useDispatch();
+  const useSchedule = () =>
+    useSelector(state => state.schedules.schedule, []);
+  const currentSchedule=useSchedule();
+
+
 
   const updateCurrentSchedule = async (events) => {
     try {
@@ -35,7 +39,6 @@ function SearchItem(props) {
     }
   };
 
-  const currentSchedule= useSelector(state => state.schedules.schedule);
   const addItem= () =>{
     if(!currentSchedule) return
     if(!currentSchedule.collegeEvents)
