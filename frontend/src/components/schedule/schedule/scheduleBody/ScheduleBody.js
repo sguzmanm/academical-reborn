@@ -1,7 +1,8 @@
-import React,{useState} from "react";
+import React,{useState,useRef} from "react";
 import "./ScheduleBody.scss";
 
 import { maxRows,maxCols,rangeMinutes,timeStart } from "../../../../util/grid/grid";
+import ActionModal from "../../../actions/actionModal/ActionModal.js";
 import "../../../actions/actionModal/ActionModal.scss";
 
 import axios from "axios";
@@ -22,6 +23,7 @@ function ScheduleBody() {
   const currentSchedule= useSelector(state => state.schedules.schedule);
   const currentMonday= useSelector(state=>state.week.curMonday);
 
+
   // Modal
   let [customEvent,setCustomEvent]=useState({
     title:"",
@@ -36,8 +38,7 @@ function ScheduleBody() {
     place:"",
     days:[]
   });
-
-  const [activeModal,setActiveModal]=useState(false);
+  const addCustomEventModal = useRef(null);
   const [errorMsg,setErrorMsg]=useState("");
 
 
@@ -58,7 +59,7 @@ function ScheduleBody() {
       type:"Custom"
     });
 
-    setActiveModal(true);
+    addCustomEventModal.current.toggle();
   };
 
   const deactivateModal=()=>{
@@ -66,8 +67,6 @@ function ScheduleBody() {
       title:"",
       description:"",
       type:"",
-      dateStart:{},
-      dateEnd:{},
       indexStart:0,
       indexEnd:0,
       timeStart:"",
@@ -76,7 +75,7 @@ function ScheduleBody() {
       days:[]
     });
 
-    setActiveModal(false);
+    addCustomEventModal.current.toggle();
   };
 
   const validDates=(startDate,endDate)=>{
@@ -159,80 +158,66 @@ function ScheduleBody() {
     deactivateModal();
   };
 
-  const addCustomEventModal=(
-    <div className="modal">
-      
-      <div className="modal__backdrop" onClick={()=>deactivateModal()} />
-      <div className="modal__content">
-        <div className="modal__header">
-          <button className="modal__header__close" onClick={()=>deactivateModal()}>&times;</button>
-          <h4 className="modal__header__title">Agregar mi evento</h4>
-        </div>
-        <div className="modal__body">
-          <form className="modal__form" noValidate onSubmit={addCustomEvent}>
-            <input
-              type="text"
-              placeholder="Nombre del evento"
-              value={customEvent.title}
-              onChange={e => {customEvent.title=e.target.value;setCustomEvent(customEvent);}}
-              className="modal__form__input"
-            />
-            <textarea
-              placeholder="Descripción"
-              rows={4}
-              value={customEvent.description}
-              onChange={e => {customEvent.description=e.target.value;setCustomEvent(customEvent);}}
-              className="modal__form__input modal__form__input"
-            />
-            <input
-              type="text"
-              placeholder="Lugar del evento"
-              value={customEvent.place}
-              onChange={e => {customEvent.place=e.target.value;setCustomEvent(customEvent);}}
-              className="modal__form__input"
-            />
+  const modalFormBody=(
+    <form className="modal__form" noValidate onSubmit={addCustomEvent}>
+    <input
+      type="text"
+      placeholder="Nombre del evento"
+      onChange={e => {customEvent.title=e.target.value;setCustomEvent(customEvent);}}
+      className="modal__form__input"
+    />
+    <textarea
+      placeholder="Descripción"
+      rows={4}
+      value={customEvent.description}
+      onChange={e => {customEvent.description=e.target.value;setCustomEvent(customEvent);}}
+      className="modal__form__input modal__form__input"
+    />
+    <input
+      type="text"
+      placeholder="Lugar del evento"
+      onChange={e => {customEvent.place=e.target.value;setCustomEvent(customEvent);}}
+      className="modal__form__input"
+    />
 
-            <label htmlFor="start-date">Fecha de inicio</label>
-            <Flatpickr data-enable-time
-              name="start-date"
-              placeholder="Fecha de inicio"
-              options={{minDate:"2019-01-01",minuteIncrement:30}}
-              value={customEvent.dateStart}
-              onChange={date => { customEvent.dateStart=new Date(date);setCustomEvent(customEvent); }} 
-              className="modal__form__input modal__form__input--calendar"
-            />
+    <label htmlFor="start-date">Fecha de inicio</label>
+    <Flatpickr data-enable-time
+      name="start-date"
+      placeholder="Fecha de inicio"
+      options={{minDate:"2019-01-01",minuteIncrement:30}}
+      value={customEvent.dateStart}
+      onChange={date => { customEvent.dateStart=new Date(date);setCustomEvent(customEvent); }} 
+      className="modal__form__input modal__form__input--calendar"
+    />
 
-            <label htmlFor="end-date">Fecha de fin</label>
-            <Flatpickr data-enable-time
-              name="end-date"
-              placeholder="Fecha de fin"
-              options={{minDate:"2019-01-01",minuteIncrement:30}}
-              value={customEvent.dateEnd}
-              onChange={date => { customEvent.dateEnd=new Date(date);setCustomEvent(customEvent); }} 
-              className="modal__form__input modal__form__input--calendar"
-            />
+    <label htmlFor="end-date">Fecha de fin</label>
+    <Flatpickr data-enable-time
+      name="end-date"
+      placeholder="Fecha de fin"
+      options={{minDate:"2019-01-01",minuteIncrement:30}}
+      value={customEvent.dateEnd}
+      onChange={date => { customEvent.dateEnd=new Date(date);setCustomEvent(customEvent); }} 
+      className="modal__form__input modal__form__input--calendar"
+    />
 
-            {errorMsg ? <p className="modal__form__errorMsg">{errorMsg}</p> : null}
-            <div className="modal__form__buttons">
-              <button
-                className="modal__form__button modal__form__button--ok"
-                type="submit"
-              >
-                  Crear
-              </button>
-              <button
-                onClick={()=>deactivateModal()}
-                className="modal__form__button modal__form__button--cancel"
-              >
-                  Cancelar
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
+    {errorMsg ? <p className="modal__form__errorMsg">{errorMsg}</p> : null}
+    <div className="modal__form__buttons">
+      <button
+        className="modal__form__button modal__form__button--ok"
+        type="submit"
+      >
+          Crear
+      </button>
+      <button
+        onClick={()=>deactivateModal()}
+        className="modal__form__button modal__form__button--cancel"
+      >
+          Cancelar
+      </button>
     </div>
-  );
-
+  </form>
+  )
+  
   return (
     <div className="scheduleBodyContainer">
       <div className="scheduleBody">
@@ -246,7 +231,13 @@ function ScheduleBody() {
           </div>
         ))}
       </div>
-      {activeModal?addCustomEventModal:null}
+
+      <ActionModal ref={addCustomEventModal}
+        modalHeaderColor="white"
+        modalHeaderTitle="Agregar mi evento"
+        modalBody={modalFormBody}
+        okCBK={() => {addCustomEvent()}}
+        cancelCBK={()=>deactivateModal()}/>
     </div>
     
   );

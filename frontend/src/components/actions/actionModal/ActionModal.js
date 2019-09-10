@@ -21,16 +21,16 @@ class ActionModal extends React.Component{
     {
       if(this.state.hidden)
         return <div></div>;
-
+      
       const buttons=[];
-      if(this.props.okCBK)
+      if(this.props.okCBK && this.props.okText)
         buttons.push(
           <button className="modal__button modal__button--ok" key={0}
             onClick={()=>{this.props.okCBK();this.toggle();}}>
             {this.props.okText}
           </button>
         );
-      if(this.props.cancelCBK)
+      if(this.props.cancelCBK && this.props.cancelText)
         buttons.push(
           <button className="modal__button modal__button--cancel" key={1} 
             onClick={()=>{this.props.cancelCBK();this.toggle();}}>
@@ -47,7 +47,7 @@ class ActionModal extends React.Component{
               <h4 className="modal__header__title">{this.props.modalHeaderTitle}</h4>
             </div>
             <div className="modal__body">
-              <p>{this.props.modalBody}</p>
+              {this.props.modalBody}
             </div>
             <div className="modal__footer">
               {buttons}

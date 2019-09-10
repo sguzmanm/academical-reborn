@@ -33,7 +33,7 @@ function ScheduleList() {
 
   // Actions
   const errorModal=useRef(null);
-
+  const addScheduleModal=useRef(null);
   const deleteModal = useRef(null);
   const showDeleteModal = (index) => {
     setSelected(index);
@@ -63,7 +63,6 @@ function ScheduleList() {
   };
 
   // Add Schedule
-  const [showAdd,setShowAdd]=useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -87,7 +86,7 @@ function ScheduleList() {
       const res=await axios.post(`${url}users/${user._id}/schedules`,
         schedule,options);
       dispatch(setSchedules(res.data.value.schedules,0));
-      setShowAdd(false);
+      addScheduleModal.current.toggle()
     }
     catch(e)
     {
@@ -96,52 +95,40 @@ function ScheduleList() {
     }
   };
 
-  const addScheduleModal=(
-    <div className="modal">
+  const addScheduleModalForm=(
+    <form className="modal__form" noValidate onSubmit={addSchedule}>
+      <input
+        type="text"
+        placeholder="Nombre del horario"
+        value={title.value}
+        onChange={e => setTitle(e.target.value)}
+        className="modal__form__input"
+      />
+      <textarea
+        placeholder="Descripción"
+        rows={4}
+        value={description.value}
+        onChange={e => setDescription(e.target.value)}
+        className="modal__form__input"
+      />
+      {errorMsg ? <p className="modal__form__errorMsg">{errorMsg}</p> : null}
       
-      <div className="modal__backdrop" onClick={()=>setShowAdd(false)}/>
-      <div className="modal__content">
-        <div className="modal__header">
-          <button className="modal__header__close" onClick={()=>setShowAdd(false)}>&times;</button>
-          <h4 className="modal__header__title">Agregar nuevo horario</h4>
-        </div>
-        <div className="modal__body">
-          <form className="modal__form" noValidate onSubmit={addSchedule}>
-            <input
-              type="text"
-              placeholder="Nombre del horario"
-              value={title.value}
-              onChange={e => setTitle(e.target.value)}
-              className="modal__form__input"
-            />
-            <textarea
-              placeholder="Descripción"
-              rows={4}
-              value={description.value}
-              onChange={e => setDescription(e.target.value)}
-              className="modal__form__input"
-            />
-            {errorMsg ? <p className="modal__form__errorMsg">{errorMsg}</p> : null}
-            
-            <div className="modal__buttons">
-              <button
-                className="modal__form__button modal__form__button--ok"
-                type="submit"
-              >
-                Crear
-              </button>
-              <button
-                onClick={()=>setShowAdd(false)}
-                className="modal__form__button modal__form__button--cancel"
-              >
-                Cancelar
-              </button>
+      <div className="modal__buttons">
+        <button
+          className="modal__form__button modal__form__button--ok"
+          type="submit"
+        >
+          Crear
+        </button>
+        <button
+          onClick={()=>{}}
+          className="modal__form__button modal__form__button--cancel"
+        >
+          Cancelar
+        </button>
 
-            </div>
-          </form>
-        </div>
       </div>
-    </div>
+    </form>
   );
   
 
@@ -167,13 +154,19 @@ function ScheduleList() {
 
       {/*Schedule list sidebar*/}
       <div className="scheduleList">
-        <button className="scheduleList__add" onClick={()=>setShowAdd(true)}><img src={require("../../../assets/icons/add.svg")} alt="Add new schedule"/></button>
+        <button className="scheduleList__add" onClick={()=>addScheduleModal.current.toggle()}><img src={require("../../../assets/icons/add.svg")} alt="Add new schedule"/></button>
         <div className="scheduleList__list">
           {mapScheduleList}
         </div>
       </div>
 
-      {showAdd?addScheduleModal:null}
+      {/*Add Schedule*/}
+      <ActionModal ref={addScheduleModal}
+        modalHeaderColor="white"
+        modalHeaderTitle="Agregar Nuevo Horario"
+        modalBody={addScheduleModalForm}
+        okCBK={(e) => addSchedule(e)}
+        cancelCBK={() => { }} />
 
       {/*Delete Schedule*/}
       <ActionModal ref={deleteModal}

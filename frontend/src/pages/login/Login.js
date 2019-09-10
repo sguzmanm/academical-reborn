@@ -15,7 +15,7 @@ function Login() {
       <h1 className="loginPage__title">Academical</h1>
       {isLogin ? <LoginForm></LoginForm> : <SignUpForm></SignUpForm>}
       <p>
-        {isLogin ? "Eres nuevo?" : "Ya te uniste?"}{" "}
+        {isLogin ? "¿Eres nuevo?" : "Ya te uniste?"}{" "}
         <span
           className="loginPage__butSwitch"
           onClick={toggleIsLogin.bind(null)}
