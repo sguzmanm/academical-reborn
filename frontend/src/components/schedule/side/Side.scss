@@ -16,11 +16,12 @@
   &__tab {
     cursor: pointer;
     margin: 0;
+    width:100%;
     border: black solid 1px;
     display: flex;
     align-items: center;
     color: black;
-    transition: width 5s ease-in;
+    transition: width 0.5s ease-in, padding 0.5s ease-in, border 0.5s ease-in;
 
     &--on {
       background-color: rgba($color: $mainColor, $alpha: 0.7);
