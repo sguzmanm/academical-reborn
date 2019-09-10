@@ -159,7 +159,10 @@ function ScheduleList() {
 
       {/*Schedule list sidebar*/}
       <div className="scheduleList">
-        <button className="scheduleList__add" onClick={()=>addScheduleModal.current.toggle()}><img src={require("../../../assets/icons/add.svg")} alt="Add new schedule"/></button>
+        <button className="scheduleList__add" onClick={()=>addScheduleModal.current.toggle()}>
+          Nuevo horario
+          <img src={require("../../../assets/icons/add.svg")} alt="Add new schedule"/>
+        </button>
         <div className="scheduleList__list">
           {mapScheduleList}
         </div>

@@ -4,23 +4,23 @@
   width: 25vw;
   height: 100%;
   box-shadow: 5px 0 6px rgba($color: #000000, $alpha: 0.16);
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
 
-
   &__tabs {
     margin: 1rem auto;
-    display:flex;
+    display: flex;
   }
 
   &__tab {
     cursor: pointer;
     margin: 0;
     border: black solid 1px;
-    display:flex;
+    display: flex;
     align-items: center;
-    color:black;
+    color: black;
+    transition: width 5s ease-in;
 
     &--on {
       background-color: rgba($color: $mainColor, $alpha: 0.7);
@@ -28,6 +28,13 @@
 
     &--off {
       background-color: transparent;
+    }
+
+    &--hidden {
+      width: 0;
+      padding: 0;
+      border: none;
+      overflow: hidden;
     }
   }
 }

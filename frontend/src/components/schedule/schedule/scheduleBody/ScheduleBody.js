@@ -23,6 +23,10 @@ function ScheduleBody() {
   const currentSchedule= useSelector(state => state.schedules.schedule);
   const currentMonday= useSelector(state=>state.week.curMonday);
 
+  const useSchedules = () =>
+    useSelector(state => state.schedules.schedules, []);
+  const mySchedules=useSchedules();
+
 
   // Modal
   let [customEvent,setCustomEvent]=useState({
@@ -43,13 +47,14 @@ function ScheduleBody() {
 
 
   const activateModal=(i,day)=>{
-
+    if(isScheduleEmpty())
+      return;
+    
     let minutesStart=(i+11)*30;
     let dateStart= new Date();
     dateStart.setDate(currentMonday.getDate()+day);
     dateStart.setHours(minutesStart/60,minutesStart%60);
     let dateEnd=new Date (dateStart.getTime()+60*30*1000);
-
 
     setCustomEvent({
       indexStart:i,
@@ -131,6 +136,10 @@ function ScheduleBody() {
     let minutes = ("0" + date.getMinutes()).slice(-2);
     return date.getHours()+":"+minutes;
   };
+
+  const isScheduleEmpty = ()=>{
+    return !mySchedules || mySchedules.length===0
+  }
 
   const addCustomEvent=async (e)=>{
     e.preventDefault();
@@ -220,11 +229,13 @@ function ScheduleBody() {
   
   return (
     <div className="scheduleBodyContainer">
-      <div className="scheduleBody">
+      <div className={`scheduleBody ${isScheduleEmpty()?'scheduleBody--disabled':''}`}>
         {Array.apply(null, { length: maxRows }).map((_, i) => (
           <div className="scheduleBody__row" key={i}>
             {Array.apply(null, { length: maxCols }).map((_, j) => (
-              <div className="scheduleBody__cell" key={j} onClick={()=>activateModal(i,j-1)} >
+              <div 
+                className={`scheduleBody__cell ${isScheduleEmpty()?'scheduleBody__cell--disabled':''}`} 
+                key={j} onClick={()=>activateModal(i,j-1)} >
                 {j === 0 && i % 2 === 0 ? <p className="scheduleBody__hour">{i / 2 + 6}</p> : null}
               </div>
             ))}
@@ -237,7 +248,7 @@ function ScheduleBody() {
         modalHeaderTitle="Agregar mi evento"
         modalBody={modalFormBody}
         okCBK={() => {addCustomEvent()}}
-        cancelCBK={()=>deactivateModal()}/>
+        cancelCBK={()=>{deactivateModal()}}/>
     </div>
     
   );

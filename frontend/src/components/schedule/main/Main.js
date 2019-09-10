@@ -22,7 +22,7 @@ function Main() {
         dispatch(setEvents(res.data));
 
         res = await axios.get(`${url}users/${user._id}/schedules`,{headers:{Authorization:`Bearer ${token}`}});
-        dispatch(setSchedules(res.data));
+        dispatch(setSchedules(res.data,0));
         dispatch(setCurrentSchedule(res.data[0]));
   
       } catch (err) {
