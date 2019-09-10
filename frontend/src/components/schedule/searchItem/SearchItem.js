@@ -40,7 +40,7 @@ function SearchItem(props) {
   };
 
   const addItem= () =>{
-    if(!currentSchedule) return
+    if(!currentSchedule) return;
     if(!currentSchedule.collegeEvents)
     {
       currentSchedule.collegeEvents=[];

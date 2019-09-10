@@ -53,12 +53,12 @@ function Nav(props) {
       </div>
       <div className="nav__user">
         <a href='/' target="_blank"> <img className="nav__userIcon" src={require("../../../assets/icons/help.svg")} alt="help"/></a>
-      <img
-        className="nav__userIcon"
-        src={require("../../../assets/icons/person.svg")}
-        alt="user"
-        onClick={() => setUserModalOpen(!isUserModalOpen)}
-      />
+        <img
+          className="nav__userIcon"
+          src={require("../../../assets/icons/person.svg")}
+          alt="user"
+          onClick={() => setUserModalOpen(!isUserModalOpen)}
+        />
       </div>
       {isUserModalOpen ? (
         <div className="nav__modal">

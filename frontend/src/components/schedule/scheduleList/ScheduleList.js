@@ -24,9 +24,9 @@ function ScheduleList() {
     useSelector(state => state.schedules.schedule, []);
   const currentSchedule=useCurrentSchedule();
   
-  console.log(mySchedules,currentSchedule)
-  let index=currentSchedule?mySchedules.indexOf(currentSchedule):0
-  console.log(index)
+  console.log(mySchedules,currentSchedule);
+  let index=currentSchedule?mySchedules.indexOf(currentSchedule):0;
+  console.log(index);
   const [selected,setSelected]=useState(currentSchedule?mySchedules.indexOf(currentSchedule):0);
   console.log(selected);
   const dispatch = useDispatch();
@@ -91,7 +91,7 @@ function ScheduleList() {
       const res=await axios.post(`${url}users/${user._id}/schedules`,
         schedule,options);
       dispatch(setSchedules(res.data.value.schedules,0));
-      addScheduleModal.current.toggle()
+      addScheduleModal.current.toggle();
     }
     catch(e)
     {

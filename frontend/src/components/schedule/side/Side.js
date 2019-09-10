@@ -8,7 +8,7 @@ function Side() {
 
   const [currentTab,setCurrentTab]=useState(0);
   const tabs=[<ScheduleList key={0}/>,<Filter key={1}/>];
-  const curTabs=[{image:require("../../../assets/icons/list.svg"),name:'Horarios'},{image:require("../../../assets/icons/magnifying-glass.svg"),name:'Eventos'}];
+  const curTabs=[{image:require("../../../assets/icons/list.svg"),name:"Horarios"},{image:require("../../../assets/icons/magnifying-glass.svg"),name:"Eventos"}];
 
   function changeTab(index)
   {

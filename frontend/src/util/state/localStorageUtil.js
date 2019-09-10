@@ -28,7 +28,7 @@ export const loadAuthFromLS = () => {
       }
     }
     if (new Date(auth.tokenTimeout) < new Date()) {
-      logout()
+      logout();
       // eslint-disable-next-line no-unused-vars
       for (const index in auth) {
         auth[index] = null;
@@ -39,7 +39,7 @@ export const loadAuthFromLS = () => {
 };
 
 export const logout = () => {
-  console.log('mueche')
+  console.log("mueche");
   // eslint-disable-next-line no-unused-vars
   for (const index in auth) {
     localStorage.removeItem(index);
