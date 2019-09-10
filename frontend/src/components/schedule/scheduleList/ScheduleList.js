@@ -27,13 +27,19 @@ function ScheduleList() {
   console.log(mySchedules,currentSchedule);
   let index=currentSchedule?mySchedules.indexOf(currentSchedule):0;
   console.log(index);
-  const [selected,setSelected]=useState(currentSchedule?mySchedules.indexOf(currentSchedule):0);
+  console.log('a',currentSchedule);
+  console.log('b',mySchedules);
+
+  const findScheduleIndex=()=>{
+    const a= mySchedules.findIndex((item)=>{ return item._id.toString()===currentSchedule._id.toString()})
+    return a
+  }
+  const selected= findScheduleIndex()
   console.log(selected);
   const dispatch = useDispatch();
 
   const setSelectedSchedule=(index)=>{
     dispatch(setCurrentSchedule(mySchedules[index]));
-    setSelected(index);
   };
 
   // Actions
@@ -41,7 +47,7 @@ function ScheduleList() {
   const addScheduleModal=useRef(null);
   const deleteModal = useRef(null);
   const showDeleteModal = (index) => {
-    setSelected(index);
+    setSelectedSchedule(index);
     // `current` apunta al elemento de entrada de texto montado
     deleteModal.current.toggle();
   }; 
