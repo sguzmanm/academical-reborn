@@ -68,6 +68,11 @@
     }
   }
 
+  &__user{
+    display:flex;
+    align-items: center;
+  }
+
   &__userIcon {
     width: 30px;
     height: 30px;

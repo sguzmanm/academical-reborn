@@ -23,6 +23,7 @@ function Login() {
           {isLogin ? "Regístrate" : "Inicia Sesion"}
         </span>
       </p>
+      <p>¿Perdido? Consulta nuestro <a href='/' target="_blank" className="loginPage__butSwitch">Tutorial</a></p>
     </div>
   );
 }

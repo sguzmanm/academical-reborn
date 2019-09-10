@@ -28,6 +28,11 @@ const tutorialItems = [
     description: 'Haz click en el evento para añadirlo a tu horario',
   },
   {
+    title: 'Navega',
+    description:
+      'Usa la barra de navegación superior para observar tu horario semana a semana',
+  },
+  {
     title: 'Elimina eventos',
     description:
       '¿Cambio de planes? No te preocupes. En tu calendario haz click en la X arriba a la derecha del evento que desees eliminar y este saldrá de tu calendario',
@@ -47,8 +52,13 @@ function Tutorial(props) {
       <div className="tutorial__list">
         {tutorialItems.map((item, index) => (
           <div className="tutorial__item" key={index}>
+            <hr />
             <h3>{item.title}</h3>
             <p>{item.description}</p>
+            <img
+              src={require('../../assets/tuto/tuto' + (index + 1) + '.png')}
+              alt="Tutorial step"
+            />
           </div>
         ))}
       </div>

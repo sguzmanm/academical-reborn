@@ -51,12 +51,15 @@ function Nav(props) {
         <h3 className="nav__date nav__date--2">{getMondayFormatted()} - {getSaturdayFormatted()}</h3>
         <h3 className="nav__date nav__date--3" onClick={()=>changeMonday(1)}>&gt;</h3>
       </div>
+      <div className="nav__user">
+        <a href='/' target="_blank"> <img className="nav__userIcon" src={require("../../../assets/icons/help.svg")} alt="help"/></a>
       <img
         className="nav__userIcon"
         src={require("../../../assets/icons/person.svg")}
-        alt="user icon"
+        alt="user"
         onClick={() => setUserModalOpen(!isUserModalOpen)}
       />
+      </div>
       {isUserModalOpen ? (
         <div className="nav__modal">
           <p className="nav__modalOption" onClick={logout}>
