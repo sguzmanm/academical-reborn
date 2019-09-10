@@ -11,7 +11,7 @@ const tutorialItems = [
   {
     title: 'Crea un horario',
     description:
-      'En el panel de horarios puedes crear todos los horarios que desees en caso que desees distintas alternativas. Aquí también seleccionas cual es el horario que estás manejando actualmente',
+      'En el panel de horarios puedes crear todos los horarios que desees en caso de que busques distintas alternativas. Aquí también seleccionas cuál es el horario que estás manejando actualmente',
   },
   {
     title: 'Busca',
@@ -21,7 +21,7 @@ const tutorialItems = [
   {
     title: 'Preview',
     description:
-      'Pon el mouse encima del evento y déjanos mostrarte cuando sucederá. Si tiene un fondo rojo significa que se cruza con otro',
+      'Pon el mouse encima del evento y déjanos mostrarte cuando sucederá. Si tiene un fondo rojo significa que se cruza con otro que ya tienes agregado',
   },
   {
     title: 'Añade eventos',
