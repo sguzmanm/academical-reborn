@@ -1,14 +1,33 @@
-## Libs
+# Academical-reborn backend
 
-- cors
-- cheerio
-- dotenv
-- express
-- express-validator
-- jsonwebtoken
-- mongodb
-- nodemon
-- node-schedule
+This is the backend for the "Academical-reborn" web app.
+
+## Description
+
+The backend was built using a JS stack: Node JS with Express and MongoDB. Also, in order to get the cultural events from the university, we built a scrapper (found at the scrapper folder) that renders the HTML of the site, and copies the data into our Mongo database in a custom fashion (every x hours of everyday).
+
+### Libs
+
+- cors: Enable cors for all requests
+- cheerio: Subset of core jQuery for selectig HTML data easily (scrapper)
+- dotenv: Use of environmental variables in .env files
+- express: Node web framework used for building the REST services.
+- express-validator: Validator of body request structures for Express.
+- jsonwebtoken: Generation of our own authentication tokens (jwt).
+- mongodb: Driver for connecting with our Mongo database in Atlas.
+- nodemon: Hot-reloading of the backend server.
+- node-schedule: Chrono tasks for the scrapper.
+
+### Folder Structure
+
+- app: All app logic related components with a general routes file and a folder for each parent resource identified on the database. For each for these resources you have either more subresources with their respective routes.js file, or the following files:
+  - controller: Receives all REST requests and delegates the results to querys.js.
+  - querys: Communication with the MongoDB.
+  - routes: RWST routes for communicating with the backend.
+- readme: Images and other attachments used in this readme
+- scrapper: Contains js files for scrappers to be ran over certain periods of time
+- util: Common features for the app, including auth, db and errors management
+- app.js: Main app connection
 
 ## Setup: Environmental variables
 
@@ -39,7 +58,7 @@ All these credentials are though out for a connection with a mongodb with SRV
 
 ## Setup: Run the app
 
-Once the .env file is properly located in the backend folder with the above properties. Open a terminal or cmd in the same folder and run:
+Once the .env file is properly located in the backend folder with the above properties. Open a terminal on this the same folder and run:
 
 ```
 npm install
@@ -51,65 +70,9 @@ When libs are installed, run the next command for making the server run in port 
 npm start
 ```
 
-## Folder structure
-
-- app: Contains the routes for the app and all operations over each collection
-- bin: www.js main config for the app
-- scrapper: Contains js files for scrappers to be ran over certain periods of time
-- util: COmmon features for the app, including auth, db and errors management
-- app.js: Main app connection
-
 ## Scrapper
 
-```
-cd scrapper
-node cultural-events.js <Num of weeks> <Hour interval for running the scrapper>
-```
-
-## Models
-
-### Users
-
-```
-{
-  "id":"email",
-  "email":"String",
-  "username":"String",
-  "password":"String, encrypted",
-  "schedules":"Array Schedule"
-}
-```
-
-### Schedules
-
-```
-{
-  "id":"Mongo default",
-  "title":"String",
-  "description":"String",
-  "collegeEvents":"Array String (ID of Event)"
-}
-```
-
-### Events
-
-```
-Event:{
-  "id":"Mongo default",
-  "title":"String",
-  "description":"String",
-  "type":"String",
-  "rating":"Double",
-  "dateStart":"Date",
-  "dateEnd":"Date",
-  indexStart": "Int ranging from 0 to the lastGridUnit, by half an hour",
-  "timeStart":"String in hh:mm",
-  indexEnd": "Int ranging from 0 to the lastGridUnit, by hqlf an hour",
-  "timeEnd": "String in hh:mm",
-  "place":"String",
-  "days":"Array Number ranging from 0 to 5"
-}
-```
+The scrapper is run directly from app.js, and it runs every X amount of hours on the day (this is defined in the environment variables config) looking for a specific number of weeks ahead of the current date.
 
 ## Postman tests
 
