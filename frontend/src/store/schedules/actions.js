@@ -8,9 +8,12 @@ export const addItem = item => ({
   payload: item,
 });
 
-export const setSchedules = schedules => ({
+export const setSchedules = (schedules,scheduleIndex) => ({
   type: "SET_SCHEDULES",
-  payload: schedules,
+  payload: {
+    schedules:schedules,
+    schedule:schedules[scheduleIndex]
+  },
 });
 
 export const setTempEvent = event => ({

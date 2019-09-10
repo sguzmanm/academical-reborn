@@ -10,7 +10,8 @@ export default function reducer(state = initState, action) {
   case "SET_SCHEDULES":
     return {
       ...state,
-      schedules: action.payload
+      schedules: action.payload.schedules,
+      schedule:action.payload.schedule
     };
   case "SET_TEMPORAL_EVENT":
     return {

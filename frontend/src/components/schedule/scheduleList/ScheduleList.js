@@ -25,6 +25,7 @@ function ScheduleList() {
   const setSelectedSchedule=(index)=>{
     dispatch(setCurrentSchedule(mySchedules[index]));
     setSelected(index);
+    console.log(selected);
   };
 
   // Actions
@@ -49,8 +50,7 @@ function ScheduleList() {
       };
       await axios.delete(`${url}users/${user._id}/schedules/${id}`,
         options);
-      dispatch(setSchedules(tempSchedules));
-      setSelectedSchedule(0);
+      dispatch(setSchedules(tempSchedules,0));
     }
     catch(e)
     {
@@ -83,8 +83,7 @@ function ScheduleList() {
       };
       const res=await axios.post(`${url}users/${user._id}/schedules`,
         schedule,options);
-      dispatch(setSchedules(res.data.value.schedules));
-      setSelectedSchedule(0);
+      dispatch(setSchedules(res.data.value.schedules,0));
       setShowAdd(false);
     }
     catch(e)
