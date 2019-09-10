@@ -15,6 +15,7 @@ The backend was built using a JS stack: Node JS with Express and MongoDB. Also, 
 - express-validator: Validator of body request structures for Express.
 - jsonwebtoken: Generation of our own authentication tokens (jwt).
 - mongodb: Driver for connecting with our Mongo database in Atlas.
+- morgan: Beautiful logging of REST actions.
 - nodemon: Hot-reloading of the backend server.
 - node-schedule: Chrono tasks for the scrapper.
 
