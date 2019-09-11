@@ -13,6 +13,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+const PORT = process.env.PORT || 4000
+
 start = async () => {
   try {
     await require("./util/db/mongo").mongoConnect(
@@ -32,7 +34,8 @@ start = async () => {
       );
     }
 
-    app.listen(process.env.PORT || 4000, "localhost");
+    console.log("Trying on port "+PORT);
+    app.listen(PORT,()=>{`Listening on port ${PORT}`});
   } catch (err) {
     console.log(err);
   }

@@ -6,11 +6,11 @@ This app allows people to plan their schedule based on custom events and cultura
 
 - Carlos Mario Sarmiento
 
-  [Personal Site](https://korkies22.github.io/Portfolio/) -  [GitHub](https://github.com/korkies22/)
+  [Personal Site](https://korkies22.github.io/Portfolio/) - [GitHub](https://github.com/korkies22/)
 
 - El Checho
 
-  [Personal Site](https://sguzmanm.github.io/i-am-sergio-guzman/) - [GitHub](https://github.com/sguzmanm) 
+  [Personal Site](https://sguzmanm.github.io/i-am-sergio-guzman/) - [GitHub](https://github.com/sguzmanm)
 
 ## Links
 
@@ -38,7 +38,7 @@ This project was developed using the MERN stack.
 
 Some extra dependencies were included in the project. Each can be seen in the backend or frontend folders or in the package.json files in the respective folders.
 
-The application is deployed in https://heroku.com/ 
+The application is deployed in https://heroku.com/
 
 ## Instructions to execute
 
@@ -52,3 +52,18 @@ Verify that nodejs is installed by running "node -v" on terminal or cmd. It can 
 
 1. Check backend folder for complete instructions on how to execute the backend
 2. Check frontend folder for complete instructions on how to execute the frontend
+
+### Steps to run production version
+
+1. Follow build instructions on frontend folder
+2. Setup env vars in heroku of the backend .env file, by [dashboard](https://dashboard.heroku.com/) or CLI with:
+
+```
+heroku config:set <KEY>=<value>
+```
+
+3. Deploy to heroku with:
+
+```
+git subtree push --prefix backend heroku master
+```
