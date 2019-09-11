@@ -27,14 +27,14 @@ function ScheduleList() {
   console.log(mySchedules,currentSchedule);
   let index=currentSchedule?mySchedules.indexOf(currentSchedule):0;
   console.log(index);
-  console.log('a',currentSchedule);
-  console.log('b',mySchedules);
+  console.log("a",currentSchedule);
+  console.log("b",mySchedules);
 
   const findScheduleIndex=()=>{
-    const a= mySchedules.findIndex((item)=>{ return item._id.toString()===currentSchedule._id.toString()})
-    return a
-  }
-  const selected= findScheduleIndex()
+    const index= mySchedules.findIndex((item)=>{ return item._id.toString()===currentSchedule._id.toString();});
+    return index;
+  };
+  const selected= findScheduleIndex();
   console.log(selected);
   const dispatch = useDispatch();
 
@@ -132,7 +132,7 @@ function ScheduleList() {
           Crear
         </button>
         <button
-          onClick={()=>{}}
+          onClick={()=>{addScheduleModal.current.toggle();}}
           className="modal__form__button modal__form__button--cancel"
         >
           Cancelar
