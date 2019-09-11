@@ -4,17 +4,17 @@ This app allows people to plan their schedule based on custom events and cultura
 
 ## Colaborators
 
-- Carlos Mario Sarmiento
+- Carlos Mario Sarmiento: Alias "El Korkies"
 
   [Personal Site](https://korkies22.github.io/Portfolio/) - [GitHub](https://github.com/korkies22/)
 
-- El Checho
+- Sergio Guzmán Mayorga: Alias "El Checho"
 
   [Personal Site](https://sguzmanm.github.io/i-am-sergio-guzman/) - [GitHub](https://github.com/sguzmanm)
 
 ## Links
 
-**Deployed at:** https://www.heroku.com/
+**Deployed at:** https://protected-inlet-87189.herokuapp.com/
 
 ## Description
 
@@ -45,6 +45,7 @@ The application is deployed in https://heroku.com/
 ### Requisites
 
 - **Node JS**
+- **Heroku CLI (Optional, for replicating our deployment only)**
 
 Verify that nodejs is installed by running "node -v" on terminal or cmd. It can be downloaded in https://nodejs.org/ (versión LTS)
 
@@ -53,7 +54,9 @@ Verify that nodejs is installed by running "node -v" on terminal or cmd. It can 
 1. Check backend folder for complete instructions on how to execute the backend
 2. Check frontend folder for complete instructions on how to execute the frontend
 
-### Steps to run production version
+### Steps to deploy production version into Heroku
+
+It is assumed that the Heroku CLI is setup in your computer for this and connected to a project. If you are not sure or do not have this, please visit https://devcenter.heroku.com/articles/getting-started-with-nodejs.
 
 1. Follow build instructions on frontend folder
 2. Setup env vars in heroku of the backend .env file, by [dashboard](https://dashboard.heroku.com/) or CLI with:
@@ -62,8 +65,18 @@ Verify that nodejs is installed by running "node -v" on terminal or cmd. It can 
 heroku config:set <KEY>=<value>
 ```
 
-3. Deploy to heroku with:
+3. Deployment in heroku needs you to push only the "backend" folder into the heroku´s master branch. For this, use the following command:
 
 ```
 git subtree push --prefix backend heroku master
 ```
+
+## Screenshots
+
+### Main Menu
+
+![Screen Shot](./readme/ss.png)
+
+## License
+
+This project is public under the MIT license, found [here](https://github.com/sguzmanm/academical-reborn/blob/master/LICENSE)

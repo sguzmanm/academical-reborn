@@ -18,6 +18,14 @@ The frontend was built using React as the main library, with the new hooks libra
 - axios: Package used to handle http requests
 - node-sass: Sass compiler used to compile .scss files
 
+## Setup: Environmental variables
+
+There are two files por environment variables in this project: .env and .env.development. Both are ignore in the repo and are only configured locally. The first file refers to variables used in production and the second one, to those used in development.
+
+Currently the variables found in each file are:
+
+- REACT_APP_URL: Base url for communicating with the backend. It only takes into account the host, protocol and port,e.g., http://localhost:4000
+
 ## Setup: Run the app
 
 Open a terminal or cmd in this folder and run:

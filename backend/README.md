@@ -71,6 +71,12 @@ When libs are installed, run the next command for making the server run in port 
 npm start
 ```
 
+If you wish to run in development mode ("hot reload" with nodemon) type:
+
+```
+npm run dev
+```
+
 ## Scrapper
 
 The scrapper is run directly from app.js, and it runs every X amount of hours on the day (this is defined in the environment variables config) looking for a specific number of weeks ahead of the current date.
