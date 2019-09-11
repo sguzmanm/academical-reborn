@@ -1,3 +1,7 @@
+/* eslint-disable no-undef */
+const url=process.env.REACT_APP_URL;
+console.log(url);
+
 export default {
-  url:"http://localhost:4000/api/"
+  url:`${url}/api/`
 };
