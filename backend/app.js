@@ -32,7 +32,7 @@ start = async () => {
       );
     }
 
-    app.listen(4000, "localhost");
+    app.listen(process.env.PORT || 4000, "localhost");
   } catch (err) {
     console.log(err);
   }
