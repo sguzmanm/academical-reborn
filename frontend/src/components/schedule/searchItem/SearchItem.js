@@ -21,8 +21,6 @@ function SearchItem(props) {
     useSelector(state => state.schedules.schedule, []);
   const currentSchedule=useSchedule();
 
-
-
   const updateCurrentSchedule = async (events) => {
     try {
       const options = {
@@ -39,6 +37,16 @@ function SearchItem(props) {
     }
   };
 
+  const isAdded=()=>{
+    return currentSchedule.collegeEvents.some(el=>el._id && el._id.toString()===props.element._id);
+  };
+
+  const changeWeek=()=>{
+    const dateStart= props.element.dateStart;
+    const newMonday= getMonday(dateStart);
+    dispatch(setMonday(newMonday));
+  };
+
   const addItem= () =>{
     if(!currentSchedule) return;
     if(!currentSchedule.collegeEvents)
@@ -51,14 +59,13 @@ function SearchItem(props) {
   };
 
   const addTempItem= () =>{
-    const dateStart= props.element.dateStart;
-    const newMonday= getMonday(dateStart);
-    dispatch(setMonday(newMonday));
+    changeWeek();
     dispatch(setTempEvent({...props.element,isTemp:true}));
   };
 
   const removeTempItem= () =>{
-    dispatch(reselectCurMonday());
+    if(!isAdded())
+      dispatch(reselectCurMonday());
     dispatch(setTempEvent(null));
   };
 

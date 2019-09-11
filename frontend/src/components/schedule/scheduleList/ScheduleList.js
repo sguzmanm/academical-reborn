@@ -23,19 +23,12 @@ function ScheduleList() {
   const useCurrentSchedule = () =>
     useSelector(state => state.schedules.schedule, []);
   const currentSchedule=useCurrentSchedule();
-  
-  console.log(mySchedules,currentSchedule);
-  let index=currentSchedule?mySchedules.indexOf(currentSchedule):0;
-  console.log(index);
-  console.log("a",currentSchedule);
-  console.log("b",mySchedules);
 
   const findScheduleIndex=()=>{
-    const index= mySchedules.findIndex((item)=>{ return item._id.toString()===currentSchedule._id.toString();});
+    const index= mySchedules.findIndex((item)=>{ return item._id && item._id.toString()===currentSchedule._id.toString();});
     return index;
   };
   const selected= findScheduleIndex();
-  console.log(selected);
   const dispatch = useDispatch();
 
   const setSelectedSchedule=(index)=>{

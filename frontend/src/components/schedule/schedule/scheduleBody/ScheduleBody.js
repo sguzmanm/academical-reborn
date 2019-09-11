@@ -9,6 +9,9 @@ import axios from "axios";
 
 import {useSelector,useDispatch} from "react-redux";
 import { setCurrentSchedule } from "../../../../store/schedules";
+import { setMonday } from "../../../../store/week";
+import { getMonday } from "../../../../util/date/date";
+
 
 import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from "react-flatpickr";
@@ -80,6 +83,8 @@ function ScheduleBody() {
       days:[]
     });
 
+    console.log("Deactivate?");
+    setErrorMsg("");
     addCustomEventModal.current.toggle();
   };
 
@@ -111,17 +116,27 @@ function ScheduleBody() {
     return true;
   };
 
+
+  const changeWeek=(dateStart)=>{
+    const newMonday= getMonday(dateStart);
+    dispatch(setMonday(newMonday));
+  };
+
   const updateEvent=async (event)=>{
     const options = {
       headers: { Authorization: `Bearer ${token}` }
     };
+
     const schedule= {...currentSchedule};
     if(!schedule.collegeEvents)
       schedule.collegeEvents=[];
     schedule.collegeEvents.push(event);
+
     await axios.put(`${url}users/${user._id}/schedules/${schedule._id}`,
       schedule, options);
     dispatch(setCurrentSchedule(schedule));
+
+    changeWeek(event.dateStart);
   };
 
   const calculateIndex=(time)=>{
