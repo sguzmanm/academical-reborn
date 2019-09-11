@@ -126,16 +126,16 @@ function ScheduleList() {
       
       <div className="modal__buttons">
         <button
-          className="modal__form__button modal__form__button--ok"
-          type="submit"
-        >
-          Crear
-        </button>
-        <button
           onClick={()=>{addScheduleModal.current.toggle();}}
           className="modal__form__button modal__form__button--cancel"
         >
           Cancelar
+        </button>
+        <button
+          className="modal__form__button modal__form__button--ok"
+          type="submit"
+        >
+          Crear
         </button>
 
       </div>
@@ -189,9 +189,9 @@ function ScheduleList() {
         modalHeaderTitle="Borrar Horario"
         modalBody="¿Estás seguro de que quieres borrar este horario?"
         okCBK={() => deleteSchedule(selected)}
-        okText="Sí"
+        okText="Borrar"
         cancelCBK={() => { }}
-        cancelText="No" />
+        cancelText="Cancelar" />
 
       {/*Error*/}
       <ActionModal ref={errorModal}

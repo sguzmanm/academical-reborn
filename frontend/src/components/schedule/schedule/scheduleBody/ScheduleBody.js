@@ -212,16 +212,16 @@ function ScheduleBody() {
       {errorMsg ? <p className="modal__form__errorMsg">{errorMsg}</p> : null}
       <div className="modal__form__buttons">
         <button
-          className="modal__form__button modal__form__button--ok"
-          type="submit"
-        >
-          Crear
-        </button>
-        <button
           onClick={()=>deactivateModal()}
           className="modal__form__button modal__form__button--cancel"
         >
           Cancelar
+        </button>
+        <button
+          className="modal__form__button modal__form__button--ok"
+          type="submit"
+        >
+          Crear
         </button>
       </div>
     </form>
