@@ -15,7 +15,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(root));
-app.use(fallback('index.html', { root: root }))
 
 const PORT = process.env.PORT || 4000
 
@@ -29,6 +28,8 @@ start = async () => {
 
     require("./app/router")(app);
     require("./util/errors/exceptionMiddleware")(app);
+
+    app.use(fallback('index.html', { root: root }));
 
     if (process.env.scrapper === "1") {
       const culturalScrapper = require("./scrapper/cultural-events");
