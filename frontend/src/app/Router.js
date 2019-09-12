@@ -13,6 +13,7 @@ function AppRouter() {
       <Route path="/" exact component={Tutorial} />
       <Route path="/login" render={() => token? <Redirect to="/schedule"/> : <Login></Login> } />
       <Route path="/schedule" render={() => token?  <Schedule></Schedule>: <Redirect to="/login"/> } />
+      <Route path="*" render={() => <Redirect to="/"/> } />
     </Router>
   );
 }
