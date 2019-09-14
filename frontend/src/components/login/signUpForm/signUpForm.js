@@ -49,12 +49,12 @@ function SignUpForm(props) {
         placeholder="Email"
         value={email.value}
         onChange={e => setEmail(e.target.value)}
-        autoComplete="Email"
+        autoComplete="Correo"
         className="signUpForm__input"
       />
       <input
         type="password"
-        placeholder="Password"
+        placeholder="Contraseña"
         value={password.value}
         onChange={e => setPassword(e.target.value)}
         autoComplete="new-password"
@@ -62,7 +62,7 @@ function SignUpForm(props) {
       />
       <input
         type="password"
-        placeholder="Confirm Password"
+        placeholder="Confirmar Contraseña"
         value={confirmPassword.value}
         onChange={e => setConfirmPassword(e.target.value)}
         autoComplete="new-password"
@@ -75,7 +75,7 @@ function SignUpForm(props) {
         }`}
         type="submit"
       >
-        SignUp
+        Registrarse
       </button>
     </form>
   );
