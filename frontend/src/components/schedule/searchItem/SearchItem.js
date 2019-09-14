@@ -38,6 +38,8 @@ function SearchItem(props) {
   };
 
   const isAdded=()=>{
+    if(!currentSchedule || !currentSchedule.collegeEvents)
+      return false;
     return currentSchedule.collegeEvents.some(el=>el._id && el._id.toString()===props.element._id);
   };
 
