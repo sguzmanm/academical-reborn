@@ -107,10 +107,25 @@ function ScheduleBody() {
       return false;
     }
 
-    if(startDate.getHours()===endDate.getHours() && startDate.getMinutes()===endDate.getMinutes())
+    if(startDate.getHours()>endDate.getHours())
     {
-      setErrorMsg("Los horarios deben ser diferentes");
+      setErrorMsg("La hora de inicio debe ser menor que la de fin");
       return false;
+    }
+
+    if(startDate.getHours()===endDate.getHours())
+    {
+      if( startDate.getMinutes()>endDate.getMinutes())
+      {
+        setErrorMsg("Los horarios deben ser diferentes");
+        return false;
+      }
+
+      if( startDate.getMinutes()===endDate.getMinutes())
+      {
+        setErrorMsg("Los horarios deben ser diferentes");
+        return false;
+      }
     }
 
     return true;
@@ -156,6 +171,33 @@ function ScheduleBody() {
     return !mySchedules || mySchedules.length===0;
   };
 
+  const validateTime=(event,el)=>{
+    let eventDates=[new Date(event.dateStart),new Date(event.dateEnd)];
+    let elDates=[new Date(el.dateStart),new Date(el.dateEnd)];
+  
+    if(eventDates[1]<elDates[0] || eventDates[0]>elDates[1])
+      return true;
+      
+    if(event.days[0]!==el.days[0])
+      return true;
+    
+    if (el.indexStart > event.indexStart && el.indexStart<event.indexEnd) {
+      setErrorMsg(`El evento con nombre ${el.title} comienza durante el segundo evento con nombre ${event.title}`);
+      return false;
+    }
+
+    if (
+      el.indexStart <= event.indexStart &&
+      el.indexEnd <= event.indexEnd && 
+      el.indexEnd >=event.indexStart
+    ) {
+      setErrorMsg(`El evento con nombre ${el.title} se intercepta con el evento con nombre ${event.title}`);
+      return false;
+    }
+
+    return true;
+  };
+
   const addCustomEvent=async (e)=>{
     e.preventDefault();
 
@@ -170,13 +212,22 @@ function ScheduleBody() {
 
     if(!validDates(customEvent.dateStart,customEvent.dateEnd))
       return;
-    
+
     customEvent.timeStart=getTime(customEvent.dateStart);
     customEvent.timeEnd=getTime(customEvent.dateEnd);
   
-
     customEvent.indexStart=calculateIndex(customEvent.timeStart);
     customEvent.indexEnd=calculateIndex(customEvent.timeEnd);
+
+    const arr = currentSchedule.collegeEvents || [];
+    // eslint-disable-next-line no-unused-vars
+    for (const item of arr) {
+      let ans=validateTime(customEvent,item);
+      console.log(ans);
+      if (!ans) {
+        return;
+      }
+    }
 
     await updateEvent(customEvent);
     deactivateModal();
