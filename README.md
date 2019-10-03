@@ -73,9 +73,9 @@ git subtree push --prefix backend heroku master
 
 ## Screenshots
 
-### Main Menu
+### Match
 
-![Academical Reborn SS](./readme/ss.PNG)
+![PicrossVS match](./screenshot.PNG)
 
 ## License
 
