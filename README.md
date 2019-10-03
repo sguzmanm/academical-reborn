@@ -73,9 +73,9 @@ git subtree push --prefix backend heroku master
 
 ## Screenshots
 
-### Match
+### Main menu
 
-![PicrossVS match](./screenshot.PNG)
+![Academical Main Menu](./readme/ss.PNG)
 
 ## License
 
