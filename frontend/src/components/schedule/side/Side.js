@@ -15,7 +15,20 @@ function Side() {
   const mySchedules=useSchedules();
 
   const tabs=[<ScheduleList key={0}/>,<Filter key={1}/>];
-  const curTabs=[{image:require("../../../assets/icons/list.svg"),name:"Horarios"},{image:require("../../../assets/icons/magnifying-glass.svg"),name:"Eventos"}];
+  const curTabs=[
+    {
+      image:require("../../../assets/icons/list.svg"),
+      name:"Horarios"
+    },
+    {
+      image:require("../../../assets/icons/calendar.svg"),
+      name:"Eventos"
+    },
+    {
+      image:require("../../../assets/icons/school.svg"),
+      name:"Cursos"
+    }
+  ];
 
   function changeTab(index)
   {
@@ -32,7 +45,7 @@ function Side() {
             ${index>0 && (!mySchedules || mySchedules.length===0)?"side__tab--hidden":""}`
           }
           key={index} onClick={()=>changeTab(index)}>
-            <img alt={"tab-"+index} src={el.image}/>{el.name}
+            <img className="side__icon" alt={"tab-"+index} src={el.image}/> {el.name}
           </button>
         ))}
       </div>

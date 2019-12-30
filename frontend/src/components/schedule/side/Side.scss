@@ -13,10 +13,14 @@
     display: flex;
   }
 
+  &__icon {
+    margin-right: 0.3rem;
+  }
+
   &__tab {
     cursor: pointer;
     margin: 0;
-    width:100%;
+    width: 100%;
     border: black solid 1px;
     display: flex;
     align-items: center;
