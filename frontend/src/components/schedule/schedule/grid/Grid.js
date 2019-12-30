@@ -2,6 +2,8 @@ import React, { useRef } from "react";
 import "./Grid.scss";
 
 import axios from "axios";
+import {ItemTypes} from "../../../../util/grid/grid";
+
 import { useSelector, useDispatch } from "react-redux";
 import Occurrence from "./occurrence/Occurrence";
 
@@ -21,7 +23,7 @@ function Grid(props) {
   // Redux
   const dispatch = useDispatch();
   const useCurrentSchedule = () =>
-    useSelector(state => state.schedules.schedule) || {collegeEvents:[]};
+    useSelector(state => state.schedules.schedule) || {collegeEvents:[],courses:[]};
   const currentSchedule = useCurrentSchedule();
 
 
@@ -30,6 +32,7 @@ function Grid(props) {
       const options = {
         headers: { Authorization: `Bearer ${token}` }
       };
+      console.log("GRID");
       await axios.put(`${url}users/${user._id}/schedules/${currentSchedule._id}`,
         currentSchedule, options);
       dispatch(setCurrentSchedule(currentSchedule));
@@ -39,14 +42,15 @@ function Grid(props) {
     }
   };
 
-  const eliminateOccurrence = (id) => {
-    const index = currentSchedule.collegeEvents.findIndex(el => el._id === id);
-    currentSchedule.collegeEvents.splice(index, 1);
+  const eliminateOccurrence = (id,itemType) => {
+    const index = currentSchedule[itemType].findIndex(el => el._id === id);
+    currentSchedule[itemType].splice(index, 1);
     updateCurrentSchedule();
   };
 
   const calcOverlap = (eventT) => {
-    const arr = currentSchedule.collegeEvents || [];
+    let itemType=eventT.itemType?eventT.itemType:"collegeEvents";
+    const arr = currentSchedule[itemType] || [];
     // eslint-disable-next-line no-unused-vars
     for (const item of arr) {
       if (!(item.dateEnd <= eventT.dateStart || item.dateStart >= eventT.dateEnd)) {
@@ -58,13 +62,18 @@ function Grid(props) {
 
   // Render items
   const nextMonday = new Date(monday.getTime() + 60 * 60 * 24 * 7 * 1000);
-  const items = currentSchedule.collegeEvents ?
-    currentSchedule.collegeEvents.filter((el) => {
-      return new Date(el.dateStart) >= monday && new Date(el.dateEnd) <= nextMonday;
-    }).map((el, index) => (
-      <Occurrence key={el._id ? el._id : index} ref={myRef} element={el} eliminateOccurrence={() => eliminateOccurrence(el._id)} />))
-    : <div></div>;
-
+  let items=[];
+  Object.keys(ItemTypes).forEach((itemKey)=>{
+    let itemType=ItemTypes[itemKey];
+    const tempItems=currentSchedule[itemType] ?
+      currentSchedule[itemType].filter((el) => {
+        return !(new Date(el.dateStart) > nextMonday || new Date(el.dateEnd)<monday);
+      }).map((el, index) => (
+        <Occurrence key={`${itemType}_${el._id ? el._id : index}`} ref={myRef} element={el} eliminateOccurrence={() => eliminateOccurrence(el._id,itemType)} />))      
+      : <div key={`${itemType}_${items}`}></div>;
+    items=items.concat(tempItems);
+  });  
+  
   const tempEvent = useSelector(state => state.schedules.tempEvent);
 
   let tempOccurrence = null;

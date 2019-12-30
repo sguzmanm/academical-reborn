@@ -21,13 +21,11 @@ function SearchItem(props) {
     useSelector(state => state.schedules.schedule, []);
   const currentSchedule=useSchedule();
 
-  const updateCurrentSchedule = async (events) => {
+  const updateCurrentSchedule = async (schedule) => {
     try {
       const options = {
         headers: { Authorization: `Bearer ${token}` }
       };
-      const schedule= {...currentSchedule};
-      schedule.collegeEvents=events;
       await axios.put(`${url}users/${user._id}/schedules/${schedule._id}`,
         schedule, options);
       dispatch(setCurrentSchedule(schedule));
@@ -37,10 +35,10 @@ function SearchItem(props) {
     }
   };
 
-  const isAdded=()=>{
-    if(!currentSchedule || !currentSchedule.collegeEvents)
+  const isAdded=(itemType)=>{
+    if(!currentSchedule || !currentSchedule[itemType])
       return false;
-    return currentSchedule.collegeEvents.some(el=>el._id && el._id.toString()===props.element._id);
+    return currentSchedule[itemType].some(el=>el._id && el._id.toString()===props.element._id);
   };
 
   const changeWeek=()=>{
@@ -49,31 +47,34 @@ function SearchItem(props) {
     dispatch(setMonday(newMonday));
   };
 
-  const addItem= () =>{
+  const addItem= (itemType) =>{
     if(!currentSchedule) return;
-    if(!currentSchedule.collegeEvents)
+    if(!currentSchedule[itemType])
     {
-      currentSchedule.collegeEvents=[];
+      currentSchedule[itemType]=[];
     }
-    const events= [...currentSchedule.collegeEvents];
-    events.push(props.element);
-    updateCurrentSchedule(events);
+    console.log("My element",props.element);
+    console.log(currentSchedule);
+
+    currentSchedule[itemType].push(props.element);
+    updateCurrentSchedule(currentSchedule);
   };
 
   const addTempItem= () =>{
     changeWeek();
+    props.element.itemType=props.itemType; // Add different item type
     dispatch(setTempEvent({...props.element,isTemp:true}));
   };
 
   const removeTempItem= () =>{
-    if(!isAdded())
+    if(!isAdded(props.itemType))
       dispatch(reselectCurMonday());
     dispatch(setTempEvent(null));
   };
 
   const colorsLength=6;
   return (
-    <div onClick={addItem} onMouseEnter={addTempItem} onMouseLeave={removeTempItem}
+    <div onClick={()=>addItem(props.itemType)} onMouseEnter={addTempItem} onMouseLeave={removeTempItem}
       className={`search-item search-item--color${Math.abs(getHash(props.element.type)) % colorsLength}`}
     >
       <h4 className="search-item__title">{props.element.title}</h4>
@@ -83,8 +84,9 @@ function SearchItem(props) {
 }
 
 SearchItem.propTypes={
-  element:PropTypes.any,
-  eliminateOccurrence:PropTypes.any
+  element:PropTypes.object,
+  eliminateOccurrence:PropTypes.func,
+  itemType: PropTypes.string
 };
 
 export default SearchItem;

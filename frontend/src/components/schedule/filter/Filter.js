@@ -4,6 +4,9 @@ import "./Filter.scss";
 import SearchItem from "../searchItem/SearchItem";
 import { useSelector } from "react-redux";
 
+import {ItemTypes} from "../../../util/grid/grid";
+
+
 function Filter() {
   const events = useSelector(state => state.events.events);
   const [eventFilter, setEventFilter] = useState(events);
@@ -19,7 +22,7 @@ function Filter() {
   };
 
   const mapEvents=(data)=>(
-    data.map(el => <SearchItem key={el._id} element={el}></SearchItem>)
+    data.map(el => <SearchItem key={el._id} element={el} itemType={ItemTypes.EVENT}></SearchItem>)
   );
 
   return (

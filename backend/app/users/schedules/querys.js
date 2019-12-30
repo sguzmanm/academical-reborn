@@ -40,6 +40,13 @@ exports.newSchedule = async (userId, newSchedule) => {
           event._id = new ObjectId();
       });
     }
+
+    if (schedule.courses) {
+      schedule.courses.forEach(course=>{
+        if(!course._id)
+          course._id = new ObjectId();
+      })
+    }
   });
 
   return users.findOneAndUpdate(
@@ -74,13 +81,19 @@ exports.updateSchedule = async (userId, scheduleId, newSchedule) => {
   
   let events = schedules[index].collegeEvents;
   if (events) {
-    schedules[index].collegeEvents.forEach(event => {
+    events.forEach(event => {
       if(!event._id)
         event._id = new ObjectId();
     });
   }
 
-  console.log("EVENTS",events);
+  let courses = schedules[index].courses;
+  if (courses) {
+    courses.forEach(course=>{
+      if(!course._id)
+        course._id = new ObjectId();
+    })
+  }
 
   return users.findOneAndUpdate(
     { _id: mongoId },
