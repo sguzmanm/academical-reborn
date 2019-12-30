@@ -1,29 +1,32 @@
 /* eslint-disable no-undef */
+import PropTypes from "prop-types";
 import React,{useState} from "react";
 import "./Filter.scss";
 import SearchItem from "../searchItem/SearchItem";
 import { useSelector } from "react-redux";
 
-import {ItemTypes} from "../../../util/grid/grid";
-
-
-function Filter() {
-  const events = useSelector(state => state.events.events);
-  const [eventFilter, setEventFilter] = useState(events);
+function Filter(props) {
+  const items = useSelector(state => state.items[props.itemType]);
+  const [itemFilter, setItemFilter] = useState(items);
   const [filtered, setFiltered] = useState(false);
 
-  const filter=(event)=>{
+  const filter=(item)=>{
     setFiltered(true);
-    let tempFilter=events.filter((ev)=>{
-      let val=event.target.value;
+    let tempFilter=items.filter((ev)=>{
+      let val=item.target.value;
       return ev.title.includes(val) || ev.type.includes(val);
     });
-    setEventFilter(tempFilter);
+    setItemFilter(tempFilter);
   };
 
-  const mapEvents=(data)=>(
-    data.map(el => <SearchItem key={el._id} element={el} itemType={ItemTypes.EVENT}></SearchItem>)
-  );
+  const mapitems=(data)=>{
+    if(!data || data.length===0){
+      return null;
+    }
+    console.log("DATA",data);
+    return data.map(el => <SearchItem key={el._id} element={el} itemType={props.itemType}></SearchItem>);
+  };
+  
 
   return (
     <div className="filter">
@@ -37,12 +40,16 @@ function Filter() {
       </div>
 
 
-      <div className="filter__events">
-        {filtered || eventFilter.length>0?mapEvents(eventFilter):mapEvents(events)}
+      <div className="filter__items">
+        {filtered || itemFilter.length>0?mapitems(itemFilter):mapitems(items)}
       </div>
       
     </div>
   );
 }
+
+Filter.propTypes={
+  itemType:PropTypes.string
+};
 
 export default Filter;

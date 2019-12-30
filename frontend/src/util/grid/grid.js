@@ -5,8 +5,3 @@ export const maxCols=7;
 
 export const rangeMinutes=30;
 export const timeStart=360;
-
-export const ItemTypes={
-  EVENT:"collegeEvents",
-  COURSE:"courses"
-};

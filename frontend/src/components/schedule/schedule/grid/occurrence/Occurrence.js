@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 import "./Occurrence.scss";
-import { getHash } from "../../../../../util/events/events";
+import { getHash } from "../../../../../util/items/items";
 import { rowGap, colGap } from "../../../../../util/grid/grid";
 
 import PropTypes from "prop-types";

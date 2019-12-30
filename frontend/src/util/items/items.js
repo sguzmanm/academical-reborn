@@ -11,3 +11,8 @@ export const getHash = s => {
   }
   return hash;
 };
+
+export const ItemTypes={
+  EVENT:"collegeEvents",
+  COURSE:"courses"
+};

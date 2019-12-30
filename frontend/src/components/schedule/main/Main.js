@@ -5,7 +5,7 @@ import "./Main.scss";
 
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { setEvents } from "../../../store/events";
+import { setEvents } from "../../../store/items";
 import { setSchedules} from "../../../store/schedules";
 
 function Main() {

@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import "./Grid.scss";
 
 import axios from "axios";
-import {ItemTypes} from "../../../../util/grid/grid";
+import {ItemTypes} from "../../../../util/items/items";
 
 import { useSelector, useDispatch } from "react-redux";
 import Occurrence from "./occurrence/Occurrence";
