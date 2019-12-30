@@ -93,6 +93,7 @@ function calculateIndex(time) {
 
 // Makes a GET request with the given callback function
 const scrapeEventsCulturalWebpage = (url, cb) => {
+  console.log("SCRAPING ",BASE_PATH + url);
   https.get(BASE_PATH + url, res => {
     let html = "";
 
