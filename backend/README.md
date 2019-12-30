@@ -81,6 +81,8 @@ npm run dev
 
 The scrapper is run directly from app.js, and it runs every X amount of hours on the day (this is defined in the environment variables config) looking for a specific number of weeks ahead of the current date.
 
+All data is taken from https://decanaturadeestudiantes.uniandes.edu.co/index.php/es/eventos-de-la-semana/week.listevents/2019/09/17/49
+
 ## Postman tests
 
 For the tests there are two things to take into account:
