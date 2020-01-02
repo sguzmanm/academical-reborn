@@ -23,7 +23,6 @@ function Filter(props) {
     if(!data || data.length===0){
       return null;
     }
-    console.log("DATA",data);
     return data.map(el => <SearchItem key={el._id} element={el} itemType={props.itemType}></SearchItem>);
   };
   

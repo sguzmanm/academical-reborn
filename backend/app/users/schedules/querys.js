@@ -1,3 +1,19 @@
+/*
+_id:5d6b0473aa81cfb0ae52177d -- SAME
+description: Instructors --instructors
+code: null --nrc
+title:Orquesta de los Andes -- title
+dateEnd:2019-09-24T21:00:41.529+00:00 (Date) -- date_ini/date_fin on schedule
+dateStart:2019-09-24T19:00:41.529+00:00 (Date) -- date_ini/date_fin on schedule
+days:Array -- 0-l,1-m,2-i,3-j,4-v,5-s
+indexEnd:30 --time_fin
+indexStart:26 --time_ini
+place:Auditorio Mario Laserna -- building: classroom
+timeEnd:21:00 --time_fin
+timeStart:19:00 --time_ini
+type:Grupos institucionales --ptrmdesc
+*/
+
 let ObjectId = require("mongodb").ObjectID;
 const path = require("path"),
   rootDir = path.dirname(process.mainModule.filename),
