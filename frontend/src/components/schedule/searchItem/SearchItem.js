@@ -3,7 +3,7 @@ import axios from "axios";
 import "./SearchItem.scss";
 import { setCurrentSchedule, setTempEvent } from "../../../store/schedules";
 import { setMonday, reselectCurMonday } from "../../../store/week";
-import { getHash } from "../../../util/items/items";
+import { getHash, ItemTypes } from "../../../util/items/items";
 import { getMonday } from "../../../util/date/date";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -72,15 +72,27 @@ function SearchItem(props) {
     dispatch(setTempEvent(null));
   };
 
+  const isDescriptionAllowed=(itemType)=>{
+    if(itemType===ItemTypes.COURSE){
+      return true;
+    }
+    return false;
+  };
+
   const colorsLength=6;
   if (!props.element.days || props.element.days.length===0)
     return <div></div>;
+  
   return (
     <div onClick={()=>addItem(props.itemType)} onMouseEnter={addTempItem} onMouseLeave={removeTempItem}
       className={`search-item search-item--color${Math.abs(getHash(props.element.type)) % colorsLength}`}
     >
-      <h4 className="search-item__title">{props.element.title}</h4>
-      <h6 className="search-item__type">{props.element.type}</h6>
+      <p className="search-item__title">{props.element.title}</p>
+      {props.element.limit?<p className="search-item__header">{props.element.limit - props.element.enrolled} de {props.element.limit} cupos</p>:null}
+      {props.element.code?<p className="search-item__word"><span className="search-item__header">CRN</span> {props.element.code}</p>:null}
+      {props.element.credits?<p className="search-item__word"><span className="search-item__header">Créditos</span> {props.element.credits}</p>:null}
+      {isDescriptionAllowed(props.itemType)?<p className="search-item__word">{props.element.description}</p>:null}
+      <p className="search-item__type">{props.element.type}</p>
     </div>
   );
 }

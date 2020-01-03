@@ -1,7 +1,7 @@
 .filter {
   padding: 0.8rem;
   height: calc(100vh - 10rem);
-  width:25vw;
+  width: 25vw;
 
   &__searchBar {
     background-color: white;
@@ -9,8 +9,8 @@
     border: 1px #707070 solid;
 
     &__searchIcon {
-      width: 30px;
-      height: 30px;
+      width: 25px;
+      height: 25px;
       cursor: pointer;
       margin-right: 1rem;
       position: absolute;
@@ -18,7 +18,7 @@
 
     &__searchInput {
       color: #707070;
-      font-size: 25px;
+      font-size: 1rem;
       padding: 0rem 2rem;
       width: 95%;
       border-color: transparent;

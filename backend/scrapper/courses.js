@@ -1,5 +1,5 @@
-const data=require("./courses-data.json");
-require("dotenv").config();
+const data=require("./courses-data.json")
+  require("dotenv").config();
 const defaultDays = ["l", "m", "i", "j", "v", "s"];
 const fs = require('fs');
 const answer=[];
@@ -22,6 +22,15 @@ function calculateIndex(time) {
 
 const parseCourse=(course)=>{
   let newCourse,startDate,endDate,startTime,endTime,days;
+  let description="No hay profesores registrados";
+  if(course.instructors && course.instructors.length>1){
+      description=course.instructors.reduce((a,b)=>{return b && b.name?a.name+","+b.name:a.name});
+  }
+
+  if(course.instructors && course.instructors.length===1){
+      description=course.instructors[0].name;
+  }
+
   newCourse={
       title: course.class+"-"+course.course+":"+course.title,
       code: course.nrc,
@@ -31,7 +40,7 @@ const parseCourse=(course)=>{
       term:course.term,
       type: course.ptrmdesc,
       campus: course.campus,
-      description: course.instructors && course.instructors.length>0?course.instructors.reduce((a,b)=>{return a.name+","+b.name}):"No hay profesores registrados",
+      description: description
   };
 
   course.schedules.forEach((schedule,index)=>{
