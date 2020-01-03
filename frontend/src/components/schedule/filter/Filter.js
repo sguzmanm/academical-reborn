@@ -4,6 +4,7 @@ import React,{useState} from "react";
 import "./Filter.scss";
 import SearchItem from "../searchItem/SearchItem";
 import { useSelector } from "react-redux";
+import { ItemTypes } from "../../../util/items/items";
 
 function Filter(props) {
   const items = useSelector(state => state.items[props.itemType]);
@@ -23,7 +24,7 @@ function Filter(props) {
     if(!data || data.length===0){
       return null;
     }
-    return data.map(el => <SearchItem key={el._id} element={el} itemType={props.itemType}></SearchItem>);
+    return data.map(el =><SearchItem key={el._id?el._id:el.key} element={el} itemType={props.itemType}></SearchItem>);
   };
   
 

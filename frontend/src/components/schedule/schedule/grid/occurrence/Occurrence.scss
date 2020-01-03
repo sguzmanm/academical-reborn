@@ -1,5 +1,5 @@
 .occurrence {
-  z-index:1;
+  z-index: 1;
   background: #288d7f;
   padding: 0.5rem;
   color: white;
@@ -34,10 +34,9 @@
     border: 1px solid black;
     box-shadow: 1px 2px 5px rgba($color: #000000, $alpha: 0.4);
 
-    .occurrence__title {
-      color: black;
-    }
-    .occurrence__place {
+    .occurrence__title,
+    .occurrence__place,
+    .occurrence__code {
       color: black;
     }
 
@@ -50,30 +49,40 @@
     background-color: rgba($color: rgb(92, 63, 197), $alpha: 0.8);
     border: 1px solid black;
     box-shadow: 1px 2px 5px rgba($color: #000000, $alpha: 0.4);
-    margin:0.5rem 0 0 0.5rem;
+    margin: 0.5rem 0 0 0.5rem;
 
-    &.overlap{
+    &.overlap {
       background-color: rgba($color: rgb(197, 63, 63), $alpha: 0.8);
     }
 
-    .occurrence__title{
-      color:black;
-    }
-    .occurrence__place{
-      color:black;
+    .occurrence__title,
+    .occurrence__place,
+    .occurrence__code {
+      color: black;
     }
 
-    .occurrence__close{
-      color:black;
+    .occurrence__close {
+      color: black;
     }
   }
 
   &__title,
   &__place,
+  &__code,
   &__close {
     color: white;
     text-align: left;
     margin: 0;
+  }
+
+  &__title {
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+
+  &__place,
+  &__code {
+    font-size: 0.8rem;
   }
 
   &__close {

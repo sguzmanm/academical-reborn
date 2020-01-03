@@ -1,5 +1,4 @@
 export const setCurrentSchedule = schedule => {
-  console.log("Current schedule ",schedule);
 
   return {
     type: "SET_CURRENT_SCHEDULE",

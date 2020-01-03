@@ -7,15 +7,6 @@ const answer=[];
 // HELPERS
 //------------
 
-//Calculate date object with given event
-function calculateDate(year, month, day, hours) {
-  let time = hours.split(":");
-  let newDate = new Date();
-  newDate.setFullYear(year, month, day);
-  newDate.setHours(time[0], time[1]);
-  return newDate;
-}
-
 //Calculate index for the given time frame
 function calculateIndex(time) {
   if(time===null)
@@ -43,11 +34,24 @@ const parseCourse=(course)=>{
       description: course.instructors && course.instructors.length>0?course.instructors.reduce((a,b)=>{return a.name+","+b.name}):"No hay profesores registrados",
   };
 
-  course.schedules.forEach((schedule)=>{
-      startDate=new Date(schedule.date_ini);
-      endDate=new Date(schedule.date_fin);
+  course.schedules.forEach((schedule,index)=>{
+      startDate=null;
+      endDate=null;
       startTime=schedule.time_ini?schedule.time_ini.slice(0,2)+":"+schedule.time_ini.slice(2,4):null;
       endTime=schedule.time_fin?schedule.time_fin.slice(0,2)+":"+schedule.time_fin.slice(2,4):null;
+      if(startTime)
+      {
+        startDate=new Date(schedule.date_ini);
+        startDate.setHours(parseInt(startTime.split(":")[0],10));
+        startDate.setMinutes(parseInt(startTime.split(":")[1],10));  
+      }
+
+      if(endTime){
+        endDate=new Date(schedule.date_fin);  
+        endDate.setHours(parseInt(endTime.split(":")[0],10));
+        endDate.setMinutes(parseInt(endTime.split(":")[1],10));  
+      }
+
       newCourse={
           ...newCourse,
           place:schedule.building+":"+schedule.classroom,
@@ -59,12 +63,15 @@ const parseCourse=(course)=>{
           indexEnd:calculateIndex(endTime),
       }
       days=[];
+      let keyDayMessage="";
       defaultDays.forEach((day,index)=>{
         if(schedule[day] && schedule[day]!==null){
-            days.push(index)
+            days.push(index);
+            keyDayMessage+=index+"-";
         }
       })
       newCourse.days=days;
+      newCourse._id=newCourse.code+"-"+index+"D"+keyDayMessage;
       answer.push(newCourse);
   })
 }

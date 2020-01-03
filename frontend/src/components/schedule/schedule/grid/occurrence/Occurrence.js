@@ -12,23 +12,26 @@ const Ocurrence = forwardRef((props, ref) => {
   return (
     <div
       ref={ref}
-      className={`occurrence occurrence--color${Math.abs(getHash(props.element.type)) % colorsLength}
+      className={`occurrence occurrence--color${Math.abs(getHash(props.element.code?props.element.code:props.element.type)) % colorsLength}
        ${props.element.isTemp ? "isTemp" : ""}
        ${props.element.overlap ? "overlap" : ""}`}
       style={{
         gridRowStart: props.element.indexStart + rowGap,
         gridRowEnd: props.element.indexEnd + rowGap,
-        gridColumnStart: props.element.days[0] + colGap
+        gridColumnStart: props.day + colGap
       }}
     >
       <button className="occurrence__close" onClick={props.eliminateOccurrence}>&times;</button>
-      <h4 className="occurrence__title">{props.element.title}</h4>
-      <h6 className="occurrence__place">{props.element.place}</h6>
+      <p className="occurrence__title">{props.title?props.title:props.element.title}</p>
+      <p className="occurrence__code">{props.element.code}</p>
+      <p className="occurrence__place">{props.element.place}</p>
     </div>
   );
 });
 
 Ocurrence.propTypes = {
+  title:PropTypes.string,
+  day:PropTypes.number,
   element: PropTypes.any,
   eliminateOccurrence: PropTypes.any
 };

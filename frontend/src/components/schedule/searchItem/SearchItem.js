@@ -12,6 +12,7 @@ import PropTypes from "prop-types";
 
 
 function SearchItem(props) {
+
   const url = useSelector(state => state.root.url);
   const token = useSelector(state => state.auth.token);
   const user = useSelector(state => state.auth.user);
@@ -53,11 +54,10 @@ function SearchItem(props) {
     {
       currentSchedule[itemType]=[];
     }
-    console.log("My element",props.element);
-    console.log(currentSchedule);
 
     currentSchedule[itemType].push(props.element);
     updateCurrentSchedule(currentSchedule);
+    changeWeek();
   };
 
   const addTempItem= () =>{
@@ -73,6 +73,8 @@ function SearchItem(props) {
   };
 
   const colorsLength=6;
+  if (!props.element.days || props.element.days.length===0)
+    return <div></div>;
   return (
     <div onClick={()=>addItem(props.itemType)} onMouseEnter={addTempItem} onMouseLeave={removeTempItem}
       className={`search-item search-item--color${Math.abs(getHash(props.element.type)) % colorsLength}`}

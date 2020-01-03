@@ -65,18 +65,25 @@ function Grid(props) {
   let items=[];
   Object.keys(ItemTypes).forEach((itemKey)=>{
     let itemType=ItemTypes[itemKey];
-    const tempItems=currentSchedule[itemType] ?
+    currentSchedule[itemType] ?
       currentSchedule[itemType].filter((el) => {
-        return !(new Date(el.dateStart) > nextMonday || new Date(el.dateEnd)<monday);
-      }).map((el, index) => (
-        <Occurrence key={`${itemType}_${el._id ? el._id : index}`} ref={myRef} element={el} eliminateOccurrence={() => eliminateOccurrence(el._id,itemType)} />))      
-      : <div key={`${itemType}_${items}`}></div>;
-    items=items.concat(tempItems);
+        return el.days && el.days.length>0 && !(new Date(el.dateStart) > nextMonday || new Date(el.dateEnd)<monday);
+      }).forEach((el, index) => {
+        el.days.forEach(day=>{
+          items.push(
+            <Occurrence key={`${itemType}_${el._id ? el._id : index}_${day}`} ref={myRef} 
+              day={day}
+              title={itemType===ItemTypes.COURSE?el.title.slice(0,10):undefined}
+              element={el} eliminateOccurrence={() => eliminateOccurrence(el._id,itemType)} />
+          );
+        });
+      })  
+      : items.push(<div key={`${itemType}_${items}`}></div>);
   });  
   
   const tempEvent = useSelector(state => state.schedules.tempEvent);
 
-  let tempOccurrence = null;
+  let tempOccurrences = [];
   if (tempEvent) {
     if (calcOverlap(tempEvent)) {
       tempEvent.overlap = true;
@@ -84,18 +91,21 @@ function Grid(props) {
     else {
       tempEvent.overlap = false;
     }
-    tempOccurrence =
-      <Occurrence key={tempEvent._id}
+    tempEvent.days.forEach(day=>{
+      tempOccurrences.push(<Occurrence key={"TEMP_"+tempEvent._id+"_"+day}
         ref={myRef}
+        title={tempEvent.itemType===ItemTypes.COURSE?tempEvent.title.slice(0,10):undefined}
+        day={day}
         element={tempEvent}
-        eliminateOccurrence={() => eliminateOccurrence(tempEvent._id)} />;
+        eliminateOccurrence={() => eliminateOccurrence(tempEvent._id)} />);
+    });
   }
 
   // Render
   let resp = (
     <div className="grid">
       {items}
-      {tempOccurrence}
+      {tempOccurrences}
     </div>
   );
 

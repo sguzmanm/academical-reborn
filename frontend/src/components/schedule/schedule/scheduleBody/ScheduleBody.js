@@ -83,7 +83,6 @@ function ScheduleBody() {
       days:[]
     });
 
-    console.log("Deactivate?");
     setErrorMsg("");
     addCustomEventModal.current.toggle();
   };
@@ -147,7 +146,6 @@ function ScheduleBody() {
       schedule.collegeEvents=[];
     schedule.collegeEvents.push(event);
 
-    console.log("Schedule body");
     await axios.put(`${url}users/${user._id}/schedules/${schedule._id}`,
       schedule, options);
     dispatch(setCurrentSchedule(schedule));
@@ -224,7 +222,6 @@ function ScheduleBody() {
     // eslint-disable-next-line no-unused-vars
     for (const item of arr) {
       let ans=validateTime(customEvent,item);
-      console.log(ans);
       if (!ans) {
         return;
       }

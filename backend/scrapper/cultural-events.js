@@ -14,7 +14,6 @@ const rootDir = path.dirname(process.mainModule.filename),
 
 require("dotenv").config();
 
-//const eventQueries = require("../app/events/general/querys");
 
 //Vars
 let events = [];
