@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 
 // eslint-disable-next-line react/display-name
 const Ocurrence = forwardRef((props, ref) => {
-  const colorsLength = 60;
+  const colorsLength = 6;
 
   return (
     <div

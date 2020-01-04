@@ -1,18 +1,27 @@
 /* eslint-disable no-undef */
 import PropTypes from "prop-types";
 import React,{ useState,useEffect,useRef, useCallback } from "react";
+import axios from "axios";
+
 import "./Filter.scss";
 import SearchItem from "../searchItem/SearchItem";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
+import { setCurrentSchedule } from "../../../store/schedules";
+
 
 function Filter(props) {
+  const url = useSelector(state => state.root.url);
+  const token = useSelector(state => state.auth.token);
+  const user = useSelector(state => state.auth.user);
+  
+  const dispatch = useDispatch();
+
   const MAX_ITEM_SIZE=20;
   const diff=200;
   
   const items = useSelector(state => state.items[props.itemType]);
 
   const [currentMax,setCurrentMax]=useState(MAX_ITEM_SIZE);
-  const [tempItem,setTempItem]=useState(null);
   const [filterString, setFilterString] = useState("");
   const [currentItems,setCurrentItems]=useState(items);
   const [itemFilter, setItemFilter] = useState(currentItems.slice(0,MAX_ITEM_SIZE));
@@ -29,13 +38,16 @@ function Filter(props) {
       return ev.title.toLowerCase().includes(val) || ev.type.toLowerCase().includes(val) || (ev.code && ev.code.toLowerCase().includes(val));
     });
 
+    console.log("TEMP FILTER",tempFilter.length);
     setCurrentItems(tempFilter);
     setItemFilter(tempFilter.slice(0,currentMax));
   },[filterString,currentMax]);
 
   useEffect(()=>{
     const loadMore=()=>{
-      setCurrentMax(currentMax*2);
+      if(currentItems.length>currentMax){
+        setCurrentMax(currentMax*2);
+      }
     };
   
     let listElm=listElmRef.current;
@@ -53,44 +65,51 @@ function Filter(props) {
       return null;
     }
 
-    return data.map(el =><SearchItem key={"IT"+el._id?el._id:el.key} element={el} itemType={props.itemType} searchSameCode={()=>{searchSameCode(el);}}></SearchItem>);
+    return data.map(el =><SearchItem key={"IT"+el._id?el._id:el.key} element={el} itemType={props.itemType} searchSameCode={(schedule)=>{searchSameCode(el,props.itemType,schedule);}}></SearchItem>);
   };
 
   const reset=()=>{
     setFilterString(" ");
     setCurrentItems(items);
-    setTempItem(null);
   };
 
-  const searchSameCode=(el)=>{
+  const updateCurrentSchedule = async (schedule) => {
+    try {
+      const options = {
+        headers: { Authorization: `Bearer ${token}` }
+      };
+      await axios.put(`${url}users/${user._id}/schedules/${schedule._id}`,
+        schedule, options);
+      dispatch(setCurrentSchedule(schedule));
+    }
+    catch (error) {
+      console.log("Error on search item");
+      console.error(error);
+    }
+  };
+
+  const searchSameCode=async (el,itemType,schedule)=>{
     setCurrentMax(MAX_ITEM_SIZE);
-
-    if(tempItem){
-      setFilterString(" ");
-      setTempItem(null);
-
-      return;
-    }
-
-
     if(!el.code){
-      
       return;
     }
 
-    let newFilter=items.filter(item=>item.code===el.code && item._id!==el._id);
-    if(!newFilter || newFilter.length===0){
+    let newItems=items.filter(item=>item.code===el.code && item._id!==el._id);
+    newItems.forEach(element => {
+      schedule[itemType].push(element);
+    });
+
+    try{
+      await updateCurrentSchedule(schedule);
       reset();
-      return;
+    }
+    catch(e){
+      console.error(e);
     }
 
-    setTempItem(el);
-    setItemFilter(newFilter.slice(0,MAX_ITEM_SIZE));
-    setCurrentItems(newFilter);
   };
   
-
-  const filterHeader=tempItem?<div className="filter__compl">Horarios adicionales de esta materia</div>:(
+  const filterHeader=(
     <div className="filter__searchBar">
       <img
         className="filter__searchBar__searchIcon"
@@ -104,7 +123,7 @@ function Filter(props) {
     <div className="filter">
       {filterHeader}
       <div className="filter__items" ref={listElmRef}>
-        {itemFilter.length>0?mapitems(itemFilter):mapitems(items.slice(0,MAX_ITEM_SIZE))}
+        {mapitems(itemFilter)}
       </div>
       
     </div>

@@ -1,8 +1,7 @@
 import React from "react";
-import axios from "axios";
 import "./SearchItem.scss";
-import { setCurrentSchedule, setTempEvent } from "../../../store/schedules";
-import { setMonday, reselectCurMonday } from "../../../store/week";
+import { setTempEvent } from "../../../store/schedules";
+import { setMonday } from "../../../store/week";
 import { getHash, ItemTypes } from "../../../util/items/items";
 import { getMonday } from "../../../util/date/date";
 import { useSelector, useDispatch } from "react-redux";
@@ -13,36 +12,19 @@ import PropTypes from "prop-types";
 
 function SearchItem(props) {
 
-  const url = useSelector(state => state.root.url);
-  const token = useSelector(state => state.auth.token);
-  const user = useSelector(state => state.auth.user);
-  
   const dispatch = useDispatch();
   const useSchedule = () =>
     useSelector(state => state.schedules.schedule, []);
   const currentSchedule=useSchedule();
 
-  const updateCurrentSchedule = async (schedule) => {
-    try {
-      const options = {
-        headers: { Authorization: `Bearer ${token}` }
-      };
-      await axios.put(`${url}users/${user._id}/schedules/${schedule._id}`,
-        schedule, options);
-      dispatch(setCurrentSchedule(schedule));
-      props.searchSameCode();
-    }
-    catch (error) {
-      console.log("Error on search item");
-      console.error(error);
-    }
-  };
 
+  /*
   const isAdded=(itemType)=>{
     if(!currentSchedule || !currentSchedule[itemType])
       return false;
     return currentSchedule[itemType].some(el=>el._id && el._id.toString()===props.element._id);
   };
+  */
 
   const changeWeek=()=>{
     const dateStart= props.element.dateStart;
@@ -56,7 +38,7 @@ function SearchItem(props) {
     let tempSchedule={...currentSchedule,[itemType]:currentSchedule[itemType]?currentSchedule[itemType].slice():[]};
 
     tempSchedule[itemType].push(props.element);
-    await updateCurrentSchedule(tempSchedule);
+    await props.searchSameCode(tempSchedule);
     changeWeek();
   };
 
@@ -67,8 +49,8 @@ function SearchItem(props) {
   };
 
   const removeTempItem= () =>{
-    if(!isAdded(props.itemType))
-      dispatch(reselectCurMonday());
+    /*  if(!isAdded(props.itemType))
+      dispatch(reselectCurMonday());*/
     dispatch(setTempEvent(null));
   };
 

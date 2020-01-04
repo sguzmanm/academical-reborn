@@ -102,7 +102,7 @@ exports.updateSchedule = async (req, res, next) => {
         req.body
       );
 
-      console.log(answer);
+      console.log("ANSWER",answer);
       if (answer !== null) {
         res.status(200).json(answer);
         return;

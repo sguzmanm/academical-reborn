@@ -4,7 +4,6 @@ import ScheduleHeader from "./scheduleHeader/ScheduleHeader";
 import ScheduleBody from "./scheduleBody/ScheduleBody";
 import "./Schedule.scss";
 
-let curScroll=0;
 function Schedule() {
   const myRef = useRef(null);
   let byInside=false;
@@ -13,9 +12,6 @@ function Schedule() {
     if (ref && ref.current && myRef) {
       byInside=true;
       myRef.current.scrollTo(0, ref.current.offsetTop);
-    }
-    else if(myRef.current){
-      myRef.current.scrollTo(0, curScroll);
     }
   };
   const handleScroll=()=>{

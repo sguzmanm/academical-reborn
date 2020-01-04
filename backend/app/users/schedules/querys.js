@@ -43,6 +43,7 @@ exports.newSchedule = async (userId, newSchedule) => {
   }
   let user = await users.findOne({ _id: mongoId });
 
+  console.log(userId);
   let schedules = user.schedules;
   if (!schedules) schedules = [];
   if (schedules.some(el => el.title === newSchedule.title)) return null;
