@@ -32,7 +32,6 @@ function Grid(props) {
       const options = {
         headers: { Authorization: `Bearer ${token}` }
       };
-      console.log("GRID");
       await axios.put(`${url}users/${user._id}/schedules/${currentSchedule._id}`,
         currentSchedule, options);
       dispatch(setCurrentSchedule(currentSchedule));
@@ -54,7 +53,6 @@ function Grid(props) {
       }
     });
 
-    console.log("ITEMS",items,currentSchedule);
     currentSchedule[itemType]=items;
     updateCurrentSchedule();
   };

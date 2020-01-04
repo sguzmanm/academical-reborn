@@ -147,7 +147,6 @@ function ScheduleBody() {
         schedule.collegeEvents=[];
       schedule.collegeEvents.push(event);
   
-      console.log("SCHBODY");
       await axios.put(`${url}users/${user._id}/schedules/${schedule._id}`,
         schedule, options);
       dispatch(setCurrentSchedule(schedule));

@@ -57,6 +57,7 @@ Verify that nodejs is installed by running "node -v" on terminal or cmd. It can 
 ### Steps to deploy production version into Heroku
 
 It is assumed that the Heroku CLI is setup in your computer for this and connected to a project. If you are not sure or do not have this, please visit https://devcenter.heroku.com/articles/getting-started-with-nodejs.
+cd
 
 1. Follow build instructions on frontend folder
 2. Setup env vars in heroku of the backend .env file, by [dashboard](https://dashboard.heroku.com/) or CLI with:

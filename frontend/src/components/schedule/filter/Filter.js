@@ -38,7 +38,6 @@ function Filter(props) {
       return ev.title.toLowerCase().includes(val) || ev.type.toLowerCase().includes(val) || (ev.code && ev.code.toLowerCase().includes(val));
     });
 
-    console.log("TEMP FILTER",tempFilter.length);
     setCurrentItems(tempFilter);
     setItemFilter(tempFilter.slice(0,currentMax));
   },[filterString,currentMax]);
