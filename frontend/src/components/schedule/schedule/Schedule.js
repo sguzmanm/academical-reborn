@@ -4,6 +4,7 @@ import ScheduleHeader from "./scheduleHeader/ScheduleHeader";
 import ScheduleBody from "./scheduleBody/ScheduleBody";
 import "./Schedule.scss";
 
+let curScroll=0;
 function Schedule() {
   const myRef = useRef(null);
   let byInside=false;
