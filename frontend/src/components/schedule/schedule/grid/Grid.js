@@ -43,9 +43,19 @@ function Grid(props) {
     }
   };
 
-  const eliminateOccurrence = (id,itemType) => {
-    const index = currentSchedule[itemType].findIndex(el => el._id === id);
-    currentSchedule[itemType].splice(index, 1);
+  const eliminateOccurrence = (id,code,itemType) => {
+    let items=[];
+    currentSchedule[itemType].forEach((el)=>{
+      if (code && el.code!==code){
+        items.push(el);
+      }
+      if (!code && el._id!==id){
+        items.push(el);
+      }
+    });
+
+    console.log("ITEMS",items,currentSchedule);
+    currentSchedule[itemType]=items;
     updateCurrentSchedule();
   };
 
@@ -84,7 +94,7 @@ function Grid(props) {
             <Occurrence key={`${itemType}_${el._id ? el._id : index}_${day}`} ref={myRef} 
               day={day}
               title={itemType===ItemTypes.COURSE?el.title.slice(0,10):undefined}
-              element={el} eliminateOccurrence={() => eliminateOccurrence(el._id,itemType)} />
+              element={el} eliminateOccurrence={() => eliminateOccurrence(el._id,el.code,itemType)} />
           );
         });
       })  

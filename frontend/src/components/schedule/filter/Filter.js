@@ -29,14 +29,12 @@ function Filter(props) {
       return ev.title.toLowerCase().includes(val) || ev.type.toLowerCase().includes(val) || (ev.code && ev.code.toLowerCase().includes(val));
     });
 
-    console.log("TEMP FILTER",tempFilter);
     setCurrentItems(tempFilter);
     setItemFilter(tempFilter.slice(0,currentMax));
   },[filterString,currentMax]);
 
   useEffect(()=>{
     const loadMore=()=>{
-      console.log("Current items",currentItems.length,currentMax);
       setCurrentMax(currentMax*2);
     };
   
@@ -58,11 +56,16 @@ function Filter(props) {
     return data.map(el =><SearchItem key={"IT"+el._id?el._id:el.key} element={el} itemType={props.itemType} searchSameCode={()=>{searchSameCode(el);}}></SearchItem>);
   };
 
+  const reset=()=>{
+    setFilterString(" ");
+    setCurrentItems(items);
+    setTempItem(null);
+  };
+
   const searchSameCode=(el)=>{
     setCurrentMax(MAX_ITEM_SIZE);
 
     if(tempItem){
-      console.log("RESET");
       setFilterString(" ");
       setTempItem(null);
 
@@ -77,10 +80,7 @@ function Filter(props) {
 
     let newFilter=items.filter(item=>item.code===el.code && item._id!==el._id);
     if(!newFilter || newFilter.length===0){
-      setFilterString(" ");
-      setCurrentItems(items);
-      setTempItem(null);
-
+      reset();
       return;
     }
 
@@ -90,18 +90,19 @@ function Filter(props) {
   };
   
 
+  const filterHeader=tempItem?<div className="filter__compl">Horarios adicionales de esta materia</div>:(
+    <div className="filter__searchBar">
+      <img
+        className="filter__searchBar__searchIcon"
+        src={require("../../../assets/icons/magnifying-glass.svg")}
+        alt="search-icon"
+      />
+      <input className="filter__searchBar__searchInput" type="text" placeholder="Buscar..." onChange={(e)=>{setCurrentMax(MAX_ITEM_SIZE);setFilterString(e.target.value);}}/>
+    </div>
+  );
   return (
     <div className="filter">
-      <div className="filter__searchBar">
-        <img
-          className="filter__searchBar__searchIcon"
-          src={require("../../../assets/icons/magnifying-glass.svg")}
-          alt="search-icon"
-        />
-        <input className="filter__searchBar__searchInput" type="text" placeholder="Buscar..." onChange={(e)=>{setCurrentMax(MAX_ITEM_SIZE);setFilterString(e.target.value);}}/>
-      </div>
-
-
+      {filterHeader}
       <div className="filter__items" ref={listElmRef}>
         {itemFilter.length>0?mapitems(itemFilter):mapitems(items.slice(0,MAX_ITEM_SIZE))}
       </div>
