@@ -30,8 +30,10 @@ function SearchItem(props) {
       await axios.put(`${url}users/${user._id}/schedules/${schedule._id}`,
         schedule, options);
       dispatch(setCurrentSchedule(schedule));
+      props.searchSameCode();
     }
     catch (error) {
+      console.log("Error on search item");
       console.error(error);
     }
   };
@@ -48,15 +50,13 @@ function SearchItem(props) {
     dispatch(setMonday(newMonday));
   };
 
-  const addItem= (itemType) =>{
+  const addItem= async (itemType) =>{
     if(!currentSchedule) return;
-    if(!currentSchedule[itemType])
-    {
-      currentSchedule[itemType]=[];
-    }
 
-    currentSchedule[itemType].push(props.element);
-    updateCurrentSchedule(currentSchedule);
+    let tempSchedule={...currentSchedule,[itemType]:currentSchedule[itemType]?currentSchedule[itemType].slice():[]};
+
+    tempSchedule[itemType].push(props.element);
+    await updateCurrentSchedule(tempSchedule);
     changeWeek();
   };
 
@@ -100,6 +100,7 @@ function SearchItem(props) {
 SearchItem.propTypes={
   element:PropTypes.object,
   eliminateOccurrence:PropTypes.func,
+  searchSameCode: PropTypes.func,
   itemType: PropTypes.string
 };
 

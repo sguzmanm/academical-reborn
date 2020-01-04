@@ -1,5 +1,4 @@
 export const setCurrentSchedule = schedule => {
-
   return {
     type: "SET_CURRENT_SCHEDULE",
     payload: schedule,

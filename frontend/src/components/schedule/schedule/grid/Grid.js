@@ -38,6 +38,7 @@ function Grid(props) {
       dispatch(setCurrentSchedule(currentSchedule));
     }
     catch (error) {
+      console.log("Error on gri");
       console.error(error);
     }
   };
@@ -50,13 +51,22 @@ function Grid(props) {
 
   const calcOverlap = (eventT) => {
     let itemType=eventT.itemType?eventT.itemType:"collegeEvents";
-    const arr = currentSchedule[itemType] || [];
+    let arr = currentSchedule[itemType] || [];
+    arr=arr.filter(item=>{
+      return !(item.dateEnd <= eventT.dateStart || item.dateStart >= eventT.dateEnd);
+    });
+
     // eslint-disable-next-line no-unused-vars
-    for (const item of arr) {
-      if (!(item.dateEnd <= eventT.dateStart || item.dateStart >= eventT.dateEnd)) {
-        return true;
+    for(const day of eventT.days){
+      // eslint-disable-next-line no-unused-vars
+      for (const item of arr) {
+        if (item.days.indexOf(day)!==-1 && !(eventT.indexEnd<=item.indexStart || eventT.indexStart>=item.indexEnd))
+        {
+          return true;
+        }
       }
     }
+    
     return false;
   };
 

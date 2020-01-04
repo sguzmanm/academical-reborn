@@ -75,8 +75,9 @@ exports.newSchedule = async (req, res, next) => {
 
 exports.updateSchedule = async (req, res, next) => {
   {
-    const errors = validationResult(req);
     try {
+      const errors = validationResult(req);
+      console.log("Errors",errors,errors.isEmpty());
       if (!errors.isEmpty()) {
         const error = new Error("Error de validación.");
         error.statusCode = 422;

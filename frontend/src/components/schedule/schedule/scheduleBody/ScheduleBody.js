@@ -137,20 +137,27 @@ function ScheduleBody() {
   };
 
   const updateEvent=async (event)=>{
-    const options = {
-      headers: { Authorization: `Bearer ${token}` }
-    };
-
-    const schedule= {...currentSchedule};
-    if(!schedule.collegeEvents)
-      schedule.collegeEvents=[];
-    schedule.collegeEvents.push(event);
-
-    await axios.put(`${url}users/${user._id}/schedules/${schedule._id}`,
-      schedule, options);
-    dispatch(setCurrentSchedule(schedule));
-
-    changeWeek(event.dateStart);
+    try{
+      const options = {
+        headers: { Authorization: `Bearer ${token}` }
+      };
+  
+      const schedule= {...currentSchedule};
+      if(!schedule.collegeEvents)
+        schedule.collegeEvents=[];
+      schedule.collegeEvents.push(event);
+  
+      console.log("SCHBODY");
+      await axios.put(`${url}users/${user._id}/schedules/${schedule._id}`,
+        schedule, options);
+      dispatch(setCurrentSchedule(schedule));
+  
+      changeWeek(event.dateStart);  
+    }
+    catch(err){
+      console.log("New error on update");
+      console.error(err);
+    }
   };
 
   const calculateIndex=(time)=>{

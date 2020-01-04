@@ -4,9 +4,14 @@ const MongoClient = mongodb.MongoClient;
 let _db;
 
 const mongoConnect = async (user, passwd, host) => {
+  let url=`mongodb://${host}`;
+  if (user && user!==""){
+    url=`mongodb+srv://${user}:${passwd}@${host}?retryWrites=true&w=majority`;
+  }
+
   return await new Promise((resolve, reject) => {
     MongoClient.connect(
-      `mongodb+srv://${user}:${passwd}@${host}?retryWrites=true&w=majority`,
+      url,
       { useNewUrlParser: true, useUnifiedTopology: true }
     )
       .then(client => {
