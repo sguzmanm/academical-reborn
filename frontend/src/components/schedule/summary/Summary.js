@@ -9,6 +9,7 @@ function Summary() {
   const currentSchedule=useSchedule();
 
   let codes={};
+  let credits=0;
   let summary=[];  
   currentSchedule.courses.map((element) => {
     if(!codes[element.code]){
@@ -20,6 +21,7 @@ function Summary() {
         </div>      
       );
       codes[element.code]=true;
+      credits+=parseInt(element.credits,10);
     }
   });
   return (
@@ -32,8 +34,8 @@ function Summary() {
         </div>
         {summary}
       </div>
-      <div className="summary__codes">
-
+      <div className="summary__credits">
+        <strong>Total de créditos</strong> {credits}
       </div>
     </div>
   );

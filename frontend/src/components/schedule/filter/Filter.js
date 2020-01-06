@@ -115,7 +115,8 @@ function Filter(props) {
         src={require("../../../assets/icons/magnifying-glass.svg")}
         alt="search-icon"
       />
-      <input className="filter__searchBar__searchInput" type="text" placeholder="Buscar..." onChange={(e)=>{setCurrentMax(MAX_ITEM_SIZE);setFilterString(e.target.value);}}/>
+      <input className="filter__searchBar__searchInput" type="text" placeholder="Buscar..." 
+        onChange={(e)=>{setCurrentMax(MAX_ITEM_SIZE);setFilterString(e.target.value);}} value={filterString}/>
     </div>
   );
   return (

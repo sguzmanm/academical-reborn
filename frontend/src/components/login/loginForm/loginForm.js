@@ -35,6 +35,13 @@ function LoginForm(props) {
     } catch (err) {
       console.log(err);
       console.log(err.response);
+      if(err.response && err.response.data && err.response.data.message){
+        setErrorMsg(err.response.data.message);
+      }
+      else{
+        setErrorMsg("Ocurrió un error interno inesperado. Por favor repórtalo para ayudarnos a mejorar :) e intenta más tarde cuando lo arreglemos");
+      }
+
     }
   };
 

@@ -1,8 +1,11 @@
 .summary {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   overflow-y: auto;
+  padding: 0.2rem;
+  margin: 1rem;
 
   &__header,
   &__item {
@@ -14,8 +17,5 @@
   &__header {
     border-bottom: solid 1px black;
     font-weight: bold;
-  }
-
-  &__item {
   }
 }
