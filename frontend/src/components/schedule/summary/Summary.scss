@@ -1,0 +1,21 @@
+.summary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+
+  &__header,
+  &__item {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    text-align: center;
+  }
+
+  &__header {
+    border-bottom: solid 1px black;
+    font-weight: bold;
+  }
+
+  &__item {
+  }
+}

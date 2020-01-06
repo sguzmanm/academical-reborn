@@ -3,6 +3,9 @@ import React, { useState,useEffect,useRef } from "react";
 import "./Nav.scss";
 import ActionModal from "../../actions/actionModal/ActionModal.js";
 import "../../actions/actionModal/ActionModal.scss";
+import Summary from "../summary/Summary.js";
+
+
 
 import { useSelector, useDispatch } from "react-redux";
 import { logout as logoutAction } from "../../../store/auth";
@@ -16,6 +19,8 @@ const MODAL_VERIFICATION_KEY="modalVerification";
 
 function Nav(props) {
   const disclaimerModal = useRef(null);
+  const summaryModal = useRef(null);
+  
   const [isUserModalOpen, setUserModalOpen] = useState(false);
   const dispatch = useDispatch();
   const curMonday = useSelector(state => state.week.curMonday);
@@ -60,6 +65,7 @@ function Nav(props) {
     <p>Academical Reborn es un proyecto que se presenta como una alternativa de visualización de horarios académicos de estudiantes en la Universidad de Los Andes para el semestre 2020-10. Los errores y las oportunidades de mejora existen, pero lo importante es el intento y que si en realidad se quiere, se le dé mantenimiento a esta plataforma. Los datos de horarios se sacan de un archivo que se actualiza cada mañana de forma manual, así que la información mostrada en esta plataforma DEBE verificarse con todo lo que se encuentra en banner para no confiarse respecto a cupos y/o horarios</p>
   );
 
+
   return (
     <div className="nav" key={curMonday.getDate()}>
       <h2 className="nav__logo">Academical</h2>
@@ -69,6 +75,12 @@ function Nav(props) {
         <h3 className="nav__date nav__date--3" onClick={()=>changeMonday(1)}>&gt;</h3>
       </div>
       <div className="nav__user">
+        <img
+          className="nav__userIcon"
+          src={require("../../../assets/icons/list-header.svg")}
+          alt="user"
+          onClick={() => summaryModal.current.toggle()}
+        />
         <a href='/' target="_blank"> <img className="nav__userIcon" src={require("../../../assets/icons/help.svg")} alt="help"/></a>
         <img
           className="nav__userIcon"
@@ -89,10 +101,17 @@ function Nav(props) {
 
       <ActionModal ref={disclaimerModal}
         modalHeaderColor="white"
-        modalHeaderTitle="Agregar mi evento"
+        modalHeaderTitle="Aviso legal? XD"
         modalBody={disclaimer}
         okCBK={() => {disclaimerModal.current.toggle();}}
         okText="OK"/>
+
+
+      <ActionModal ref={summaryModal}
+        modalHeaderColor="white"
+        modalHeaderTitle="Mis cursos"
+        modalBody={<Summary/>}/>
+
 
     </div>
   );
