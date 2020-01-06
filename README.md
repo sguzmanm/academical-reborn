@@ -39,7 +39,7 @@ This project was developed using the MERN stack.
 Some extra dependencies were included in the project. Each can be seen in the backend or frontend folders or in the package.json files in the respective folders.
 
 The application is deployed in https://heroku.com/
-
+((Las instrucciones de ejecucion son muy claras. Bien!))
 ## Instructions to execute
 
 ### Requisites
