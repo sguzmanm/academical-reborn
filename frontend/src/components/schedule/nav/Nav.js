@@ -1,6 +1,9 @@
 /* eslint-disable no-undef */
-import React, { useState } from "react";
+import React, { useState,useEffect,useRef } from "react";
 import "./Nav.scss";
+import ActionModal from "../../actions/actionModal/ActionModal.js";
+import "../../actions/actionModal/ActionModal.scss";
+
 import { useSelector, useDispatch } from "react-redux";
 import { logout as logoutAction } from "../../../store/auth";
 import { setMonday,setActCurMonday } from "../../../store/week";
@@ -9,7 +12,10 @@ import { withRouter } from "react-router-dom";
 
 import PropTypes from "prop-types";
 
+const MODAL_VERIFICATION_KEY="modalVerification";
+
 function Nav(props) {
+  const disclaimerModal = useRef(null);
   const [isUserModalOpen, setUserModalOpen] = useState(false);
   const dispatch = useDispatch();
   const curMonday = useSelector(state => state.week.curMonday);
@@ -43,6 +49,17 @@ function Nav(props) {
     return month + " "+ saturday.getDate();
   };
 
+  useEffect(()=>{
+    if(!localStorage.getItem(MODAL_VERIFICATION_KEY)){
+      disclaimerModal.current.toggle();
+      localStorage.setItem(MODAL_VERIFICATION_KEY,"true");
+    }
+  },[]);
+
+  const disclaimer=(
+    <p>Academical Reborn es un proyecto que se presenta como una alternativa de visualización de horarios académicos de estudiantes en la Universidad de Los Andes para el semestre 2020-10. Los errores y las oportunidades de mejora existen, pero lo importante es el intento y que si en realidad se quiere, se le dé mantenimiento a esta plataforma. Los datos de horarios se sacan de un archivo que se actualiza cada mañana de forma manual, así que la información mostrada en esta plataforma DEBE verificarse con todo lo que se encuentra en banner para no confiarse respecto a cupos y/o horarios</p>
+  );
+
   return (
     <div className="nav" key={curMonday.getDate()}>
       <h2 className="nav__logo">Academical</h2>
@@ -67,6 +84,16 @@ function Nav(props) {
           </p>
         </div>
       ) : null}
+
+
+
+      <ActionModal ref={disclaimerModal}
+        modalHeaderColor="white"
+        modalHeaderTitle="Agregar mi evento"
+        modalBody={disclaimer}
+        okCBK={() => {disclaimerModal.current.toggle();}}
+        okText="OK"/>
+
     </div>
   );
 }

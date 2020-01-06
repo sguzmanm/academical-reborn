@@ -66,22 +66,18 @@ exports.validate = method => {
 };
 
 const validateTime=(event,el)=>{
-  console.log(event.code,"VS",el.code);
   if(el.location!==event.location)
     return;
 
-  let eventDates=[new Date(event.startDate),new Date(event.endDate)]
-  let elDates=[new Date(el.startDate),new Date(el.endDate)]
+  let eventDates=[new Date(event.dateStart),new Date(event.dateEnd)]
+  let elDates=[new Date(el.dateStart),new Date(el.dateEnd)]
 
-  console.log(elDates,eventDates);
   if(elDates[1]<=eventDates[0] || elDates[1]>=eventDates[1]){
     return;
   }
 
-  console.log("possible overlap");
   // eslint-disable-next-line no-unused-vars
   for(const day of event.days){
-    console.log("DAYS",el.days.indexOf(day),!(event.indexEnd<=el.indexStart || event.indexStart>=el.indexEnd)); 
     // eslint-disable-next-line no-unused-vars
     if (el.days.indexOf(day)!==-1 && !(event.indexEnd<=el.indexStart || event.indexStart>=el.indexEnd))
     {

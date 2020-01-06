@@ -15,15 +15,11 @@ function Side() {
     useSelector(state => state.schedules.schedules, []);
   const mySchedules=useSchedules();
 
-  const tabs=[<ScheduleList key={0}/>,<Filter key={1} itemType={ItemTypes.EVENT}/>,<Filter key={2} itemType={ItemTypes.COURSE}/>];
+  const tabs=[<ScheduleList key={0}/>,<Filter key={2} itemType={ItemTypes.COURSE}/>];
   const curTabs=[
     {
       image:require("../../../assets/icons/list.svg"),
       name:"Horarios"
-    },
-    {
-      image:require("../../../assets/icons/calendar.svg"),
-      name:"Eventos"
     },
     {
       image:require("../../../assets/icons/school.svg"),

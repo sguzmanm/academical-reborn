@@ -85,7 +85,7 @@ function Grid(props) {
     let itemType=ItemTypes[itemKey];
     currentSchedule[itemType] ?
       currentSchedule[itemType].filter((el) => {
-        return el.days && el.days.length>0 && !(new Date(el.dateStart) > nextMonday || new Date(el.dateEnd)<monday);
+        return el.days && el.days.length>0 && !(new Date(el.dateStart) > (nextMonday) || new Date(el.dateEnd)<monday);
       }).forEach((el, index) => {
         el.days.forEach(day=>{
           items.push(

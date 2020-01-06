@@ -319,6 +319,9 @@ function ScheduleBody() {
         modalBody={modalFormBody}
         okCBK={() => {addCustomEvent();}}
         cancelCBK={()=>{deactivateModal();}}/>
+
+      
+
     </div>
     
   );
